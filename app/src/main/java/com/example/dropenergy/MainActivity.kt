@@ -54,8 +54,7 @@ fun MainScreen(){
         ) {
             //CalendarSection()
             Spacer(modifier =Modifier.height(16.dp))
-
-            //ProgressSection()
+            ProgressSection()
         }
 
     }
@@ -71,20 +70,6 @@ private fun SetBarColor(color : Color){
         systemUiController.setSystemBarsColor(color = color)
     }
 }
-
-@Composable
-fun InitAskNameScreen(){}
-
-@Composable
-fun InitAskGenderScreen(){}
-
-
-@Composable
-fun InitAskCanScreen(){}
-
-@Composable
-fun LoginScreen(){}
-
 
 
 
