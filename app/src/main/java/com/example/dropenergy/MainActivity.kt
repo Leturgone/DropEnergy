@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -49,17 +50,23 @@ fun MainScreen(){
             BottomNavigationBar()
         }
     ) {padding ->
-        Column(
-            modifier  = Modifier.fillMaxSize().padding(padding)
-        ) {
-            DailyCheckSection()
-            Spacer(modifier =Modifier.height(16.dp))
-            ProgressSection()
-        }
+        ProgressScreen(padding = padding)
 
     }
 }
 
+@Composable
+fun ProgressScreen(padding: PaddingValues){
+    Column(
+        modifier  = Modifier
+            .fillMaxSize()
+            .padding(padding)
+    ) {
+        DailyCheckSection()
+        Spacer(modifier =Modifier.height(16.dp))
+        ProgressSection()
+    }
+}
 @Composable
 fun DiaryScreen(){}
 
