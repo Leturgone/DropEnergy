@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.dropenergy.ProgressScreen.CalendarSection
+import com.example.dropenergy.ProgressScreen.DailyCheckSection
 import com.example.dropenergy.ProgressScreen.ProgressSection
 import com.example.dropenergy.ui.theme.DropEnergyTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -52,7 +52,7 @@ fun MainScreen(){
         Column(
             modifier  = Modifier.fillMaxSize().padding(padding)
         ) {
-            CalendarSection()
+            DailyCheckSection()
             Spacer(modifier =Modifier.height(16.dp))
             ProgressSection()
         }
