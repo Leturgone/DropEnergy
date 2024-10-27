@@ -58,8 +58,13 @@ fun MainScreen(){
         }
 
     }
-
 }
+
+@Composable
+fun DiaryScreen(){}
+
+@Composable
+fun AddRecordScreen(){}
 
 
 @Composable
