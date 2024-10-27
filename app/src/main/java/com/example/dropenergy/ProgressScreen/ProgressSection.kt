@@ -1,4 +1,4 @@
-package com.example.dropenergy
+package com.example.dropenergy.ProgressScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.dropenergy.R
 import com.example.dropenergy.data.ProgressCategory
 import com.example.dropenergy.ui.theme.Green
 import com.example.dropenergy.ui.theme.Yellow40
