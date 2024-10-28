@@ -27,15 +27,15 @@ fun AddRecordScreen(){
         .fillMaxWidth()){
         Box(modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)){
+            .padding(16.dp)
+            .clickable {  }){
             Column(
                 modifier = Modifier
                     .clip(RoundedCornerShape(25.dp))
                     .background(Color.Yellow)
-                    .clickable {}
                     .padding(10.dp).fillMaxWidth(), verticalArrangement = Arrangement.Center
             ) {
-                Text(text = "Хочу энергетик",
+                Text(text = "Я хочу энергетик",
                     fontSize = 20.sp,
                     color = MaterialTheme.colorScheme.onBackground,
                     fontWeight = FontWeight.Medium,
@@ -46,12 +46,11 @@ fun AddRecordScreen(){
         }
         Box(modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)){
+            .padding(16.dp).clickable {  }){
             Column(
                 modifier = Modifier
                     .clip(RoundedCornerShape(25.dp))
                     .background(Color.Red)
-                    .clickable {}
                     .padding(10.dp).fillMaxWidth(), verticalArrangement = Arrangement.Center
             ) {
                 Text(text = "Я купил энергетик",
@@ -65,12 +64,11 @@ fun AddRecordScreen(){
         }
         Box(modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)){
+            .padding(16.dp).clickable {  }){
             Column(
                 modifier = Modifier
                     .clip(RoundedCornerShape(25.dp))
                     .background(Color.Green)
-                    .clickable {}
                     .padding(10.dp).fillMaxWidth(), verticalArrangement = Arrangement.Center
             ) {
                 Text(text = "Я справился с соблазном",
