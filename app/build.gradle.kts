@@ -69,4 +69,6 @@ dependencies {
 
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
     implementation("androidx.compose.material:material-icons-extended:1.7.4")
+    implementation("androidx.navigation:navigation-compose:2.8.3")
+
 }
