@@ -68,10 +68,14 @@ fun ProgressScreen(padding: PaddingValues){
     }
 }
 @Composable
-fun DiaryScreen(){}
+fun DiaryScreen(){
+
+}
 
 @Composable
-fun AddRecordScreen(){}
+fun AddRecordScreen(){
+
+}
 
 
 @Composable
