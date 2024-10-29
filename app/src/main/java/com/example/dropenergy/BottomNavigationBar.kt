@@ -38,7 +38,7 @@ fun BottomNavigationBar(){
         {
             items.forEachIndexed{ index,item->
                 NavigationBarItem(selected = index ==0,
-                    onClick = { /*TODO*/ },
+                    onClick = {},
                     icon = {
                         Icon(imageVector = item.icon, contentDescription =item.title, tint = MaterialTheme.colorScheme.onBackground)
                     },
