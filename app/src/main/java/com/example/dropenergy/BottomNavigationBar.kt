@@ -14,31 +14,47 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.dropenergy.AddRecordScreen.AddRecordScreen
+import com.example.dropenergy.DiaryScreen.DiaryScreen
 import com.example.dropenergy.data.BottomNavigation
 
 val items = listOf(
     BottomNavigation(
         title = "Статистика",
+        route = "progress",
         icon = Icons.Rounded.BarChart
     ),
     BottomNavigation(
         title = null,
+        route = "add_record",
         icon = Icons.Rounded.AddCircle
     ),
     BottomNavigation(
         title = "Дневник",
+        route = "diary" ,
         icon = Icons.Rounded.Create
     )
 )
 @Preview
 @Composable
 fun BottomNavigationBar(){
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "progress") {
+        composable("progress") { ProgressScreen()}
+        composable("diary") { DiaryScreen() }
+        composable("add_record") { AddRecordScreen() }
+    }
     NavigationBar {
         Row(modifier = Modifier.background((MaterialTheme.colorScheme.inverseOnSurface)))
         {
             items.forEachIndexed{ index,item->
                 NavigationBarItem(selected = index ==0,
-                    onClick = {},
+                    onClick = {
+                              navController.navigate(item.route)
+                    },
                     icon = {
                         Icon(imageVector = item.icon, contentDescription =item.title, tint = MaterialTheme.colorScheme.onBackground)
                     },

@@ -52,19 +52,13 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen(){
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "progress") {
-        composable("progress") { ProgressScreen()}
-        composable("diary") { DiaryScreen()}
-        composable("add_record") {AddRecordScreen()}
-    }
+
 
     Scaffold(
         bottomBar = {
             BottomNavigationBar()
         }
-    ) {padding ->
-        main_padding = padding
-        ProgressScreen()
+    ) {
 
     }
 }
