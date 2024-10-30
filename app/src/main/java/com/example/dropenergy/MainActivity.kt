@@ -58,7 +58,8 @@ fun MainScreen(){
         bottomBar = {
             BottomNavigationBar()
         }
-    ) {
+    ) {padding ->
+        ProgressScreen()
 
     }
 }

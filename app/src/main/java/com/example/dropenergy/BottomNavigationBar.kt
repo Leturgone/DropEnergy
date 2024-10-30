@@ -42,11 +42,13 @@ val items = listOf(
 @Composable
 fun BottomNavigationBar(){
     val navController = rememberNavController()
+
     NavHost(navController = navController, startDestination = "progress") {
         composable("progress") { ProgressScreen()}
         composable("diary") { DiaryScreen() }
         composable("add_record") { AddRecordScreen() }
     }
+
     NavigationBar {
         Row(modifier = Modifier.background((MaterialTheme.colorScheme.inverseOnSurface)))
         {
