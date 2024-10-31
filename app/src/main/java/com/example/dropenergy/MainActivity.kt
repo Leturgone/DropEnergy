@@ -63,9 +63,6 @@ fun ProgressScreen(){
 }
 
 
-
-
-
 @Composable
 private fun SetBarColor(color : Color){
     //Функция для изменения цвета статусбара
