@@ -24,7 +24,6 @@ import com.example.dropenergy.ProgressScreen.ProgressSection
 import com.example.dropenergy.ui.theme.DropEnergyTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
-lateinit var main_padding: PaddingValues
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,29 +44,22 @@ class MainActivity : ComponentActivity() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview
 @Composable
-fun MainScreen(){
+fun MainScreen() {
 
     Scaffold(
         bottomBar = {
             BottomNavigationBar()
         }
-    ) {padding ->
-        ProgressScreen()
+    ) {
 
     }
 }
 
 @Composable
 fun ProgressScreen(){
-    Column(
-        modifier  = Modifier
-            .fillMaxSize()
-//            .padding(main_padding) почему то все пропадает
-    ) {
-        DailyCheckSection()
-        Spacer(modifier =Modifier.height(16.dp))
-        ProgressSection()
-    }
+    DailyCheckSection()
+    Spacer(modifier =Modifier.height(16.dp))
+    ProgressSection()
 }
 
 
