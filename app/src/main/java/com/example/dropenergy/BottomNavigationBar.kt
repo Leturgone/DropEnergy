@@ -14,6 +14,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -38,16 +40,10 @@ val items = listOf(
         icon = Icons.Rounded.Create
     )
 )
-@Preview
-@Composable
-fun BottomNavigationBar(){
-    val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "progress") {
-        composable("progress") { ProgressScreen()}
-        composable("diary") { DiaryScreen() }
-        composable("add_record") { AddRecordScreen() }
-    }
+@Composable
+fun BottomNavigationBar(navController: NavHostController){
+
 
     NavigationBar {
         Row(modifier = Modifier.background((MaterialTheme.colorScheme.inverseOnSurface)))

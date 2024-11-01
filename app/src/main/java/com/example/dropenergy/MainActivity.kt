@@ -19,6 +19,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.dropenergy.AddRecordScreen.AddRecordScreen
+import com.example.dropenergy.DiaryScreen.DiaryScreen
 import com.example.dropenergy.ProgressScreen.DailyCheckSection
 import com.example.dropenergy.ProgressScreen.ProgressSection
 import com.example.dropenergy.ui.theme.DropEnergyTheme
@@ -45,21 +50,35 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun MainScreen() {
-
+    val navController = rememberNavController()
     Scaffold(
         bottomBar = {
-            BottomNavigationBar()
+            BottomNavigationBar(navController)
         }
     ) {
+            innerPadding ->
+        NavHost(
+            navController = navController,
+            startDestination = "progress",
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            composable("progress") { ProgressScreen() }
+            composable("diary") { DiaryScreen() }
+            composable("add_record") { AddRecordScreen() }
+        }
 
     }
 }
 
+@Preview
 @Composable
 fun ProgressScreen(){
-    DailyCheckSection()
-    Spacer(modifier =Modifier.height(16.dp))
-    ProgressSection()
+    Column {
+        DailyCheckSection()
+        Spacer(modifier =Modifier.height(12.dp))
+        ProgressSection()
+    }
+
 }
 
 
