@@ -25,6 +25,14 @@ import androidx.compose.ui.unit.sp
 @Preview
 @Composable
 fun AddRecordScreen(){
+    Column {
+        Text(text = "Создать запись",
+            fontSize = 24.sp,
+            color = MaterialTheme.colorScheme.onBackground,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(16.dp)
+        )
+    }
     Box(
         modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
     ) {
@@ -38,14 +46,17 @@ fun AddRecordScreen(){
                     modifier = Modifier
                         .clip(RoundedCornerShape(25.dp))
                         .background(Color.Yellow)
-                        .padding(10.dp).fillMaxWidth(), verticalArrangement = Arrangement.Center
+                        .padding(10.dp)
+                        .fillMaxWidth(), verticalArrangement = Arrangement.Center
                 ) {
                     Text(
                         text = "Я хочу энергетик",
                         fontSize = 20.sp,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.Medium,
-                        modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth(),
                         textAlign = TextAlign.Center
                     )
 
@@ -53,19 +64,23 @@ fun AddRecordScreen(){
             }
             Box(modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp).clickable { }) {
+                .padding(16.dp)
+                .clickable { }) {
                 Column(
                     modifier = Modifier
                         .clip(RoundedCornerShape(25.dp))
                         .background(Color.Red)
-                        .padding(10.dp).fillMaxWidth(), verticalArrangement = Arrangement.Center
+                        .padding(10.dp)
+                        .fillMaxWidth(), verticalArrangement = Arrangement.Center
                 ) {
                     Text(
                         text = "Я купил энергетик",
                         fontSize = 20.sp,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.Medium,
-                        modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth(),
                         textAlign = TextAlign.Center
                     )
 
@@ -73,19 +88,23 @@ fun AddRecordScreen(){
             }
             Box(modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp).clickable { }) {
+                .padding(16.dp)
+                .clickable { }) {
                 Column(
                     modifier = Modifier
                         .clip(RoundedCornerShape(25.dp))
                         .background(Color.Green)
-                        .padding(10.dp).fillMaxWidth(), verticalArrangement = Arrangement.Center
+                        .padding(10.dp)
+                        .fillMaxWidth(), verticalArrangement = Arrangement.Center
                 ) {
                     Text(
                         text = "Я справился с соблазном",
                         fontSize = 20.sp,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.Medium,
-                        modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth(),
                         textAlign = TextAlign.Center
                     )
 
