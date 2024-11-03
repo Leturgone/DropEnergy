@@ -5,4 +5,6 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Preview
 @Composable
-fun MoneyScreen(){}
+fun MoneyScreen(){
+
+}
