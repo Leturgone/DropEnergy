@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,14 +37,9 @@ fun NewRecordScreen(){
                     modifier = Modifier.padding(16.dp)
 
                 )
-                Text(text = "Как вы себя чувствуете?",
-                    fontSize = 24.sp,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(16.dp)
-
-                )
-
+                Button(onClick = { /*TODO*/ },
+                    modifier = Modifier.padding(16.dp)) {
+                }
             }
         }
     }
