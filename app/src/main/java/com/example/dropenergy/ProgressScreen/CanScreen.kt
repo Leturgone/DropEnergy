@@ -22,6 +22,7 @@ fun CanScreen(){
     var in_week_can = 0
     var in_mounth_can = 0
     var in_year_can = 0
+
     Column {
         Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
