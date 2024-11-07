@@ -23,6 +23,7 @@ import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -40,7 +41,7 @@ import java.util.Date
 @Preview
 @Composable
 fun NewRecordScreen(){
-    var sliderValue by remember { mutableStateOf(8f) }
+    var sliderValue by remember { mutableFloatStateOf(8f) }
     var dateValue by remember { mutableStateOf(LocalDate.now()) }
     Box(
         modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
@@ -68,7 +69,7 @@ fun NewRecordScreen(){
                     },
                         colors = ButtonDefaults.buttonColors(Color.Green)) {
                         Icon(imageVector = Icons.Rounded.CalendarToday,
-                            contentDescription ="Caldndear" )
+                            contentDescription ="Calendar" )
                         
                     }
                 }
