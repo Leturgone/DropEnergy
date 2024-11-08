@@ -58,7 +58,6 @@ fun NewRecordScreen(){
     val calendarState = rememberSheetState()
     var sliderValue by remember { mutableFloatStateOf(8f) }
     var dateValue by remember { mutableStateOf(LocalDate.now().toString()) }
-    var openDialoge by remember { mutableStateOf(true) }
     Box(
         modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
     ){
@@ -90,6 +89,7 @@ fun NewRecordScreen(){
                         config = CalendarConfig(monthSelection = true
                         ),
                         selection = CalendarSelection.Date{date ->
+                            dateValue = date.toString()
                             Log.d("SelectedDate","$date")
 
                         } )
