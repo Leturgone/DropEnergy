@@ -1,6 +1,8 @@
 package com.example.dropenergy.AddRecordScreen
 
 import android.annotation.SuppressLint
+import android.util.Log
+import android.widget.DatePicker
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,12 +18,18 @@ import androidx.compose.material.icons.rounded.CalendarToday
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -34,15 +42,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.maxkeppeker.sheets.core.models.base.rememberSheetState
+import com.maxkeppeler.sheets.calendar.CalendarDialog
+import com.maxkeppeler.sheets.calendar.models.CalendarConfig
+import com.maxkeppeler.sheets.calendar.models.CalendarSelection
 import java.time.LocalDate
 import java.util.Date
 
-@SuppressLint("NewApi")
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("NewApi", "UnrememberedMutableState")
 @Preview
 @Composable
 fun NewRecordScreen(){
+
+    val calendarState = rememberSheetState()
     var sliderValue by remember { mutableFloatStateOf(8f) }
-    var dateValue by remember { mutableStateOf(LocalDate.now()) }
+    var dateValue by remember { mutableStateOf(LocalDate.now().toString()) }
+    var openDialoge by remember { mutableStateOf(true) }
     Box(
         modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
     ){
@@ -57,21 +73,27 @@ fun NewRecordScreen(){
                 )
 
                 Row(modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.Center) {
-                    Text(text = dateValue.toString(),
+                    Text(text = dateValue,
                         fontSize = 24.sp,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(16.dp)
 
                     )
-                    Button(onClick = {
-
-                    },
+                    Button(onClick = { calendarState.show() },
                         colors = ButtonDefaults.buttonColors(Color.Green)) {
                         Icon(imageVector = Icons.Rounded.CalendarToday,
                             contentDescription ="Calendar" )
                         
                     }
+                    CalendarDialog(state = calendarState,
+                        config = CalendarConfig(monthSelection = true
+                        ),
+                        selection = CalendarSelection.Date{date ->
+                            Log.d("SelectedDate","$date")
+
+                        } )
+
                 }
 
                 Text(text = "Оцените интенсивность",
