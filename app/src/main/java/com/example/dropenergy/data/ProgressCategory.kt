@@ -7,5 +7,6 @@ data class ProgressCategory(
     val categoryName: String,
     val icon: ImageVector,
     val backgroundOfIcon: Color,
-    val categoryValue: Int
+    val categoryValue: Int,
+    val screenFunName: String
 )
