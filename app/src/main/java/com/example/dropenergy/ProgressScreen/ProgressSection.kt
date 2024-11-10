@@ -26,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.dropenergy.R
 import com.example.dropenergy.data.ProgressCategory
 import com.example.dropenergy.ui.theme.Green
@@ -34,21 +35,24 @@ import com.example.dropenergy.ui.theme.Yellow40
 
 lateinit var  progressCategories: List<ProgressCategory>
 
-@Preview
+
 @Composable
-fun ProgressSection(){
+fun ProgressSection(navController: NavHostController){
+
     progressCategories = listOf(
         ProgressCategory(
             categoryName = "Деньги",
             icon = Icons.Rounded.AttachMoney,
             backgroundOfIcon = Yellow40,
-            categoryValue = 53
+            categoryValue = 53,
+            screenFunName = "moneyScreen"
         ),
         ProgressCategory(
             categoryName = "Банки",
             icon = ImageVector.vectorResource(R.drawable.energy_drink),
             backgroundOfIcon = Green,
-            categoryValue = 1
+            categoryValue = 1,
+            screenFunName = "canScreen"
         )
     )
 
@@ -66,7 +70,11 @@ fun ProgressSection(){
                 if (it == progressCategories.size - 1){
                     lastPaddingEnd = 16.dp
                 }
-                Box(modifier = Modifier.padding(start = 16.dp, end = lastPaddingEnd)) {
+                Box(modifier = Modifier
+                    .padding(start = 16.dp, end = lastPaddingEnd)
+                    .clickable {
+                        navController.navigate(cat.screenFunName)
+                    }) {
                     //Для элемента
                     Column(
                         modifier = Modifier
