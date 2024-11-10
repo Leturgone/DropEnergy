@@ -37,7 +37,7 @@ lateinit var  progressCategories: List<ProgressCategory>
 
 
 @Composable
-fun ProgressSection(navController: NavHostController){
+fun ProgressSection(navController : NavHostController){
 
     progressCategories = listOf(
         ProgressCategory(
@@ -72,9 +72,7 @@ fun ProgressSection(navController: NavHostController){
                 }
                 Box(modifier = Modifier
                     .padding(start = 16.dp, end = lastPaddingEnd)
-                    .clickable {
-                        navController.navigate(cat.screenFunName)
-                    }) {
+                ) {
                     //Для элемента
                     Column(
                         modifier = Modifier
@@ -82,7 +80,9 @@ fun ProgressSection(navController: NavHostController){
                             .background(MaterialTheme.colorScheme.secondaryContainer)
                             .size(120.dp)
                             .clickable {}
-                            .padding(13.dp), verticalArrangement = Arrangement.SpaceBetween)
+                            .padding(13.dp)
+                            .clickable(onClick = {navController.navigate(cat.screenFunName)}
+                            ), verticalArrangement = Arrangement.SpaceBetween)
                     {
                         Row() {
                             //Внутренности
