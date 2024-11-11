@@ -71,7 +71,9 @@ fun NewRecordScreen(){
                         modifier = Modifier.padding(16.dp)
 
                     )
-                    Button(onClick = { calendarState.show() },
+                    Button(onClick = {
+                        calendarState.show()
+                                     },
                         colors = ButtonDefaults.buttonColors(Color.Green)) {
                         Icon(imageVector = Icons.Rounded.CalendarToday,
                             contentDescription ="Calendar" )
@@ -116,7 +118,9 @@ fun NewRecordScreen(){
                 Spacer(modifier =Modifier.height(12.dp))
                 Row(modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.Center
                 ){
-                    Button(onClick = { /*TODO*/ },
+                    Button(onClick = {
+                                     /*TODO*/
+                                     },
                         modifier = Modifier.padding(horizontal = 8.dp),
                         colors = ButtonDefaults.buttonColors(Color.Green) ) {
                         Text(text = "Сохранить")
