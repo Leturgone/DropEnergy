@@ -41,7 +41,10 @@ fun AddRecordScreen(){
             Box(modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
-                .clickable { }) {
+                .clickable(
+                    onClick = {
+
+                })) {
                 Column(
                     modifier = Modifier
                         .clip(RoundedCornerShape(25.dp))
