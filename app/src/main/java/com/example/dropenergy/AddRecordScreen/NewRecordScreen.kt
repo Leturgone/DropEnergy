@@ -68,6 +68,7 @@ fun NewRecordScreen(category: String){
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(16.dp)
 
+
                 )
 
                 Row(modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.Center) {
