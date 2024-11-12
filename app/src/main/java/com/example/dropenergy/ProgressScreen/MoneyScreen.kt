@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.sp
 @Preview
 @Composable
 fun MoneyScreen(){
+
+    //Подгрузка из БД
     var ekonom_money = 0
     var in_day_money = 0
     var in_week_money = 0
