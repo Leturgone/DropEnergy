@@ -23,6 +23,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.dropenergy.AddRecordScreen.AddRecordScreen
+import com.example.dropenergy.AddRecordScreen.NewRecordScreen
 import com.example.dropenergy.DiaryScreen.DiaryScreen
 import com.example.dropenergy.ProgressScreen.CanScreen
 import com.example.dropenergy.ProgressScreen.DailyCheckSection
@@ -69,6 +70,10 @@ fun MainScreen() {
             composable("add_record") { AddRecordScreen() }
             composable("moneyScreen") { MoneyScreen() }
             composable("canScreen") {  CanScreen()}
+            composable("want_rec") {  NewRecordScreen(category = "Я хочу энергетик", navController)}
+            composable("buy_rec") {  NewRecordScreen(category = "Я купил энергетик", navController)}
+            composable("good_rec") {  NewRecordScreen(category = "Я справился с соблазном", navController)}
+
         }
 
     }
