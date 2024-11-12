@@ -35,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.maxkeppeker.sheets.core.models.base.rememberSheetState
 import com.maxkeppeler.sheets.calendar.CalendarDialog
 import com.maxkeppeler.sheets.calendar.models.CalendarConfig
@@ -44,7 +45,7 @@ import java.time.LocalDate
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("NewApi", "UnrememberedMutableState")
 @Composable
-fun NewRecordScreen(category: String){
+fun NewRecordScreen(category: String,navController: NavHostController){
     val calendarState = rememberSheetState()
     var sliderValue by remember { mutableFloatStateOf(8f) }
     var dateValue by remember { mutableStateOf(LocalDate.now().toString()) }
