@@ -43,10 +43,8 @@ import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("NewApi", "UnrememberedMutableState")
-@Preview
 @Composable
-fun NewRecordScreen(){
-
+fun NewRecordScreen(category: String){
     val calendarState = rememberSheetState()
     var sliderValue by remember { mutableFloatStateOf(8f) }
     var dateValue by remember { mutableStateOf(LocalDate.now().toString()) }
@@ -55,6 +53,15 @@ fun NewRecordScreen(){
     ){
         Column {
             Column {
+                Row(modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.Center) {
+                    Text(
+                        text = category,
+                        fontSize = 30.sp,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(20.dp)
+                    )
+                }
                 Text(text = "Дата записи",
                     fontSize = 24.sp,
                     color = MaterialTheme.colorScheme.onBackground,
