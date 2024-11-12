@@ -128,7 +128,7 @@ fun NewRecordScreen(category: String,navController: NavHostController){
                 Row(modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.Center
                 ){
                     Button(onClick = {
-                                     /*TODO*/
+                                     navController.navigate("progress")
                                      },
                         modifier = Modifier.padding(horizontal = 8.dp),
                         colors = ButtonDefaults.buttonColors(Color.Green) ) {
