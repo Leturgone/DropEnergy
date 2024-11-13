@@ -67,7 +67,7 @@ fun MainScreen() {
         ) {
             composable("progress") { ProgressScreen(navController) }
             composable("diary") { DiaryScreen() }
-            composable("add_record") { AddRecordScreen() }
+            composable("add_record") { AddRecordScreen(navController) }
             composable("moneyScreen") { MoneyScreen() }
             composable("canScreen") {  CanScreen()}
             composable("want_rec") {  NewRecordScreen(category = "Я хочу энергетик", navController)}
