@@ -45,8 +45,7 @@ fun AddRecordScreen(navController: NavController){
                 .padding(16.dp)
                 .clickable(
                     onClick = {
-
-
+                        navController.navigate("want_rec")
                 })) {
                 Column(
                     modifier = Modifier
@@ -71,7 +70,9 @@ fun AddRecordScreen(navController: NavController){
             Box(modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
-                .clickable(onClick = {})) {
+                .clickable(onClick = {
+                    navController.navigate("buy_rec")
+                })) {
                 Column(
                     modifier = Modifier
                         .clip(RoundedCornerShape(25.dp))
@@ -95,7 +96,9 @@ fun AddRecordScreen(navController: NavController){
             Box(modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
-                .clickable { }) {
+                .clickable(onClick = {
+                    navController.navigate("good_rec")
+                })) {
                 Column(
                     modifier = Modifier
                         .clip(RoundedCornerShape(25.dp))
