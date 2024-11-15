@@ -73,6 +73,7 @@ dependencies {
     implementation("com.maxkeppeler.sheets-compose-dialogs:calendar:1.0.2")
 
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$version")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:$version")
 
 
 }
