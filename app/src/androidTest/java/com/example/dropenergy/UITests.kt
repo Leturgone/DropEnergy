@@ -56,13 +56,15 @@ class UITests {
         composeTestRule.onNode(AddNewRecordScreen.NewWantRecBtn).assertExists()
 
     }
-    fun testProgressScreenNavigation(){
+
+    fun testProgressScreen(){
         composeTestRule.setContent { MainScreen() }
         composeTestRule.onNode(StatScreen.DaysSection).assertExists()
         composeTestRule.onNode(StatScreen.ScreenProgressTemplate).assertExists()
         composeTestRule.onNode(StatScreen.MoneySec).assertExists()
         composeTestRule.onNode(StatScreen.CanSec).assertExists().assertExists()
     }
+
 
 
     @Test
