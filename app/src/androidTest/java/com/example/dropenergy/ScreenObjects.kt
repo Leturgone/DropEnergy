@@ -24,4 +24,10 @@ object StatScreen{
 object DiaryScreen{
     val ScreenTemplate = hasText("Дневник") and hasNoClickAction()
 }
-object MoneyScreen{}
+object MoneyScreen{
+    val ScreenTemplate = hasText("Сэкономлено") and hasNoClickAction()
+    val PrognozTemplate = hasText("Прогноз")
+}
+object CanScreen{
+    val ScreenTemplate = hasText("Не выпито") and hasNoClickAction()
+}
