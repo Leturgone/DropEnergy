@@ -30,9 +30,6 @@ import org.junit.Rule
 @RunWith(AndroidJUnit4::class)
 class UITests {
 
-
-
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -57,6 +54,7 @@ class UITests {
 
     }
 
+    @Test
     fun testProgressScreen(){
         composeTestRule.setContent { MainScreen() }
         composeTestRule.onNode(StatScreen.DaysSection).assertExists()
@@ -64,11 +62,21 @@ class UITests {
         composeTestRule.onNode(StatScreen.MoneySec).assertExists()
         composeTestRule.onNode(StatScreen.CanSec).assertExists().assertExists()
     }
+
+    @Test
     fun testProgressScreenMoneyNavigation(){
         composeTestRule.setContent { MainScreen() }
         composeTestRule.onNode(StatScreen.MoneySec).performClick()
         composeTestRule.onNode(MoneyScreen.ScreenTemplate).assertExists()
         composeTestRule.onNode((MoneyScreen.PrognozTemplate)).assertExists()
+    }
+
+    @Test
+    fun testProgressScreenCansNavigation(){
+        composeTestRule.setContent { MainScreen() }
+        composeTestRule.onNode(StatScreen.CanSec).performClick()
+        composeTestRule.onNode(CanScreen.ScreenTemplate).assertExists()
+        composeTestRule.onNode((CanScreen.PrognozTemplate)).assertExists()
     }
 
 
