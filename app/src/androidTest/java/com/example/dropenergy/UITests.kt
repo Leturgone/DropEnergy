@@ -90,6 +90,17 @@ class UITests {
         composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
     }
 
+    @Test
+    fun testAddRecWantdNavigation(){
+        composeTestRule.setContent { MainScreen() }
+        composeTestRule.onNode(BottomBar.bottomBarAddButton).performClick()
+        composeTestRule.onNode(AddNewRecordScreen.NewWantRecBtn).performClick()
+        composeTestRule.onRoot().printToLog("MY TAG")
+        composeTestRule.onNode(NewRecordScreen.ScreenTemplateWant).assertExists()
+        composeTestRule.onNode(NewRecordScreen.SaveButton).performClick()
+        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
+    }
+
 
     @Test
     fun useAppContext() {
