@@ -64,7 +64,12 @@ class UITests {
         composeTestRule.onNode(StatScreen.MoneySec).assertExists()
         composeTestRule.onNode(StatScreen.CanSec).assertExists().assertExists()
     }
-
+    fun testProgressScreenMoneyNavigation(){
+        composeTestRule.setContent { MainScreen() }
+        composeTestRule.onNode(StatScreen.MoneySec).performClick()
+        composeTestRule.onNode(MoneyScreen.ScreenTemplate).assertExists()
+        composeTestRule.onNode((MoneyScreen.PrognozTemplate)).assertExists()
+    }
 
 
     @Test
