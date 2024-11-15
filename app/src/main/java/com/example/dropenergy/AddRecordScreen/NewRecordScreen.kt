@@ -118,7 +118,7 @@ fun NewRecordScreen(category: String,navController: NavHostController){
                     )
                 )
                 Text(
-                    text = sliderValue.toInt().toString(), // Show the selected value
+                    text = sliderValue.toInt().toString(),
                     fontSize = 14.sp,
                     color = Color(0xFF14B8A6),
                     modifier = Modifier.align(Alignment.CenterHorizontally)
