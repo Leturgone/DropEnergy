@@ -15,8 +15,8 @@ object BottomBar{
 }
 object StatScreen{
     val ScreenDayCecTemplate = hasText("Ежедневная отметка") and hasNoClickAction()
-    val DaysSection = hasText("Эта неделя, Пн, Вт, Ср, Чт, Пт, Сб, Вс") and  hasClickAction()
-    val ScreenProgressTemplate = hasText("Погресс") and hasNoClickAction()
+    val DaysSection = hasText("Эта неделя") and  hasClickAction()
+    val ScreenProgressTemplate = hasText("Прогресс") and hasNoClickAction()
     val MoneySec = hasContentDescription("Деньги") and hasClickAction()
     val CanSec = hasContentDescription("Банки") and  hasClickAction()
 }
