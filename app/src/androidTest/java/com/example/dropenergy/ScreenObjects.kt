@@ -24,10 +24,18 @@ object StatScreen{
 object DiaryScreen{
     val ScreenTemplate = hasText("Дневник") and hasNoClickAction()
 }
+
+object AddNewRecordScreen{
+    val ScreenTemlate = hasText("Создать запись") and hasNoClickAction()
+    val NewBuyRecBtn = hasText("Я купил энергетик") and hasClickAction()
+    val NewWantRecBtn = hasText("Я хочу энергетик") and hasClickAction()
+    val NewGoodRecBtn = hasText("Я справился с соблазном") and hasClickAction()
+}
 object MoneyScreen{
     val ScreenTemplate = hasText("Сэкономлено") and hasNoClickAction()
     val PrognozTemplate = hasText("Прогноз")
 }
 object CanScreen{
     val ScreenTemplate = hasText("Не выпито") and hasNoClickAction()
+    val PrognozTemplate = hasText("Прогноз")
 }
