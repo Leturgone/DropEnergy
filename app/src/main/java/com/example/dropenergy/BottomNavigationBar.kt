@@ -12,12 +12,14 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.dropenergy.AddRecordScreen.AddRecordScreen
 import com.example.dropenergy.DiaryScreen.DiaryScreen
@@ -43,15 +45,20 @@ val items = listOf(
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController){
-
-
     NavigationBar {
+
+        //Отслеживание текушего маршрута
+        val backStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute = backStackEntry?.destination?.route
+
         Row(modifier = Modifier.background((MaterialTheme.colorScheme.inverseOnSurface)))
         {
-            items.forEachIndexed{ index,item->
-                NavigationBarItem(selected = index ==0,
+            items.forEach{ item->
+                NavigationBarItem(selected = currentRoute == item.route,
                     onClick = {
-                              navController.navigate(item.route)
+                        navController.navigate(item.route)
+
+
                     },
                     icon = {
                         Icon(imageVector = item.icon, contentDescription =item.title, tint = MaterialTheme.colorScheme.onBackground)
