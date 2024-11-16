@@ -17,8 +17,6 @@ import org.junit.Rule
  * UI тесты
  */
 
-
-
 @RunWith(AndroidJUnit4::class)
 class UITests {
 
