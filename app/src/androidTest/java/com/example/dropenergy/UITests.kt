@@ -75,6 +75,7 @@ class UITests {
         composeTestRule.onNode(BottomBar.bottomBarAddButton).performClick()
         composeTestRule.onNode(AddNewRecordScreen.NewBuyRecBtn).performClick()
         composeTestRule.onRoot().printToLog("MY TAG")
+
         composeTestRule.onNode(NewRecordScreen.ScreenTemplateBuy).assertExists()
         composeTestRule.onNode(NewRecordScreen.SaveButton).performClick()
         composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
@@ -86,6 +87,7 @@ class UITests {
         composeTestRule.onNode(BottomBar.bottomBarAddButton).performClick()
         composeTestRule.onNode(AddNewRecordScreen.NewWantRecBtn).performClick()
         composeTestRule.onRoot().printToLog("MY TAG")
+
         composeTestRule.onNode(NewRecordScreen.ScreenTemplateWant).assertExists()
         composeTestRule.onNode(NewRecordScreen.SaveButton).performClick()
         composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
@@ -97,6 +99,7 @@ class UITests {
         composeTestRule.onNode(BottomBar.bottomBarAddButton).performClick()
         composeTestRule.onNode(AddNewRecordScreen.NewGoodRecBtn).performClick()
         composeTestRule.onRoot().printToLog("MY TAG")
+
         composeTestRule.onNode(NewRecordScreen.ScreenTemplateGood).assertExists()
         composeTestRule.onNode(NewRecordScreen.SaveButton).performClick()
         composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
@@ -105,7 +108,6 @@ class UITests {
 
     @Test
     fun useAppContext() {
-        // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("com.example.dropenergy", appContext.packageName)
 
