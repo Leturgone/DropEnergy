@@ -48,14 +48,14 @@ fun LoginRegScreen(){
 
                     TextField(
                         value = "Логин",
-                        keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Number),
+                        keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Email),
                         onValueChange = {
                             loginInputText.value = it
                         })
                     Spacer(modifier = Modifier.height(60.dp))
                     TextField(
                         value = "Пароль",
-                        keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Number),
+                        keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Password),
                         onValueChange = {
                             passwordInputText.value = it
                         })
