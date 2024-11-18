@@ -34,6 +34,7 @@ fun AskMoneyScreen(){
             Column( modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceBetween) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Spacer(modifier = Modifier.height(60.dp))
                     Text(
                         text = "Сколько в среднем стоит один энергетик?",
                         fontSize = 28.sp,
