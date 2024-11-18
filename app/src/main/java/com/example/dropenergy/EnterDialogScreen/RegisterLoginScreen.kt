@@ -64,6 +64,7 @@ fun LoginRegScreen(){
 
                     //Загрузка в бд
 
+
                 }) {
                     Text(text = "Дальше")
 
