@@ -14,8 +14,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -28,7 +30,7 @@ import androidx.navigation.NavHostController
 
 @Composable
 fun AskCansScreen(navController: NavHostController){
-    var inputText  = remember {mutableStateOf(" ")}
+    var inputText  by remember {mutableStateOf(" ")}
     Column {
         Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
             Column( modifier = Modifier.fillMaxSize(),
@@ -45,11 +47,11 @@ fun AskCansScreen(navController: NavHostController){
                     )
                     Spacer(modifier = Modifier.height(60.dp))
                     TextField(
-                        value = inputText.value,
+                        value = inputText,
                         label = { Text(text = "Количество")},
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Number),
                         onValueChange = {
-                            inputText.value = it
+                            inputText = it
                         })
                 }
                 Button(onClick = {
