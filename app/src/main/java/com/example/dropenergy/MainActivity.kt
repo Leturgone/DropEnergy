@@ -71,24 +71,7 @@ fun MainScreen() {
         }
     ) {
             innerPadding ->
-        //Перенести в отдельный файл
-        NavHost(
-            navController = navController,
-            startDestination = "login",
-            modifier = Modifier.padding(innerPadding)
-        ) {
-            composable("progress") { ProgressScreen(navController) }
-            composable("diary") { DiaryScreen() }
-            composable("add_record") { AddRecordScreen(navController) }
-            composable("moneyScreen") { MoneyScreen() }
-            composable("canScreen") {  CanScreen()}
-            composable("want_rec") {  NewRecordScreen(category = "Я хочу энергетик", navController)}
-            composable("buy_rec") {  NewRecordScreen(category = "Я купил энергетик", navController)}
-            composable("good_rec") {  NewRecordScreen(category = "Я справился с соблазном", navController)}
-            composable("login") {LoginRegScreen(navController)}
-            composable("dialog_cans") {AskCansScreen(navController)}
-            composable("dialog_money") {AskMoneyScreen(navController)}
-        }
+        AppNavigation(innerPadding = innerPadding, navController = navController)
 
     }
 }
