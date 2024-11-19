@@ -51,6 +51,8 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview
 @Composable
@@ -58,9 +60,10 @@ fun MainScreen() {
     val navController = rememberNavController()
     //Получение текущего состояния экрана
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+    val excludedRoutes = setOf("login", "dialog_cans", "dialog_money")
     Scaffold(
         bottomBar = {
-            if (currentRoute != "login" && currentRoute != "dialog_cans" && currentRoute != "dialog_money") {
+            if (currentRoute !in excludedRoutes) {
                 BottomNavigationBar(navController)
             }
         }
