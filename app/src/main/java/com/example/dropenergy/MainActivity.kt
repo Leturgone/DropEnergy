@@ -26,6 +26,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.dropenergy.AddRecordScreen.AddRecordScreen
 import com.example.dropenergy.AddRecordScreen.NewRecordScreen
 import com.example.dropenergy.DiaryScreen.DiaryScreen
+import com.example.dropenergy.EnterDialogScreen.AskCansScreen
+import com.example.dropenergy.EnterDialogScreen.AskMoneyScreen
 import com.example.dropenergy.EnterDialogScreen.LoginRegScreen
 import com.example.dropenergy.ProgressScreen.CanScreen
 import com.example.dropenergy.ProgressScreen.DailyCheckSection
@@ -69,6 +71,7 @@ fun MainScreen() {
         }
     ) {
             innerPadding ->
+        //Перенести в отдельный файл
         NavHost(
             navController = navController,
             startDestination = "login",
@@ -82,9 +85,9 @@ fun MainScreen() {
             composable("want_rec") {  NewRecordScreen(category = "Я хочу энергетик", navController)}
             composable("buy_rec") {  NewRecordScreen(category = "Я купил энергетик", navController)}
             composable("good_rec") {  NewRecordScreen(category = "Я справился с соблазном", navController)}
-            composable("login") {LoginRegScreen()}
-            composable("dialog_cans") {LoginRegScreen()}
-            composable("dialog_money") {LoginRegScreen()}
+            composable("login") {LoginRegScreen(navController)}
+            composable("dialog_cans") {AskCansScreen(navController)}
+            composable("dialog_money") {AskMoneyScreen(navController)}
         }
 
     }
