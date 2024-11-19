@@ -21,10 +21,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.dropenergy.AddRecordScreen.AddRecordScreen
 import com.example.dropenergy.AddRecordScreen.NewRecordScreen
 import com.example.dropenergy.DiaryScreen.DiaryScreen
+import com.example.dropenergy.EnterDialogScreen.LoginRegScreen
 import com.example.dropenergy.ProgressScreen.CanScreen
 import com.example.dropenergy.ProgressScreen.DailyCheckSection
 import com.example.dropenergy.ProgressScreen.MoneyScreen
@@ -54,15 +56,19 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
+    //Получение текущего состояния экрана
+    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(navController)
+            if (currentRoute != "login" && currentRoute != "dialog_cans" && currentRoute != "dialog_money") {
+                BottomNavigationBar(navController)
+            }
         }
     ) {
             innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = "progress",
+            startDestination = "login",
             modifier = Modifier.padding(innerPadding)
         ) {
             composable("progress") { ProgressScreen(navController) }
@@ -73,7 +79,9 @@ fun MainScreen() {
             composable("want_rec") {  NewRecordScreen(category = "Я хочу энергетик", navController)}
             composable("buy_rec") {  NewRecordScreen(category = "Я купил энергетик", navController)}
             composable("good_rec") {  NewRecordScreen(category = "Я справился с соблазном", navController)}
-
+            composable("login") {LoginRegScreen()}
+            composable("dialog_cans") {LoginRegScreen()}
+            composable("dialog_money") {LoginRegScreen()}
         }
 
     }
