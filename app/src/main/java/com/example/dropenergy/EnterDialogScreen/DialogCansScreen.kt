@@ -24,10 +24,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun AskCansScreen(){
+fun AskCansScreen(navController: NavHostController){
     var inputText  = remember {mutableStateOf(" ")}
     Column {
         Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
@@ -45,13 +45,15 @@ fun AskCansScreen(){
                     )
                     Spacer(modifier = Modifier.height(60.dp))
                     TextField(
-                        value = "Количество энергетиков",
+                        value = inputText.value,
+                        label = { Text(text = "Количество")},
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Number),
                         onValueChange = {
                             inputText.value = it
                         })
                 }
                 Button(onClick = {
+                    navController.navigate("dialog_money")
 
                 //Загрузка в бд
 
