@@ -54,6 +54,9 @@ fun AskMoneyScreen(navController: NavHostController){
                         })
                 }
                 Button(onClick = {
+                    navController.popBackStack()
+                    navController.popBackStack()
+                    navController.popBackStack()
                     navController.navigate("progress")
                     //Загрузка в бд
 
