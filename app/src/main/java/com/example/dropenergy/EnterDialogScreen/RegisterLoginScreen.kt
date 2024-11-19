@@ -67,7 +67,9 @@ fun LoginRegScreen(navController: NavHostController){
                         onValueChange = {
                             loginInputText = it
                         })
+
                     Spacer(modifier = Modifier.height(60.dp))
+
                     TextField(
                         value = passwordInputText,
                         singleLine = true,
@@ -87,7 +89,6 @@ fun LoginRegScreen(navController: NavHostController){
                             IconButton(onClick = {passwordVisible = !passwordVisible}){
                                 Icon(imageVector  = image, description)
                             }
-
                         })
                 }
                 Button(onClick = {

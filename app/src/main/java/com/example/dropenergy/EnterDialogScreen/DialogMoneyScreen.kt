@@ -9,7 +9,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -32,6 +37,10 @@ import androidx.navigation.NavHostController
 @Composable
 fun AskMoneyScreen(navController: NavHostController){
     var inputText  by remember { mutableStateOf(" ") }
+    var currencyText by remember { mutableStateOf("₽") }
+
+    var currensyList = listOf<String>("₽", "$", "Fr", "¥", "€", "£", "kr", "zł", "₺", "R")
+
     Column {
         Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
             Column( modifier = Modifier.fillMaxSize(),
@@ -51,6 +60,15 @@ fun AskMoneyScreen(navController: NavHostController){
                         value = inputText,
                         label = { Text(text = "Стоимость")},
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Number),
+                        trailingIcon = {
+//                            val image = if
+//                                Icons.Filled.Visibility
+//                            else Icons.Filled.VisibilityOff
+//
+//                            IconButton(onClick = {passwordVisible = !passwordVisible}){
+//                                Icon(imageVector  = image, description)
+//                            }
+                        },
                         onValueChange = {
                             inputText = it
                         })
