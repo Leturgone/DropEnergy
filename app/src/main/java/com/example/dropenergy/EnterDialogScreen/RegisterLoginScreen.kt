@@ -38,8 +38,8 @@ import androidx.navigation.NavHostController
 
 @Composable
 fun LoginRegScreen(navController: NavHostController){
-    var loginInputText  = remember { mutableStateOf(" ") }
-    var passwordInputText  = remember { mutableStateOf(" ") }
+    var loginInputText  by remember { mutableStateOf(" ") }
+    var passwordInputText  by remember { mutableStateOf(" ") }
     var passwordVisible by remember { mutableStateOf(false) }
 
     Column {
@@ -59,21 +59,21 @@ fun LoginRegScreen(navController: NavHostController){
                     Spacer(modifier = Modifier.height(60.dp))
 
                     TextField(
-                        value = loginInputText.value,
+                        value = loginInputText,
                         label = { Text("Логин") },
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Email),
                         onValueChange = {
-                            loginInputText.value = it
+                            loginInputText = it
                         })
                     Spacer(modifier = Modifier.height(60.dp))
                     TextField(
-                        value = passwordInputText.value,
+                        value = passwordInputText,
                         singleLine = true,
                         label = { Text("Пароль") },
                         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Password),
                         onValueChange = {
-                            passwordInputText.value = it
+                            passwordInputText = it
                         },
                         trailingIcon = {
                             val image = if (passwordVisible)
