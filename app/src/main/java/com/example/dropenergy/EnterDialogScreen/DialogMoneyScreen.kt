@@ -24,10 +24,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
-@Preview(showBackground = true, showSystemUi = true)
+
 @Composable
-fun AskMoneyScreen(){
+fun AskMoneyScreen(navController: NavHostController){
     var inputText  = remember { mutableStateOf(" ") }
     Column {
         Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
@@ -45,14 +46,15 @@ fun AskMoneyScreen(){
                     )
                     Spacer(modifier = Modifier.height(60.dp))
                     TextField(
-                        value = "Стоимость",
+                        value = inputText.value,
+                        label = { Text(text = "Стоимость")},
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Number),
                         onValueChange = {
                             inputText.value = it
                         })
                 }
                 Button(onClick = {
-
+                    navController.navigate("progress")
                     //Загрузка в бд
 
                 }) {
