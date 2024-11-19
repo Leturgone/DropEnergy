@@ -24,10 +24,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
-@Preview(showBackground = true, showSystemUi = true)
+
 @Composable
-fun LoginRegScreen(){
+fun LoginRegScreen(navController: NavHostController){
     var loginInputText  = remember { mutableStateOf(" ") }
     var passwordInputText  = remember { mutableStateOf(" ") }
     Column {
@@ -47,21 +48,23 @@ fun LoginRegScreen(){
                     Spacer(modifier = Modifier.height(60.dp))
 
                     TextField(
-                        value = "Логин",
+                        value = loginInputText.value,
+                        label = { Text("Логин") },
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Email),
                         onValueChange = {
                             loginInputText.value = it
                         })
                     Spacer(modifier = Modifier.height(60.dp))
                     TextField(
-                        value = "Пароль",
+                        value = passwordInputText.value,
+                        label = { Text("Пароль") },
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Password),
                         onValueChange = {
                             passwordInputText.value = it
                         })
                 }
                 Button(onClick = {
-
+                    navController.navigate("dialog_cans")
                     //Загрузка в бд
 
 
