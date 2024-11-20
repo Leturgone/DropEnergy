@@ -19,6 +19,7 @@ import com.example.dropenergy.ProgressScreen.MoneyScreen
 
 @Composable
 fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController){
+
     NavHost(
         navController = navController,
         startDestination = "login",
@@ -35,5 +36,6 @@ fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController)
         composable("login") { LoginRegScreen(navController) }
         composable("dialog_cans") { AskCansScreen(navController) }
         composable("dialog_money") { AskMoneyScreen(navController) }
+
     }
 }
