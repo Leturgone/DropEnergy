@@ -82,7 +82,7 @@ fun AskMoneyScreen(navController: NavHostController){
     var currensyList = listOf<String>("₽", "$", "Fr", "¥", "€", "£", "kr", "zł", "₺", "R")
     Column {
         LinearProgressIndicator(
-            progress = 2/3.toFloat(),
+            progress = 3/3.toFloat(),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
