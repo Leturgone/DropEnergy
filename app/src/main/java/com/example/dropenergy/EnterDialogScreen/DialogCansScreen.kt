@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -28,10 +30,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
+@Preview(showBackground = true)
 @Composable
-fun AskCansScreen(navController: NavHostController){
-    var inputText  by remember {mutableStateOf(" ")}
+fun AskCansScreen(/*navController: NavHostController*/){
+    var inputText  by remember {mutableStateOf("")}
     Column {
+        LinearProgressIndicator(
+            progress = 1.toFloat(),
+            modifier = Modifier.fillMaxWidth().padding(16.dp)
+        )
         Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
             Column( modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceBetween) {
@@ -46,7 +53,7 @@ fun AskCansScreen(navController: NavHostController){
                         textAlign = TextAlign.Center
                     )
                     Spacer(modifier = Modifier.height(60.dp))
-                    TextField(
+                    OutlinedTextField(
                         value = inputText,
                         label = { Text(text = "Количество")},
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -55,7 +62,7 @@ fun AskCansScreen(navController: NavHostController){
                         })
                 }
                 Button(onClick = {
-                    navController.navigate("dialog_money")
+                    //navController.navigate("dialog_money")
 
                 //Загрузка в бд
 
