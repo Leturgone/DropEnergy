@@ -14,6 +14,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -28,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -38,6 +41,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.dropenergy.ui.theme.Purple80
 
 //@Preview(showBackground = true)
 @Composable
@@ -45,12 +49,16 @@ fun LoginRegScreen(navController: NavHostController){
     var loginInputText  by remember { mutableStateOf("") }
     var passwordInputText  by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    var loginOK by remember { mutableStateOf(false) }
+    var buttonColor by remember { mutableStateOf(Purple80) }
     val ctx = LocalContext.current
 
     Column {
         LinearProgressIndicator(
             progress = 1/3.toFloat(),
-            modifier = Modifier.fillMaxWidth().padding(16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
         )
         Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
             Column( modifier = Modifier.fillMaxSize(),
@@ -73,7 +81,10 @@ fun LoginRegScreen(navController: NavHostController){
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Email),
                         onValueChange = {
                             loginInputText = it
+                            loginOK = true
                         })
+
+
 
                     Spacer(modifier = Modifier.height(60.dp))
 
@@ -85,6 +96,9 @@ fun LoginRegScreen(navController: NavHostController){
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Password),
                         onValueChange = {
                             passwordInputText = it
+                            if (loginOK){
+                                buttonColor = Color.Green
+                            }
                         },
                         trailingIcon = {
                             val image = if (passwordVisible)
@@ -98,8 +112,11 @@ fun LoginRegScreen(navController: NavHostController){
                             }
                         })
                 }
+
+
+
                 Button(onClick = {
-                    if( loginInputText.isEmpty() || !loginInputText.matches("^[A-Za-z0-9]+$".toRegex())
+                    if( loginInputText.isEmpty() || !loginInputText.matches("^[A-Za-z0-9@.]+$".toRegex())
                         || loginInputText.matches("\\s".toRegex())){
                         Toast.makeText(ctx,"Логин не должен содержать пробелов",Toast.LENGTH_SHORT).show()
                     }
@@ -112,7 +129,9 @@ fun LoginRegScreen(navController: NavHostController){
                         //Загрузка в бд
                     }
 
-                }) {
+                },
+                    colors = ButtonDefaults.buttonColors(containerColor = buttonColor)
+                ) {
                     Text(text = "Дальше")
                 }
                 Spacer(modifier = Modifier.height(1.dp))
