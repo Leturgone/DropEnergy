@@ -78,6 +78,7 @@ fun LoginRegScreen(navController: NavHostController){
                     OutlinedTextField(
                         value = loginInputText,
                         label = { Text("Логин") },
+                        singleLine = true,
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Email),
                         onValueChange = {
                             loginInputText = it
