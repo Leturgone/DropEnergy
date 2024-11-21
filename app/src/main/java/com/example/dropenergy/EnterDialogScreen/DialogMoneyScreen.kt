@@ -106,6 +106,7 @@ fun AskMoneyScreen(navController: NavHostController){
                         OutlinedTextField(
                             value = inputText,
                             label = { Text(text = "Стоимость")},
+                            singleLine = true,
                             keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Number),
                             onValueChange = {
                                 inputText = it
