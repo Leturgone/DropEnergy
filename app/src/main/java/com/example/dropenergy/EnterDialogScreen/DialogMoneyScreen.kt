@@ -51,6 +51,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.dropenergy.ui.theme.Purple80
 import java.util.Currency
 import kotlin.properties.Delegates
 
@@ -78,7 +79,7 @@ fun AskMoneyScreen(navController: NavHostController){
     var inputText  by remember { mutableStateOf("") }
     var currencyText by remember { mutableStateOf("₽") }
     var showDialog by remember { mutableStateOf(false) }
-
+    var buttonColor by remember { mutableStateOf(Purple80) }
     var currensyList = listOf<String>("₽", "$", "Fr", "¥", "€", "£", "kr", "zł", "₺", "R")
     Column {
         LinearProgressIndicator(
@@ -108,6 +109,7 @@ fun AskMoneyScreen(navController: NavHostController){
                             keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Number),
                             onValueChange = {
                                 inputText = it
+                                buttonColor = Color.Green
                             }
                         )
                         Spacer(modifier = Modifier.width(10.dp))
@@ -149,7 +151,9 @@ fun AskMoneyScreen(navController: NavHostController){
                     navController.navigate("progress")
                     //Загрузка в бд
 
-                }) {
+                },
+                    colors = ButtonDefaults.buttonColors(containerColor = buttonColor)
+                    ) {
                     Text(text = "Дальше")
 
                 }
