@@ -16,7 +16,9 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -32,19 +34,24 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
-
+@Preview(showBackground = true)
 @Composable
-fun LoginRegScreen(navController: NavHostController){
-    var loginInputText  by remember { mutableStateOf(" ") }
-    var passwordInputText  by remember { mutableStateOf(" ") }
+fun LoginRegScreen(/*navController: NavHostController*/){
+    var loginInputText  by remember { mutableStateOf("") }
+    var passwordInputText  by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     val ctx = LocalContext.current
 
     Column {
+        LinearProgressIndicator(
+            progress = 1/3.toFloat(),
+            modifier = Modifier.fillMaxWidth().padding(16.dp)
+        )
         Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
             Column( modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceBetween) {
@@ -60,7 +67,7 @@ fun LoginRegScreen(navController: NavHostController){
                     )
                     Spacer(modifier = Modifier.height(60.dp))
 
-                    TextField(
+                    OutlinedTextField(
                         value = loginInputText,
                         label = { Text("Логин") },
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -70,7 +77,7 @@ fun LoginRegScreen(navController: NavHostController){
 
                     Spacer(modifier = Modifier.height(60.dp))
 
-                    TextField(
+                    OutlinedTextField(
                         value = passwordInputText,
                         singleLine = true,
                         label = { Text("Пароль") },
@@ -101,7 +108,7 @@ fun LoginRegScreen(navController: NavHostController){
                         Toast.makeText(ctx,"Пароль не должен содержать пробелов",Toast.LENGTH_SHORT).show()
                     }
                     else {
-                        navController.navigate("dialog_cans")
+                        //navController.navigate("dialog_cans")
                         //Загрузка в бд
                     }
 
