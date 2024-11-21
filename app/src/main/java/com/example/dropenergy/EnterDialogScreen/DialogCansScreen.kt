@@ -36,7 +36,7 @@ fun AskCansScreen(navController: NavHostController){
     var inputText  by remember {mutableStateOf("")}
     Column {
         LinearProgressIndicator(
-            progress = 1.toFloat(),
+            progress = 2/3.toFloat(),
             modifier = Modifier.fillMaxWidth().padding(16.dp)
         )
         Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
