@@ -39,9 +39,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
-fun LoginRegScreen(/*navController: NavHostController*/){
+fun LoginRegScreen(navController: NavHostController){
     var loginInputText  by remember { mutableStateOf("") }
     var passwordInputText  by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
@@ -108,7 +108,7 @@ fun LoginRegScreen(/*navController: NavHostController*/){
                         Toast.makeText(ctx,"Пароль не должен содержать пробелов",Toast.LENGTH_SHORT).show()
                     }
                     else {
-                        //navController.navigate("dialog_cans")
+                        navController.navigate("dialog_cans")
                         //Загрузка в бд
                     }
 

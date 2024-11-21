@@ -30,9 +30,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
-fun AskCansScreen(/*navController: NavHostController*/){
+fun AskCansScreen(navController: NavHostController){
     var inputText  by remember {mutableStateOf("")}
     Column {
         LinearProgressIndicator(
@@ -62,7 +62,7 @@ fun AskCansScreen(/*navController: NavHostController*/){
                         })
                 }
                 Button(onClick = {
-                    //navController.navigate("dialog_money")
+                    navController.navigate("dialog_money")
 
                 //Загрузка в бд
 
