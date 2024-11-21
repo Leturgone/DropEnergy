@@ -60,6 +60,7 @@ fun AskCansScreen(navController: NavHostController){
                     OutlinedTextField(
                         value = inputText,
                         label = { Text(text = "Количество")},
+                        singleLine = true,
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Number),
                         onValueChange = {
                             inputText = it
