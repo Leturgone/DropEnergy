@@ -15,7 +15,9 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -33,15 +35,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
-
+@Preview(showBackground = true)
 @Composable
-fun AskMoneyScreen(navController: NavHostController){
-    var inputText  by remember { mutableStateOf(" ") }
+fun AskMoneyScreen(/*navController: NavHostController*/){
+    var inputText  by remember { mutableStateOf("") }
     var currencyText by remember { mutableStateOf("₽") }
 
     var currensyList = listOf<String>("₽", "$", "Fr", "¥", "€", "£", "kr", "zł", "₺", "R")
-
     Column {
+        LinearProgressIndicator(
+            progress = 2/3.toFloat(),
+            modifier = Modifier.fillMaxWidth().padding(16.dp)
+        )
         Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
             Column( modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceBetween) {
@@ -56,7 +61,7 @@ fun AskMoneyScreen(navController: NavHostController){
                         textAlign = TextAlign.Center
                     )
                     Spacer(modifier = Modifier.height(60.dp))
-                    TextField(
+                    OutlinedTextField(
                         value = inputText,
                         label = { Text(text = "Стоимость")},
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -74,10 +79,10 @@ fun AskMoneyScreen(navController: NavHostController){
                         })
                 }
                 Button(onClick = {
-                    navController.popBackStack()
-                    navController.popBackStack()
-                    navController.popBackStack()
-                    navController.navigate("progress")
+//                    navController.popBackStack()
+//                    navController.popBackStack()
+//                    navController.popBackStack()
+//                    navController.navigate("progress")
                     //Загрузка в бд
 
                 }) {
