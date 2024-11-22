@@ -66,7 +66,7 @@ fun AskMoneyScreen(navController: NavHostController){
     var currencyText by remember { mutableStateOf("₽") }
     var showDialog by remember { mutableStateOf(false) }
     var buttonColor by remember { mutableStateOf(Purple80) }
-    var currencyList = listOf<String>("₽", "$", "Fr", "¥", "€", "£", "kr", "zł", "₺", "R")
+    val currencyList = listOf<String>("₽", "$", "Fr", "¥", "€", "£", "kr", "zł", "₺", "R")
 
     Column {
         LinearProgressIndicator(
