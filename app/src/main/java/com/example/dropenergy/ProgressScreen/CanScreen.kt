@@ -51,6 +51,7 @@ fun CanScreen(){
             modifier = Modifier.padding(16.dp))
 
         Column(Modifier.padding(start = 16.dp)) {
+
             Text(text = "$in_day_can банок в день",
                 fontSize = 24.sp,
                 color = MaterialTheme.colorScheme.onBackground,
