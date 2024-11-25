@@ -73,7 +73,8 @@ fun AskMoneyScreen(navController: NavHostController){
             progress = 3/3.toFloat(),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(16.dp),
+            color = Color.Green
         )
         Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
             Column( modifier = Modifier.fillMaxSize(),
