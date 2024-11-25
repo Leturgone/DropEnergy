@@ -58,7 +58,8 @@ fun LoginRegScreen(navController: NavHostController){
             progress = 1/3.toFloat(),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(16.dp),
+            color = Color.Green
         )
         Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
             Column( modifier = Modifier.fillMaxSize(),
