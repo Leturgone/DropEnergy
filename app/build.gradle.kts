@@ -77,5 +77,9 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$version")
     debugImplementation("androidx.compose.ui:ui-test-manifest:$version")
 
+    implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-database-ktx")
+
 
 }
