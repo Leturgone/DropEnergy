@@ -2,13 +2,22 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="GreetingPreview">
-        <State />
-      </entry>
-      <entry key="MainScreen">
+      <entry key="UITests">
         <State />
       </entry>
       <entry key="app">
+        <State />
+      </entry>
+      <entry key="testAddRecGooddNavigation()">
+        <State />
+      </entry>
+      <entry key="testAddRecWantdNavigation()">
+        <State />
+      </entry>
+      <entry key="testAddRecirdNavigation()">
+        <State />
+      </entry>
+      <entry key="testBottomBarNavigation()">
         <State />
       </entry>
     </value>
