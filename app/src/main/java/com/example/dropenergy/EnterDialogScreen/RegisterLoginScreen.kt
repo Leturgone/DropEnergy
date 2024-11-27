@@ -24,6 +24,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,17 +42,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.dropenergy.database.viewModel.AuthViewModel
 import com.example.dropenergy.ui.theme.Purple80
 
 //@Preview(showBackground = true)
 @Composable
-fun LoginRegScreen(navController: NavHostController){
+fun LoginRegScreen(navController: NavHostController, viewModel: AuthViewModel?){
     var loginInputText  by remember { mutableStateOf("") }
     var passwordInputText  by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     var loginOK by remember { mutableStateOf(false) }
     var buttonColor by remember { mutableStateOf(Purple80) }
     val ctx = LocalContext.current
+
+    val loginFlow = viewModel?.loginFlow?.collectAsState()
 
     Column {
         LinearProgressIndicator(
@@ -127,6 +131,7 @@ fun LoginRegScreen(navController: NavHostController){
                         Toast.makeText(ctx,"Пароль не должен содержать пробелов",Toast.LENGTH_SHORT).show()
                     }
                     else {
+                        viewModel?.login(loginInputText,passwordInputText)
                         navController.navigate("dialog_cans")
                         //Загрузка в бд
                     }

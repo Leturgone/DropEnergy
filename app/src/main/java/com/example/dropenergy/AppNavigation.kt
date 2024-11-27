@@ -15,10 +15,11 @@ import com.example.dropenergy.EnterDialogScreen.AskMoneyScreen
 import com.example.dropenergy.EnterDialogScreen.LoginRegScreen
 import com.example.dropenergy.ProgressScreen.CanScreen
 import com.example.dropenergy.ProgressScreen.MoneyScreen
+import com.example.dropenergy.database.viewModel.AuthViewModel
 
 
 @Composable
-fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController){
+fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController, viewModel: AuthViewModel){
 
     NavHost(
         navController = navController,
@@ -33,7 +34,7 @@ fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController)
         composable("want_rec") {  NewRecordScreen(category = "Я хочу энергетик", navController) }
         composable("buy_rec") {  NewRecordScreen(category = "Я купил энергетик", navController) }
         composable("good_rec") {  NewRecordScreen(category = "Я справился с соблазном", navController) }
-        composable("login") { LoginRegScreen(navController) }
+        composable("login") { LoginRegScreen(navController,viewModel) }
         composable("dialog_cans") { AskCansScreen(navController) }
         composable("dialog_money") { AskMoneyScreen(navController) }
 
