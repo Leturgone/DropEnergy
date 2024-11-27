@@ -7,6 +7,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -37,10 +38,17 @@ import com.example.dropenergy.ProgressScreen.CanScreen
 import com.example.dropenergy.ProgressScreen.DailyCheckSection
 import com.example.dropenergy.ProgressScreen.MoneyScreen
 import com.example.dropenergy.ProgressScreen.ProgressSection
+import com.example.dropenergy.database.repository.AuthRepository
+import com.example.dropenergy.database.viewModel.AuthViewModel
 import com.example.dropenergy.ui.theme.DropEnergyTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
+
+    //private val viewModel  = AuthViewModel(AuthRepository())
+    private val viewModel by viewModel<AuthViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //Панель прозрачная
@@ -63,7 +71,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen()
+                    MainScreen(viewModel)
                 }
             }
         }
@@ -73,9 +81,9 @@ class MainActivity : ComponentActivity() {
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview
+
 @Composable
-fun MainScreen() {
+fun MainScreen(viewModel: AuthViewModel) {
     val navController = rememberNavController()
     //Получение текущего состояния экрана
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
@@ -88,7 +96,7 @@ fun MainScreen() {
         }
     ) {
             innerPadding ->
-        AppNavigation(innerPadding = innerPadding, navController = navController)
+        AppNavigation(innerPadding = innerPadding, navController = navController, viewModel = viewModel)
 
     }
 }
