@@ -1,5 +1,6 @@
 package com.example.dropenergy.database.viewModel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dropenergy.database.repository.IAuthRepository
@@ -11,6 +12,9 @@ import kotlinx.coroutines.launch
 class AuthViewModel(
     private val repository: IAuthRepository
 ) : ViewModel() {
+    init {
+        Log.d("AuthViewModel", "AuthViewModel created") // Добавлено логирование
+    }
 
     private val _loginFlow = MutableStateFlow<FirebaseUser?>(null)
 
