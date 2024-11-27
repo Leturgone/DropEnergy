@@ -7,7 +7,7 @@ import com.example.dropenergy.database.repository.IUserRepository
 class DatabaseViewModel(
     private val repository: IUserRepository)
     : ViewModel() {
-    fun getUsers(): List<User> {
-        return repository.getUsers()
-    }
+//    fun getUsers(): List<User> {
+//        return repository.getUsers()
+//    }
 }
