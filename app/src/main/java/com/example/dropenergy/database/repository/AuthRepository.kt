@@ -12,6 +12,11 @@ class AuthRepository(
     private val firebaseAuth: FirebaseAuth
 ) : IAuthRepository {
 
+    //private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    init {
+        Log.i("AuthRepository", "AuthRepository created") // Добавлено логирование
+    }
+
 
     override suspend fun login(email: String, password: String): FirebaseUser? {
         return try {
