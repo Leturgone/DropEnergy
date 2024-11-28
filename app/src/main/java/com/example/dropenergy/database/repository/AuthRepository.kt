@@ -14,7 +14,7 @@ class AuthRepository(
 
     //private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     init {
-        Log.i("AuthRepository", "AuthRepository created") // Добавлено логирование
+        Log.i("AuthRepository", "AuthRepository создан")
     }
 
 
