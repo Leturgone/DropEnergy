@@ -131,7 +131,7 @@ fun LoginRegScreen(navController: NavHostController, viewModel: AuthViewModel?){
                         Toast.makeText(ctx,"Пароль не должен содержать пробелов",Toast.LENGTH_SHORT).show()
                     }
                     else {
-                        viewModel?.login(loginInputText,passwordInputText)
+                        viewModel?.signup(loginInputText,passwordInputText)
                         navController.navigate("dialog_cans")
                         //Загрузка в бд
                     }
