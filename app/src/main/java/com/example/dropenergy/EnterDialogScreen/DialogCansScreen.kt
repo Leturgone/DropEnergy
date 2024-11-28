@@ -41,7 +41,9 @@ fun AskCansScreen(navController: NavHostController){
     Column {
         LinearProgressIndicator(
             progress = 2/3.toFloat(),
-            modifier = Modifier.fillMaxWidth().padding(16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
             color = Color.Green
         )
         Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
