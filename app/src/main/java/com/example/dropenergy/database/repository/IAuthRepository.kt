@@ -6,6 +6,7 @@ interface IAuthRepository {
 
 
     suspend fun login(email: String, password: String): FirebaseUser?
+
     suspend fun signup(email: String, password: String): FirebaseUser?
 
     fun logout()
