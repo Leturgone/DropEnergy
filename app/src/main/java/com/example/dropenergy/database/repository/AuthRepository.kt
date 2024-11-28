@@ -21,6 +21,7 @@ class AuthRepository(
     override suspend fun login(email: String, password: String): FirebaseUser? {
         return try {
             val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
+            Log.i("Firebase","Логин выполнен")
             result.user
         } catch (e : Exception){
             Log.e("Firebase","Произошла ошибка при логине")
@@ -32,6 +33,7 @@ class AuthRepository(
         return try {
             val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
             result?.user?.updateProfile(UserProfileChangeRequest.Builder().build())?.await()
+            Log.i("Firebase","Логин выполнен")
             result.user
         } catch (e : Exception){
             Log.e("Firebase","Произошла ошибка при регистрации")
@@ -41,7 +43,7 @@ class AuthRepository(
 
     override fun logout() {
         firebaseAuth.signOut()
-        Log.e("Firebase","Выполнен выход из аккаунта")
+        Log.i("Firebase","Выполнен выход из аккаунта")
     }
 
     override fun getCurrentUser(): FirebaseUser? {
