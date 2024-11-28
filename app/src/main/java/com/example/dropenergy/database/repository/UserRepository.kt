@@ -1,5 +1,6 @@
 package com.example.dropenergy.database.repository
 
+import android.util.Log
 import com.example.dropenergy.data.CheckDay
 import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.model.User
@@ -10,9 +11,11 @@ class UserRepository(
 ) : IUserRepository{
     override suspend fun writeUser(user: User) {
         database.child("users").child(user.Uid).setValue(user)
+        Log.i("Firebase","Пользователь загружен в БД")
     }
 
     override suspend fun getUser(user: User) {
+        Log.i("Firebase","Данные пользователя получены из БД")
         TODO("Not yet implemented")
     }
 
