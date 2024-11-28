@@ -4,16 +4,18 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dropenergy.database.repository.IAuthRepository
+import com.example.dropenergy.database.repository.IUserRepository
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class AuthViewModel(
-    private val repository: IAuthRepository
+    private val authRepository: IAuthRepository,
+    private val userRepository: IUserRepository
 ) : ViewModel() {
     init {
-        Log.d("AuthViewModel", "AuthViewModel created") // Добавлено логирование
+        Log.d("AuthViewModel", "AuthViewModel создана")
     }
 
     private val _loginFlow = MutableStateFlow<FirebaseUser?>(null)
@@ -24,26 +26,26 @@ class AuthViewModel(
 
     val signupFlow: StateFlow<FirebaseUser?> = _signupFlow
 
-    val currentUser = repository.getCurrentUser()
+    val currentUser = authRepository.getCurrentUser()
 
     init {
-        if (repository.getCurrentUser() != null){
-            _loginFlow.value = repository.getCurrentUser()
+        if (authRepository.getCurrentUser() != null){
+            _loginFlow.value = authRepository.getCurrentUser()
         }
     }
 
     fun login(email: String, password: String) = viewModelScope.launch {
-        val result = repository.login(email, password)
+        val result = authRepository.login(email, password)
         _loginFlow.value = result
     }
 
     fun signup(email: String, password: String) = viewModelScope.launch {
-        val result = repository.signup(email, password)
+        val result = authRepository.signup(email, password)
         _signupFlow.value = result
     }
 
     fun logout(){
-        repository.logout()
+        authRepository.logout()
         _loginFlow.value = null
         _signupFlow.value = null
     }
