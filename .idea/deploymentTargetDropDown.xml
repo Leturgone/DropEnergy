@@ -2,23 +2,21 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="UITests">
-        <State />
-      </entry>
       <entry key="app">
-        <State />
-      </entry>
-      <entry key="testAddRecGooddNavigation()">
-        <State />
-      </entry>
-      <entry key="testAddRecWantdNavigation()">
-        <State />
-      </entry>
-      <entry key="testAddRecirdNavigation()">
-        <State />
-      </entry>
-      <entry key="testBottomBarNavigation()">
-        <State />
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\huawewi\.android\avd\Small_Phone_API_30.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-10-31T11:45:14.656795900Z" />
+        </State>
       </entry>
     </value>
   </component>
