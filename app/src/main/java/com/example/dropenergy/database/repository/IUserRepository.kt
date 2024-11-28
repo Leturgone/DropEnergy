@@ -5,12 +5,15 @@ import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.model.User
 
 interface IUserRepository {
-    suspend fun writeUser(user: User)
+    suspend fun writeUser(uid: String,user: User)
 
-    suspend fun getUser(user: User)
+    suspend fun getUser(uid: String): User?
 
-    suspend fun updateDiary(diaryRecord: DiaryRecord)
+    suspend fun updateUser(uid: String,energy_count: Int, energy_money: Int, currency: String,
+                           diary: Map<Int,DiaryRecord>, week: List<CheckDay>)
 
-    suspend fun updateWeek(newDay: CheckDay)
+    suspend fun updateDiary(uid: String,diaryRecord: DiaryRecord)
+
+    suspend fun updateWeek(uid: String,newDay: CheckDay)
 
 }
