@@ -37,17 +37,16 @@ class AuthViewModel(
 
     fun login(email: String, password: String) = viewModelScope.launch {
         val result = authRepository.login(email, password)
-        val user = result?.uid?.let {uid ->
-                User(uid, email, password,null,null, mapOf(), listOf())
-        }
-        if (user != null) {
-            userRepository.writeUser(user)
-        }
         _loginFlow.value = result
     }
 
     fun signup(email: String, password: String) = viewModelScope.launch {
         val result = authRepository.signup(email, password)
+        val user = User(email, password,null,null,null, mapOf(), listOf())
+        val uid = result?.uid
+        if (uid != null) {
+            userRepository.writeUser(uid,user)
+        }
         _signupFlow.value = result
     }
 
@@ -56,4 +55,6 @@ class AuthViewModel(
         _loginFlow.value = null
         _signupFlow.value = null
     }
+
+
 }
