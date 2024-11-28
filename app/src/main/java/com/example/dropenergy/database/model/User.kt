@@ -7,8 +7,8 @@ data class User(
     val Uid: String,
     val login: String,
     val password: String,
-    val energy_money: Int,
-    val currency: String,
+    val energy_money: Int?,
+    val currency: String?,
     var diary: Map<String,DiaryRecord>,
     var week: List<CheckDay>
 )
