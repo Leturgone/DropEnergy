@@ -23,7 +23,7 @@ val appModule = module {
     single { Firebase.database.reference }
     single<IUserRepository> {UserRepository(get())}
     single<IAuthRepository> { AuthRepository(get()) }
-    viewModel { AuthViewModel(get()) }
+    viewModel { AuthViewModel(get(),get()) }
 
 }
 
