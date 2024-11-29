@@ -1,8 +1,11 @@
 package com.example.dropenergy.database.viewModel
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.dropenergy.data.CheckDay
+import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.model.User
 import com.example.dropenergy.database.repository.IAuthRepository
 import com.example.dropenergy.database.repository.IUserRepository
@@ -15,6 +18,9 @@ class AuthViewModel(
     private val authRepository: IAuthRepository,
     private val userRepository: IUserRepository
 ) : ViewModel() {
+
+    val processing_user = MutableLiveData<User>()
+
     init {
         Log.d("AuthViewModel", "AuthViewModel создана")
     }
@@ -40,15 +46,23 @@ class AuthViewModel(
         _loginFlow.value = result
     }
 
-    fun signup(email: String, password: String) = viewModelScope.launch {
-        val result = authRepository.signup(email, password)
-        val user = User(email, password,null,null,null, mapOf(), listOf())
-        val uid = result?.uid
-        if (uid != null) {
-            userRepository.writeUser(uid,user)
+    fun signup() = viewModelScope.launch {
+        processing_user.value?.let {user ->
+            val result =  authRepository.signup(user.login, user.password)
+            //val user = User(email, password, null, null, null, mapOf(), listOf())
+            val uid = result?.uid
+            if (uid != null) {
+                userRepository.writeUser(uid, user)
+            }
+            _signupFlow.value = result
         }
-        _signupFlow.value = result
     }
+
+    fun updateUser(energy_count: Int, energy_money: Int,
+                   currency: String, diary: Map<Int, DiaryRecord>, week: List<CheckDay>) = viewModelScope.launch {
+        currentUser?.let { userRepository.updateUser(it.uid,energy_count,energy_money, currency,diary, week) }
+    }
+
 
     fun logout(){
         authRepository.logout()
