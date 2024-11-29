@@ -134,9 +134,7 @@ fun RegScreen(navController: NavHostController, viewModel: AuthViewModel?){
                     }
                     else {
                         //Загрузка в бд
-                        //viewModel?.signup(loginInputText,passwordInputText)
-                        viewModel?.processing_user?.value = User(loginInputText,passwordInputText,
-                            null,null,null,mapOf(), listOf())
+                        viewModel?.createUser(loginInputText,passwordInputText)
                         navController.navigate("dialog_cans")
 
                     }
