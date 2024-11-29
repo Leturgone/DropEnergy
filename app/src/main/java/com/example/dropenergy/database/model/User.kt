@@ -9,7 +9,7 @@ data class User(
     var energy_count: Int?,
     var energy_money: Int?,
     var currency: String?,
-    var diary: Map<String,DiaryRecord>,
+    var diary: MutableMap<String,DiaryRecord>,
     var week: List<CheckDay>
 )
 
