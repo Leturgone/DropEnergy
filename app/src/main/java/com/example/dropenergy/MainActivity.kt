@@ -72,7 +72,7 @@ fun MainScreen(viewModel: AuthViewModel) {
     val navController = rememberNavController()
     //Получение текущего состояния экрана
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
-    val excludedRoutes = setOf("login", "dialog_cans", "dialog_money")
+    val excludedRoutes = setOf("reg","login", "dialog_cans", "dialog_money")
     Scaffold(
         bottomBar = {
             if (currentRoute !in excludedRoutes) {
