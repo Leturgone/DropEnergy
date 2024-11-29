@@ -12,7 +12,8 @@ import com.example.dropenergy.AddRecordScreen.NewRecordScreen
 import com.example.dropenergy.DiaryScreen.DiaryScreen
 import com.example.dropenergy.EnterDialogScreen.AskCansScreen
 import com.example.dropenergy.EnterDialogScreen.AskMoneyScreen
-import com.example.dropenergy.EnterDialogScreen.LoginRegScreen
+import com.example.dropenergy.EnterDialogScreen.LoginScreen
+import com.example.dropenergy.EnterDialogScreen.RegScreen
 import com.example.dropenergy.ProgressScreen.CanScreen
 import com.example.dropenergy.ProgressScreen.MoneyScreen
 import com.example.dropenergy.database.viewModel.AuthViewModel
@@ -23,7 +24,7 @@ fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController,
 
     NavHost(
         navController = navController,
-        startDestination = "login",
+        startDestination = "reg",
         modifier = Modifier.padding(innerPadding)
     ) {
         composable("progress") { ProgressScreen(navController) }
@@ -34,7 +35,8 @@ fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController,
         composable("want_rec") {  NewRecordScreen(category = "Я хочу энергетик", navController) }
         composable("buy_rec") {  NewRecordScreen(category = "Я купил энергетик", navController) }
         composable("good_rec") {  NewRecordScreen(category = "Я справился с соблазном", navController) }
-        composable("login") { LoginRegScreen(navController,viewModel) }
+        composable("reg") { LoginScreen(navController,viewModel) }
+        composable("login") { RegScreen(navController,viewModel) }
         composable("dialog_cans") { AskCansScreen(navController) }
         composable("dialog_money") { AskMoneyScreen(navController) }
 
