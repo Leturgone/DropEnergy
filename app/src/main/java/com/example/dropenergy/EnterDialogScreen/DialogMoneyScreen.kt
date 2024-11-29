@@ -136,8 +136,7 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: AuthViewModel?){
                 }
                 Button(onClick = {
 
-                    viewModel?.processing_user?.value?.currency = currencyText
-                    viewModel?.processing_user?.value?.energy_money = inputText.toInt()
+                    viewModel?.addMoneyInf(currency = currencyText, money = inputText.toInt())
                     viewModel?.signup()
 
                     navController.popBackStack()
