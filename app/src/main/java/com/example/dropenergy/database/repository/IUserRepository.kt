@@ -9,8 +9,6 @@ interface IUserRepository {
 
     suspend fun getUser(uid: String): User?
 
-    suspend fun updateUser(uid: String,energy_count: Int, energy_money: Int, currency: String,
-                           diary: Map<Int,DiaryRecord>, week: List<CheckDay>)
 
     suspend fun updateDiary(uid: String,diaryRecord: DiaryRecord)
 
