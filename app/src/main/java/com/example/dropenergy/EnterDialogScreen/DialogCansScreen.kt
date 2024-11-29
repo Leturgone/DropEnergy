@@ -30,12 +30,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.example.dropenergy.database.viewModel.AuthViewModel
 import com.example.dropenergy.ui.theme.Purple80
 
 //@Preview(showBackground = true)
 @Composable
-fun AskCansScreen(navController: NavHostController){
+fun AskCansScreen(navController: NavHostController,viewModel: AuthViewModel?){
     var inputText  by remember {mutableStateOf("")}
     var buttonColor by remember { mutableStateOf(Purple80) }
     Column {
@@ -71,6 +73,8 @@ fun AskCansScreen(navController: NavHostController){
                         })
                 }
                 Button(onClick = {
+                    viewModel?.processing_user?.value?.energy_count = inputText.toInt()
+
                     navController.navigate("dialog_money")
 
                 //Загрузка в бд
