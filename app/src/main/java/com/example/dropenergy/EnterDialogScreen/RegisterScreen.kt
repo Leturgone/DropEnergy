@@ -1,5 +1,7 @@
 package com.example.dropenergy.EnterDialogScreen
 
+import com.example.dropenergy.database.model.User
+
 import android.content.res.Resources.Theme
 import android.widget.Toast
 import androidx.compose.foundation.clickable
@@ -132,7 +134,9 @@ fun RegScreen(navController: NavHostController, viewModel: AuthViewModel?){
                     }
                     else {
                         //Загрузка в бд
-                        viewModel?.signup(loginInputText,passwordInputText)
+                        //viewModel?.signup(loginInputText,passwordInputText)
+                        viewModel?.processing_user?.value = User(loginInputText,passwordInputText,
+                            null,null,null,mapOf(), listOf())
                         navController.navigate("dialog_cans")
 
                     }
