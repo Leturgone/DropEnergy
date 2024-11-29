@@ -1,6 +1,8 @@
 package com.example.dropenergy.EnterDialogScreen
 
+import android.content.res.Resources.Theme
 import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.dropenergy.database.viewModel.AuthViewModel
+import com.example.dropenergy.ui.theme.Purple40
 import com.example.dropenergy.ui.theme.Purple80
 
 //@Preview(showBackground = true)
@@ -68,7 +71,7 @@ fun RegScreen(navController: NavHostController, viewModel: AuthViewModel?){
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Spacer(modifier = Modifier.height(60.dp))
                     Text(
-                        text = "Войти/Создать аккаунт",
+                        text = "Создать аккаунт",
                         fontSize = 28.sp,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.Bold,
@@ -139,6 +142,12 @@ fun RegScreen(navController: NavHostController, viewModel: AuthViewModel?){
                 ) {
                     Text(text = "Дальше")
                 }
+                Text(text = "Уже есть аккаунт? Войти",
+                    color = Purple40,
+                    modifier = Modifier.clickable {
+                        navController.navigate("login")
+                    })
+
                 Spacer(modifier = Modifier.height(1.dp))
             }
         }
