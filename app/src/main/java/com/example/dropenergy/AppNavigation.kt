@@ -37,8 +37,8 @@ fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController,
         composable("good_rec") {  NewRecordScreen(category = "Я справился с соблазном", navController) }
         composable("reg") { RegScreen(navController,viewModel) }
         composable("login") { LoginScreen(navController,viewModel) }
-        composable("dialog_cans") { AskCansScreen(navController) }
-        composable("dialog_money") { AskMoneyScreen(navController) }
+        composable("dialog_cans") { AskCansScreen(navController,viewModel) }
+        composable("dialog_money") { AskMoneyScreen(navController,viewModel) }
 
     }
 }
