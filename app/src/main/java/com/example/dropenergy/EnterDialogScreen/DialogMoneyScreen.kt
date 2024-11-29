@@ -39,6 +39,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.dropenergy.database.viewModel.AuthViewModel
 import com.example.dropenergy.ui.theme.Purple80
 
 
@@ -61,7 +62,7 @@ fun CurrencyListItem(currency: String, isSelected: Boolean, onClick: () -> Unit)
 
 //@Preview(showBackground = true)
 @Composable
-fun AskMoneyScreen(navController: NavHostController){
+fun AskMoneyScreen(navController: NavHostController,viewModel: AuthViewModel?){
     var inputText  by remember { mutableStateOf("") }
     var currencyText by remember { mutableStateOf("₽") }
     var showDialog by remember { mutableStateOf(false) }
@@ -134,6 +135,11 @@ fun AskMoneyScreen(navController: NavHostController){
                     )
                 }
                 Button(onClick = {
+
+                    viewModel?.processing_user?.value?.currency = currencyText
+                    viewModel?.processing_user?.value?.energy_money = inputText.toInt()
+                    viewModel?.signup()
+
                     navController.popBackStack()
                     navController.popBackStack()
                     navController.popBackStack()
