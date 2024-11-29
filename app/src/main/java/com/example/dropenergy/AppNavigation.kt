@@ -35,8 +35,8 @@ fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController,
         composable("want_rec") {  NewRecordScreen(category = "Я хочу энергетик", navController) }
         composable("buy_rec") {  NewRecordScreen(category = "Я купил энергетик", navController) }
         composable("good_rec") {  NewRecordScreen(category = "Я справился с соблазном", navController) }
-        composable("reg") { LoginScreen(navController,viewModel) }
-        composable("login") { RegScreen(navController,viewModel) }
+        composable("reg") { RegScreen(navController,viewModel) }
+        composable("login") { LoginScreen(navController,viewModel) }
         composable("dialog_cans") { AskCansScreen(navController) }
         composable("dialog_money") { AskMoneyScreen(navController) }
 
