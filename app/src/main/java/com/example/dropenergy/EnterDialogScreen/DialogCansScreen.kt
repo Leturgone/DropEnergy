@@ -73,7 +73,7 @@ fun AskCansScreen(navController: NavHostController,viewModel: AuthViewModel?){
                         })
                 }
                 Button(onClick = {
-                    viewModel?.processing_user?.value?.energy_count = inputText.toInt()
+                    viewModel?.addCans(inputText.toInt())
 
                     navController.navigate("dialog_money")
 
