@@ -4,8 +4,6 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.dropenergy.data.CheckDay
-import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.model.User
 import com.example.dropenergy.database.repository.IAuthRepository
 import com.example.dropenergy.database.repository.IUserRepository
@@ -19,11 +17,7 @@ class AuthViewModel(
     private val userRepository: IUserRepository
 ) : ViewModel() {
 
-    val processing_user = MutableLiveData<User>()
-
-    init {
-        Log.d("AuthViewModel", "AuthViewModel создана")
-    }
+    private val processing_user = MutableLiveData<User>()
 
     private val _loginFlow = MutableStateFlow<FirebaseUser?>(null)
 
@@ -36,6 +30,7 @@ class AuthViewModel(
     val currentUser = authRepository.getCurrentUser()
 
     init {
+        Log.d("AuthViewModel", "AuthViewModel создана")
         if (authRepository.getCurrentUser() != null){
             _loginFlow.value = authRepository.getCurrentUser()
         }
@@ -58,9 +53,17 @@ class AuthViewModel(
         }
     }
 
-    fun updateUser(energy_count: Int, energy_money: Int,
-                   currency: String, diary: Map<Int, DiaryRecord>, week: List<CheckDay>) = viewModelScope.launch {
-        currentUser?.let { userRepository.updateUser(it.uid,energy_count,energy_money, currency,diary, week) }
+    fun createUser(login: String, password: String){
+        processing_user.value = User(login,password,
+            null,null,null, mutableMapOf(), listOf())
+    }
+    fun addMoneyInf(currency:String, money : Int){
+        processing_user.value?.currency = currency
+        processing_user.value?.energy_money = money
+    }
+
+    fun addCans(count: Int){
+        processing_user.value?.energy_count = count
     }
 
 
