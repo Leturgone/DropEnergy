@@ -10,9 +10,6 @@ class UserRepository(
     private val database: DatabaseReference
 ) : IUserRepository{
     override suspend fun writeUser(uid: String,user: User) {
-
-
-
         database.child("users").child(uid).setValue(user)
         Log.i("Firebase","Пользователь загружен в БД")
     }
