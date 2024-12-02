@@ -57,6 +57,7 @@ class AuthViewModel(
         processing_user.value = User(login,password,
             null,null,null, mutableMapOf(), listOf())
     }
+
     fun addMoneyInf(currency:String, money : Int){
         processing_user.value?.currency = currency
         processing_user.value?.energy_money = money

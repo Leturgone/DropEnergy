@@ -12,7 +12,6 @@ class AuthRepository(
     private val firebaseAuth: FirebaseAuth
 ) : IAuthRepository {
 
-    //private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     init {
         Log.i("AuthRepository", "AuthRepository создан")
     }
