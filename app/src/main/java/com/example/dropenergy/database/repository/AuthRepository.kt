@@ -32,7 +32,7 @@ class AuthRepository(
         return try {
             val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
             result?.user?.updateProfile(UserProfileChangeRequest.Builder().build())?.await()
-            Log.i("Firebase","Логин выполнен")
+            Log.i("Firebase","Регистрация выполнена")
             result.user
         } catch (e : Exception){
             Log.e("Firebase","Произошла ошибка при регистрации")
