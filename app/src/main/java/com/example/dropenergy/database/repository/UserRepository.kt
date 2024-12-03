@@ -36,5 +36,13 @@ class UserRepository(
         TODO("Not yet implemented")
     }
 
+    override suspend fun updateSavedCans(uid: String, newCans: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun updateSavedMoney(uid: String, newMoney: Int) {
+        TODO("Not yet implemented")
+    }
+
 
 }
