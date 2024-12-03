@@ -58,7 +58,7 @@ class DBViewModel(
 
     fun createUser(login: String, password: String){
         processing_user.value = User(login,password,
-            null,null,null, mutableMapOf(), listOf())
+            null,null,null, mutableMapOf(), listOf(),0,0)
     }
 
     fun addMoneyInf(currency:String, money : Int){

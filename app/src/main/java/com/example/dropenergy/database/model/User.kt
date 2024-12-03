@@ -10,6 +10,8 @@ data class User(
     var energy_money: Int?,
     var currency: String?,
     var diary: MutableMap<String,DiaryRecord>,
-    var week: List<CheckDay>
+    var week: List<CheckDay>,
+    var saved_money: Int,
+    var saved_cans: Int
 )
 
