@@ -39,12 +39,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.dropenergy.database.viewModel.AuthViewModel
+import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.ui.theme.Purple80
 
 //@Preview(showBackground = true)
 @Composable
-fun LoginScreen(navController: NavHostController, viewModel: AuthViewModel?){
+fun LoginScreen(navController: NavHostController, viewModel: DBViewModel?){
     var loginInputText  by remember { mutableStateOf("") }
     var passwordInputText  by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }

@@ -15,7 +15,6 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,17 +26,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.dropenergy.database.viewModel.AuthViewModel
+import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.ui.theme.Purple80
 
 //@Preview(showBackground = true)
 @Composable
-fun AskCansScreen(navController: NavHostController,viewModel: AuthViewModel?){
+fun AskCansScreen(navController: NavHostController,viewModel: DBViewModel?){
     var inputText  by remember {mutableStateOf("")}
     var buttonColor by remember { mutableStateOf(Purple80) }
     Column {

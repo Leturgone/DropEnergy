@@ -24,7 +24,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.dropenergy.ProgressScreen.DailyCheckSection
 import com.example.dropenergy.ProgressScreen.ProgressSection
-import com.example.dropenergy.database.viewModel.AuthViewModel
+import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.ui.theme.DropEnergyTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,7 +32,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : ComponentActivity() {
 
     //private val viewModel  = AuthViewModel(AuthRepository())
-    private val viewModel by viewModel<AuthViewModel>()
+    private val viewModel by viewModel<DBViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +68,7 @@ class MainActivity : ComponentActivity() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 
 @Composable
-fun MainScreen(viewModel: AuthViewModel) {
+fun MainScreen(viewModel: DBViewModel) {
     val navController = rememberNavController()
     //Получение текущего состояния экрана
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route

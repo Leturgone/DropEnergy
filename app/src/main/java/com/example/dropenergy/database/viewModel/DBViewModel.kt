@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class AuthViewModel(
+class DBViewModel(
     private val authRepository: IAuthRepository,
     private val userRepository: IUserRepository
 ) : ViewModel() {

@@ -16,11 +16,11 @@ import com.example.dropenergy.EnterDialogScreen.LoginScreen
 import com.example.dropenergy.EnterDialogScreen.RegScreen
 import com.example.dropenergy.ProgressScreen.CanScreen
 import com.example.dropenergy.ProgressScreen.MoneyScreen
-import com.example.dropenergy.database.viewModel.AuthViewModel
+import com.example.dropenergy.database.viewModel.DBViewModel
 
 
 @Composable
-fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController, viewModel: AuthViewModel){
+fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController, viewModel: DBViewModel){
 
     NavHost(
         navController = navController,

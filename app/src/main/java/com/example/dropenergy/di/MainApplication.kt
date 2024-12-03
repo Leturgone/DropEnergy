@@ -5,8 +5,7 @@ import com.example.dropenergy.database.repository.AuthRepository
 import com.example.dropenergy.database.repository.IAuthRepository
 import com.example.dropenergy.database.repository.IUserRepository
 import com.example.dropenergy.database.repository.UserRepository
-import com.example.dropenergy.database.viewModel.AuthViewModel
-import com.google.firebase.FirebaseApp
+import com.example.dropenergy.database.viewModel.DBViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -23,7 +22,7 @@ val appModule = module {
     single { Firebase.database.reference }
     single<IUserRepository> {UserRepository(get())}
     single<IAuthRepository> { AuthRepository(get()) }
-    viewModel { AuthViewModel(get(),get()) }
+    viewModel { DBViewModel(get(),get()) }
 
 }
 
