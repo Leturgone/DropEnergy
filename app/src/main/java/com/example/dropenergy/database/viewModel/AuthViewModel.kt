@@ -38,6 +38,9 @@ class AuthViewModel(
 
     fun login(email: String, password: String) = viewModelScope.launch {
         val result = authRepository.login(email, password)
+        if (result != null) {
+            processing_user.value =  userRepository.getUser(result.uid)
+        }
         _loginFlow.value = result
     }
 
