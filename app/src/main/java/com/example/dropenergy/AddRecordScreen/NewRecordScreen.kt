@@ -25,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -35,6 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.dropenergy.data.DiaryRecord
 import com.maxkeppeker.sheets.core.models.base.rememberSheetState
 import com.maxkeppeler.sheets.calendar.CalendarDialog
 import com.maxkeppeler.sheets.calendar.models.CalendarConfig
@@ -127,7 +129,13 @@ fun NewRecordScreen(category: String,navController: NavHostController){
                 Row(modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.Center
                 ){
                     Button(onClick = {
-                                     navController.navigate("progress")
+                        //Загрузка в БД
+                        val record = DiaryRecord(
+                            date = dateValue,
+                            recordText = category,
+                            intensive = sliderValue.toInt() )
+
+                        navController.navigate("progress")
                                      },
                         modifier = Modifier.padding(horizontal = 8.dp),
                         colors = ButtonDefaults.buttonColors(Color.Green) ) {
