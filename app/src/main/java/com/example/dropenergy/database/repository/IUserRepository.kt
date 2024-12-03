@@ -14,4 +14,8 @@ interface IUserRepository {
 
     suspend fun updateWeek(uid: String,newDay: CheckDay)
 
+    suspend fun updateSavedCans(uid: String,newCans: Int)
+
+    suspend fun  updateSavedMoney(uid: String,newMoney:Int)
+
 }
