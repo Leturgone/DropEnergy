@@ -18,10 +18,13 @@ class UserRepository(
     }
 
     override suspend fun getUser(uid:String): User? {
-
-        Log.i("Firebase","Данные пользователя получены из БД")
+        database.child("users").child(uid).get().addOnSuccessListener {
+            val user = it.value
+            Log.i("Firebase","Данные пользователя получены из БД $user")
+        }.addOnFailureListener {
+            Log.e("Firebase","Не удалось загрузить из БД")
+        }
         return null
-        TODO("Not yet implemented")
     }
 
 
