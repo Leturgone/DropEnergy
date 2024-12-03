@@ -10,11 +10,15 @@ class UserRepository(
     private val database: DatabaseReference
 ) : IUserRepository{
     override suspend fun writeUser(uid: String,user: User) {
-        database.child("users").child(uid).setValue(user)
-        Log.i("Firebase","Пользователь загружен в БД")
+        database.child("users").child(uid).setValue(user).addOnSuccessListener {
+            Log.i("Firebase","Пользователь загружен в БД")
+        }.addOnFailureListener {
+            Log.e("Firebase","Не удалось загрузить в БД")
+        }
     }
 
     override suspend fun getUser(uid:String): User? {
+
         Log.i("Firebase","Данные пользователя получены из БД")
         return null
         TODO("Not yet implemented")
