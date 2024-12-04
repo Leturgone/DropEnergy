@@ -88,9 +88,9 @@ fun MainScreen(viewModel: DBViewModel) {
 
 
 @Composable
-fun ProgressScreen(navController:NavHostController ){
+fun ProgressScreen(navController:NavHostController,viewModel:DBViewModel){
     Column {
-        DailyCheckSection()
+        DailyCheckSection(viewModel)
         Spacer(modifier =Modifier.height(12.dp))
         ProgressSection(navController)
     }
