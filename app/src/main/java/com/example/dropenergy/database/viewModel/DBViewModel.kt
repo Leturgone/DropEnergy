@@ -1,9 +1,13 @@
 package com.example.dropenergy.database.viewModel
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.dropenergy.data.CheckDay
+import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.model.User
 import com.example.dropenergy.database.repository.IAuthRepository
 import com.example.dropenergy.database.repository.IUserRepository
@@ -11,11 +15,45 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 class DBViewModel(
     private val authRepository: IAuthRepository,
     private val userRepository: IUserRepository
 ) : ViewModel() {
+
+    val dayCheckList = listOf(
+        CheckDay(
+            day = "Пн",
+            check = true
+        ),
+        CheckDay(
+            day = "Вт",
+            check = false
+        ),
+        CheckDay(
+            day = "Ср",
+            check = false
+        ),
+        CheckDay(
+            day = "Чт",
+            check = false
+        ),
+        CheckDay(
+            day = "Пт",
+            check = false
+        ),
+        CheckDay(
+            day = "Сб",
+            check = false
+        ),
+        CheckDay(
+            day = "Вс",
+            check = false
+        )
+    )
+
+
 
     private val processing_user = MutableLiveData<User>()
 
@@ -56,9 +94,18 @@ class DBViewModel(
         }
     }
 
-    fun createUser(login: String, password: String){
+
+    fun createUser(login: String, password: String, now: LocalDate){
+        val date = LocalDate.now().toString()
         processing_user.value = User(login,password,
-            null,null,null, mutableMapOf(), listOf(),0,0)
+            null,null,null,
+            diary = mutableMapOf(
+                date to DiaryRecord(
+                    date = date, recordText = "Я зарегистрировался в приложении",intensive = null
+
+                )
+            ),
+            week = dayCheckList,0,0)
     }
 
     fun addMoneyInf(currency:String, money : Int){
