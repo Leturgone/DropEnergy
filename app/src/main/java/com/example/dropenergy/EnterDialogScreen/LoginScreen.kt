@@ -129,7 +129,7 @@ fun LoginScreen(navController: NavHostController, viewModel: DBViewModel?){
                     }
                     else {
                         viewModel?.login(loginInputText,passwordInputText)
-                        navController.navigate("dialog_cans")
+                        navController.navigate("progress")
                     }
 
                 },
