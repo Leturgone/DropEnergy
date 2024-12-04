@@ -1,10 +1,12 @@
 package com.example.dropenergy.database.repository
 
 import android.util.Log
+import androidx.compose.foundation.pager.PageSize.Fill.calculateMainAxisPageSize
 import com.example.dropenergy.data.CheckDay
 import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.model.User
 import com.google.firebase.database.DatabaseReference
+import kotlinx.coroutines.tasks.await
 
 class UserRepository(
     private val database: DatabaseReference
@@ -18,13 +20,29 @@ class UserRepository(
     }
 
     override suspend fun getUser(uid:String): User? {
+        var result: User? = null
         database.child("users").child(uid).get().addOnSuccessListener {
             val user = it.value
+            when(user){
+                is HashMap<*, *> ->
+                    result = User(
+                        login = user["login"].toString(),
+                        password = user["password"].toString(),
+                        energy_count = user["energy_count"].toString().toInt(),
+                        energy_money = user["energy_money"].toString().toInt(),
+                        currency = user["currency"].toString(),
+                        diary = user["diary"] as? MutableMap<String, DiaryRecord> ?: mutableMapOf(),
+                        week = user["week"] as? List<CheckDay> ?: listOf(),
+                        saved_money = user["saved_money"].toString().toInt(),
+                        saved_cans = user["saved_cans"].toString().toInt()
+
+                    )
+            }
             Log.i("Firebase","Данные пользователя получены из БД $user")
         }.addOnFailureListener {
             Log.e("Firebase","Не удалось загрузить из БД")
-        }
-        return null
+        }.await()
+        return result
     }
 
 
