@@ -43,6 +43,7 @@ import androidx.navigation.NavHostController
 import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.ui.theme.Purple40
 import com.example.dropenergy.ui.theme.Purple80
+import java.time.LocalDate
 
 //@Preview(showBackground = true)
 @Composable
@@ -131,7 +132,7 @@ fun RegScreen(navController: NavHostController, viewModel: DBViewModel?){
                     }
                     else {
                         //Загрузка в бд
-                        viewModel?.createUser(loginInputText,passwordInputText)
+                        viewModel?.createUser(loginInputText,passwordInputText,LocalDate.now())
                         navController.navigate("dialog_cans")
 
                     }
