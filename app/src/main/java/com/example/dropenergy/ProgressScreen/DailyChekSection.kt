@@ -23,39 +23,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dropenergy.data.CheckDay
 import androidx.compose.ui.graphics.Color
-val dayCheckList = listOf(
-    CheckDay(
-        day = "Пн",
-        check = true
-    ),
-    CheckDay(
-        day = "Вт",
-        check = false
-    ),
-    CheckDay(
-        day = "Ср",
-        check = false
-    ),
-    CheckDay(
-        day = "Чт",
-        check = false
-    ),
-    CheckDay(
-        day = "Пт",
-        check = false
-    ),
-    CheckDay(
-        day = "Сб",
-        check = false
-    ),
-    CheckDay(
-        day = "Вс",
-        check = false
-    )
-)
-@Preview
+import com.example.dropenergy.database.viewModel.DBViewModel
+
+
+
 @Composable
-fun DailyCheckSection(){
+fun DailyCheckSection(viewModel: DBViewModel) {
     Column(modifier = Modifier
         .fillMaxWidth()) {
         Text(text = "Ежедневная отметка",
@@ -83,8 +56,8 @@ fun DailyCheckSection(){
                 //Список с днями и чеками входа
                 LazyRow(modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceAround){
-                    items(dayCheckList.size){
-                        val dayCheck = dayCheckList[it]
+                    items(viewModel.dayCheckList.size){
+                        val dayCheck = viewModel.dayCheckList[it]
 
                         Column(verticalArrangement = Arrangement.Center) {
                             var tint = MaterialTheme.colorScheme.secondaryContainer
@@ -109,3 +82,5 @@ fun DailyCheckSection(){
 
 
 }
+
+
