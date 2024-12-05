@@ -11,6 +11,7 @@ import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.model.User
 import com.example.dropenergy.database.repository.IAuthRepository
 import com.example.dropenergy.database.repository.IUserRepository
+import com.example.dropenergy.database.repository.LoginRegState
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -57,9 +58,9 @@ class DBViewModel(
 
     private val processing_user = MutableLiveData<User>()
 
-    private val _loginFlow = MutableStateFlow<FirebaseUser?>(null)
+    private val _loginFlow = MutableStateFlow<LoginRegState<FirebaseUser>?>(null)
 
-    val loginFlow: StateFlow<FirebaseUser?> = _loginFlow
+    val loginFlow: StateFlow<LoginRegState<FirebaseUser>?> = _loginFlow
 
     private val _signupFlow = MutableStateFlow<FirebaseUser?>(null)
 
@@ -70,7 +71,7 @@ class DBViewModel(
     init {
         Log.d("AuthViewModel", "AuthViewModel создана")
         if (authRepository.getCurrentUser() != null){
-            _loginFlow.value = authRepository.getCurrentUser()
+            _loginFlow.value = LoginRegState.Sucsess(authRepository.getCurrentUser()!!)
         }
     }
 
