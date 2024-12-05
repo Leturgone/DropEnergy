@@ -1,5 +1,6 @@
 package com.example.dropenergy.EnterDialogScreen
 
+import android.health.connect.datatypes.units.Length
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -40,6 +41,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.dropenergy.database.repository.LoginRegState
 import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.ui.theme.Purple40
 import com.example.dropenergy.ui.theme.Purple80
@@ -55,7 +57,7 @@ fun RegScreen(navController: NavHostController, viewModel: DBViewModel?){
     var buttonColor by remember { mutableStateOf(Purple80) }
     val ctx = LocalContext.current
 
-    val loginFlow = viewModel?.loginFlow?.collectAsState()
+    val signupState = viewModel?.signupFlow?.collectAsState()
 
     Column {
         LinearProgressIndicator(
@@ -149,6 +151,8 @@ fun RegScreen(navController: NavHostController, viewModel: DBViewModel?){
                     })
 
                 Spacer(modifier = Modifier.height(1.dp))
+
+
             }
         }
     }
