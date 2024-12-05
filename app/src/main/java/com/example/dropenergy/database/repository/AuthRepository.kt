@@ -17,26 +17,26 @@ class AuthRepository(
     }
 
 
-    override suspend fun login(email: String, password: String): FirebaseUser? {
+    override suspend fun login(email: String, password: String): LoginRegState<FirebaseUser> {
         return try {
             val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
             Log.i("Firebase","Логин выполнен")
-            result.user
+            LoginRegState.Sucсess(result.user!!)
         } catch (e : Exception){
             Log.e("Firebase","Произошла ошибка при логине")
-            null
+            LoginRegState.Failure(e)
         }
     }
 
-    override suspend fun signup(email: String, password: String): FirebaseUser? {
+    override suspend fun signup(email: String, password: String): LoginRegState<FirebaseUser> {
         return try {
             val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
             result?.user?.updateProfile(UserProfileChangeRequest.Builder().build())?.await()
             Log.i("Firebase","Регистрация выполнена")
-            result.user
+            LoginRegState.Sucсess(result.user!!)
         } catch (e : Exception){
             Log.e("Firebase","Произошла ошибка при регистрации")
-            null
+            LoginRegState.Failure(e)
         }
     }
 

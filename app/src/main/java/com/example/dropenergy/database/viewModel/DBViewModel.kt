@@ -1,8 +1,6 @@
 package com.example.dropenergy.database.viewModel
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,6 +9,7 @@ import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.model.User
 import com.example.dropenergy.database.repository.IAuthRepository
 import com.example.dropenergy.database.repository.IUserRepository
+import com.example.dropenergy.database.repository.LoginRegState
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -57,42 +56,51 @@ class DBViewModel(
 
     private val processing_user = MutableLiveData<User>()
 
-    private val _loginFlow = MutableStateFlow<String?>(null)
+    private val _loginFlow = MutableStateFlow<LoginRegState<FirebaseUser>?>(null)
 
-    val loginFlow: StateFlow<String?> = _loginFlow
+    val loginFlow: StateFlow<LoginRegState<FirebaseUser>?> = _loginFlow
 
-    private val _signupFlow = MutableStateFlow<FirebaseUser?>(null)
+    private val _signupFlow = MutableStateFlow<LoginRegState<FirebaseUser>?>(null)
 
-    val signupFlow: StateFlow<FirebaseUser?> = _signupFlow
+    val signupFlow: StateFlow<LoginRegState<FirebaseUser>?> = _signupFlow
 
     val currentUser = authRepository.getCurrentUser()
+
+
 
     init {
         Log.d("AuthViewModel", "AuthViewModel создана")
         if (authRepository.getCurrentUser() != null){
-            _loginFlow.value = "success"
+            _loginFlow.value = LoginRegState.Sucсess(authRepository.getCurrentUser()!!)
+        }
+    }
+
+    private fun get_uid(state: LoginRegState<*>):String?{
+        return when(state){
+            is LoginRegState.Sucсess ->{
+                try {
+                    val user = state.result as FirebaseUser
+                    user.uid
+                }catch (e:java.lang.Exception){
+                    null
+                }
+            }
+            else ->null
         }
     }
 
     fun login(email: String, password: String) = viewModelScope.launch {
-        _loginFlow.value = "loading"
+        _loginFlow.value = LoginRegState.Loading
         val result = authRepository.login(email, password)
-        if (result != null) {
-            processing_user.value =  userRepository.getUser(result.uid)
-            _loginFlow.value = "success"
-        }else{
-            _loginFlow.value = "failure"
-        }
+        processing_user.value = get_uid(result)?.let { userRepository.getUser(it) }
+        _loginFlow.value = result
     }
 
     fun signup() = viewModelScope.launch {
+        _signupFlow.value = LoginRegState.Loading
         processing_user.value?.let {user ->
             val result =  authRepository.signup(user.login, user.password)
-            //val user = User(email, password, null, null, null, mapOf(), listOf())
-            val uid = result?.uid
-            if (uid != null) {
-                userRepository.writeUser(uid, user)
-            }
+            get_uid(result)?.let { userRepository.writeUser(it,user) }
             _signupFlow.value = result
         }
     }
