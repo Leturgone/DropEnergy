@@ -137,13 +137,13 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
                 Button(onClick = {
 
                     viewModel?.addMoneyInf(currency = currencyText, money = inputText.toInt())
+                    //Загрузка в БД
                     viewModel?.signup()
 
                     navController.popBackStack()
                     navController.popBackStack()
                     navController.popBackStack()
                     navController.navigate("progress")
-                    //Загрузка в бд
 
                 },
                     colors = ButtonDefaults.buttonColors(containerColor = buttonColor)
