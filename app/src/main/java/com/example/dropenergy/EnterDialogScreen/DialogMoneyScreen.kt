@@ -1,5 +1,6 @@
 package com.example.dropenergy.EnterDialogScreen
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,6 +27,7 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,12 +35,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.dropenergy.database.repository.LoginRegState
 import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.ui.theme.Purple80
 
@@ -68,6 +72,8 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
     var showDialog by remember { mutableStateOf(false) }
     var buttonColor by remember { mutableStateOf(Purple80) }
     val currencyList = listOf<String>("₽", "$", "Fr", "¥", "€", "£", "kr", "zł", "₺", "R")
+    val signupState = viewModel?.signupFlow?.collectAsState()
+    val ctx = LocalContext.current
 
     Column {
         LinearProgressIndicator(
@@ -140,10 +146,7 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
                     //Загрузка в БД
                     viewModel?.signup()
 
-                    navController.popBackStack()
-                    navController.popBackStack()
-                    navController.popBackStack()
-                    navController.navigate("progress")
+
 
                 },
                     colors = ButtonDefaults.buttonColors(containerColor = buttonColor)
@@ -152,6 +155,22 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
 
                 }
                 Spacer(modifier = Modifier.height(1.dp))
+            }
+            signupState?.value.let {state ->
+                when(state){
+                    is LoginRegState.Success -> {
+                        TODO("Бесконечный цикл исправь")
+                        navController.popBackStack()
+                        navController.popBackStack()
+                        navController.popBackStack()
+                        navController.navigate("progress")
+
+                    }
+                    is LoginRegState.Loading -> Toast.makeText(ctx,"Загрузка", Toast.LENGTH_SHORT).show()
+                    is LoginRegState.Failure -> Toast.makeText(ctx,"Ошибка", Toast.LENGTH_SHORT).show()
+                    else -> {null}
+                }
+
             }
         }
     }
