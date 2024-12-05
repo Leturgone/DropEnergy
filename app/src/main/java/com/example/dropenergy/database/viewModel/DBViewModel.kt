@@ -57,9 +57,9 @@ class DBViewModel(
 
     private val processing_user = MutableLiveData<User>()
 
-    private val _loginFlow = MutableStateFlow<FirebaseUser?>(null)
+    private val _loginFlow = MutableStateFlow<String?>(null)
 
-    val loginFlow: StateFlow<FirebaseUser?> = _loginFlow
+    val loginFlow: StateFlow<String?> = _loginFlow
 
     private val _signupFlow = MutableStateFlow<FirebaseUser?>(null)
 
@@ -70,16 +70,19 @@ class DBViewModel(
     init {
         Log.d("AuthViewModel", "AuthViewModel создана")
         if (authRepository.getCurrentUser() != null){
-            _loginFlow.value = authRepository.getCurrentUser()
+            _loginFlow.value = "success"
         }
     }
 
     fun login(email: String, password: String) = viewModelScope.launch {
+        _loginFlow.value = "loading"
         val result = authRepository.login(email, password)
         if (result != null) {
             processing_user.value =  userRepository.getUser(result.uid)
+            _loginFlow.value = "success"
+        }else{
+            _loginFlow.value = "failure"
         }
-        _loginFlow.value = result
     }
 
     fun signup() = viewModelScope.launch {
