@@ -71,13 +71,13 @@ class DBViewModel(
     init {
         Log.d("AuthViewModel", "AuthViewModel создана")
         if (authRepository.getCurrentUser() != null){
-            _loginFlow.value = LoginRegState.Sucсess(authRepository.getCurrentUser()!!)
+            _loginFlow.value = LoginRegState.Success(authRepository.getCurrentUser()!!)
         }
     }
 
     private fun get_uid(state: LoginRegState<*>):String?{
         return when(state){
-            is LoginRegState.Sucсess ->{
+            is LoginRegState.Success ->{
                 try {
                     val user = state.result as FirebaseUser
                     user.uid
