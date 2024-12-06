@@ -27,6 +27,7 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -143,7 +144,6 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
                 Button(onClick = {
 
                     viewModel?.addMoneyInf(currency = currencyText, money = inputText.toInt())
-                    //Загрузка в БД
                     viewModel?.signup()
 
 
@@ -159,11 +159,15 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
             signupState?.value.let {state ->
                 when(state){
                     is LoginRegState.Success -> {
-                        TODO("Бесконечный цикл исправь")
-                        navController.popBackStack()
-                        navController.popBackStack()
-                        navController.popBackStack()
-                        navController.navigate("progress")
+                        LaunchedEffect(Unit) {
+                            navController.popBackStack()
+                            navController.popBackStack()
+                            navController.popBackStack()
+                            navController.popBackStack()
+                            navController.navigate("progress")
+
+
+                        }
 
                     }
                     is LoginRegState.Loading -> Toast.makeText(ctx,"Загрузка", Toast.LENGTH_SHORT).show()
