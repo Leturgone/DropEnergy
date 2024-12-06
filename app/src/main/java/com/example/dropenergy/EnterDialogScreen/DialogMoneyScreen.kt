@@ -73,6 +73,7 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
     var showDialog by remember { mutableStateOf(false) }
     var buttonColor by remember { mutableStateOf(Purple80) }
     val currencyList = listOf<String>("₽", "$", "Fr", "¥", "€", "£", "kr", "zł", "₺", "R")
+
     val signupState = viewModel?.signupFlow?.collectAsState()
     val ctx = LocalContext.current
 
@@ -142,12 +143,8 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
                     )
                 }
                 Button(onClick = {
-
                     viewModel?.addMoneyInf(currency = currencyText, money = inputText.toInt())
                     viewModel?.signup()
-
-
-
                 },
                     colors = ButtonDefaults.buttonColors(containerColor = buttonColor)
                     ) {
