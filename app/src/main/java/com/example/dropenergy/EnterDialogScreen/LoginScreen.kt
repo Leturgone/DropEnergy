@@ -22,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,6 +40,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.dropenergy.database.repository.LoginRegState
 import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.ui.theme.Purple80
 
@@ -52,7 +54,7 @@ fun LoginScreen(navController: NavHostController, viewModel: DBViewModel?){
     var buttonColor by remember { mutableStateOf(Purple80) }
     val ctx = LocalContext.current
 
-    val loginFlow = viewModel?.loginFlow?.collectAsState()
+    val loginState = viewModel?.loginFlow?.collectAsState()
 
     Column {
         LinearProgressIndicator(
@@ -137,6 +139,25 @@ fun LoginScreen(navController: NavHostController, viewModel: DBViewModel?){
                 ) {
                     Text(text = "Дальше")
                 }
+
+                loginState?.value.let {state ->
+                    when(state){
+                        is LoginRegState.Success -> {
+                            LaunchedEffect(Unit) {
+                                navController.popBackStack()
+                                navController.navigate("progress")
+                            }
+
+                        }
+                        is LoginRegState.Loading -> Toast.makeText(ctx,"Загрузка", Toast.LENGTH_SHORT).show()
+                        is LoginRegState.Failure -> Toast.makeText(ctx,"Ошибка", Toast.LENGTH_SHORT).show()
+                        else -> {null}
+                    }
+
+                }
+
+
+
                 Spacer(modifier = Modifier.height(1.dp))
             }
         }
