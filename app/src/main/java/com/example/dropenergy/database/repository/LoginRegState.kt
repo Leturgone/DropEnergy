@@ -7,5 +7,4 @@ sealed class LoginRegState<out R> {
     data class Failure(val exception: Exception) : LoginRegState<Nothing>()
 
     data object Loading : LoginRegState<Nothing>()
-    data object Logged: LoginRegState<Nothing>()
 }
