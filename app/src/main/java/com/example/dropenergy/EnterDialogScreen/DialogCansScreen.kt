@@ -71,10 +71,7 @@ fun AskCansScreen(navController: NavHostController,viewModel: DBViewModel?){
                 }
                 Button(onClick = {
                     viewModel?.addCans(inputText.toInt())
-
                     navController.navigate("dialog_money")
-
-                //Загрузка в бд
 
                 },
                     colors = ButtonDefaults.buttonColors(containerColor = buttonColor)
