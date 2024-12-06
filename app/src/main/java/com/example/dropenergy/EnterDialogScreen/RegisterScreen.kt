@@ -57,8 +57,6 @@ fun RegScreen(navController: NavHostController, viewModel: DBViewModel?){
     var buttonColor by remember { mutableStateOf(Purple80) }
     val ctx = LocalContext.current
 
-    val signupState = viewModel?.signupFlow?.collectAsState()
-
     Column {
         LinearProgressIndicator(
             progress = 1/3.toFloat(),
