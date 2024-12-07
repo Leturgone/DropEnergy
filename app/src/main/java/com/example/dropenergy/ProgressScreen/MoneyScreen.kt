@@ -13,10 +13,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.dropenergy.database.viewModel.DBViewModel
 
-@Preview
+//@Preview
 @Composable
-fun MoneyScreen(){
+fun MoneyScreen(viewModel: DBViewModel){
 
     //Подгрузка из БД
     var ekonom_money = 0
