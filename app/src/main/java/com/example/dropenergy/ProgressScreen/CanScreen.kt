@@ -13,10 +13,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.dropenergy.database.viewModel.DBViewModel
 
-@Preview
 @Composable
-fun CanScreen(){
+fun CanScreen(viewModel:DBViewModel){
     var ekonom_can = 0
     var in_day_can = 0
     var in_week_can = 0
