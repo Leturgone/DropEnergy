@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.dropenergy.R
 import com.example.dropenergy.data.ProgressCategory
+import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.ui.theme.Green
 import com.example.dropenergy.ui.theme.Yellow40
 
@@ -36,7 +37,7 @@ lateinit var  progressCategories: List<ProgressCategory>
 
 
 @Composable
-fun ProgressSection(navController : NavHostController){
+fun ProgressSection(navController : NavHostController,viewModel: DBViewModel){
 
     progressCategories = listOf(
         ProgressCategory(
