@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dropenergy.data.DiaryRecord
+import com.example.dropenergy.database.viewModel.DBViewModel
 
 
 var diaryList = listOf(
@@ -40,9 +41,9 @@ var diaryList = listOf(
         intensive = 10
     )
 )
-@Preview
+
 @Composable
-fun DiaryScreen(){
+fun DiaryScreen(viewModel:DBViewModel){
     Column {
         Text(text = "Дневник",
             fontSize = 24.sp,
