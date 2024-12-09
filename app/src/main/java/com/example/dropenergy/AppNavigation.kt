@@ -27,6 +27,7 @@ fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController,
         startDestination = "reg",
         modifier = Modifier.padding(innerPadding)
     ) {
+
         composable("progress") { ProgressScreen(navController,viewModel) }
         composable("diary") { DiaryScreen() }
         composable("add_record") { AddRecordScreen(navController) }
