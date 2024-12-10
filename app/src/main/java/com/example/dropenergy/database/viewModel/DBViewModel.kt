@@ -129,7 +129,6 @@ class DBViewModel(
         processing_user.value?.energy_count = count
     }
 
-
     fun logout(){
         authRepository.logout()
         _loginFlow.value = null
