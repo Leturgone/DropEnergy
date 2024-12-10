@@ -45,21 +45,60 @@ class UserRepository(
         return result
     }
 
-
-    override suspend fun updateDiary(uid: String,diaryRecord: DiaryRecord) {
-        TODO("Not yet implemented")
+    override suspend fun updateDiary(uid: String, diaryRecord: DiaryRecord) {
+        //Добавить логирование
+        getUser(uid)?.diary?.put(diaryRecord.date,diaryRecord)
     }
 
-    override suspend fun updateWeek(uid: String,newDay: CheckDay) {
+    override suspend fun updateWeek(uid: String, newDay: CheckDay) {
+        //Добавить логирование
+        //Возможжно надо будет поменять на мап
         TODO("Not yet implemented")
     }
 
     override suspend fun updateSavedCans(uid: String, newCans: Int) {
-        TODO("Not yet implemented")
+        //Добавить логирование
+        getUser(uid)?.saved_cans = newCans
     }
 
     override suspend fun updateSavedMoney(uid: String, newMoney: Int) {
-        TODO("Not yet implemented")
+        //Добавить логирование
+        getUser(uid)?.saved_money = newMoney
+    }
+
+    override suspend fun getDiary(uid: String): MutableMap<String, DiaryRecord>? {
+        //Добавить логирование
+        return getUser(uid)?.diary
+    }
+
+    override suspend fun getWeek(uid: String): List<CheckDay>? {
+        //Добавить логирование
+        return getUser(uid)?.week
+    }
+
+    override suspend fun getSavedCans(uid: String): Int? {
+        //Добавить логирование
+        return getUser(uid)?.saved_cans
+    }
+
+    override suspend fun getSavedMoney(uid: String): Int? {
+        //Добавить логирование
+        return getUser(uid)?.saved_money
+    }
+
+    override suspend fun getCurrency(uid: String): String? {
+        //Добавить логирование
+        return getUser(uid)?.currency
+    }
+
+    override suspend fun getEnergyCount(uid: String): Int? {
+        //Добавить логирование
+        return getUser(uid)?.energy_count
+    }
+
+    override suspend fun getEnergyMoney(uid: String): Int? {
+        //Добавить логирование
+        return getUser(uid)?.energy_money
     }
 
 
