@@ -18,4 +18,19 @@ interface IUserRepository {
 
     suspend fun  updateSavedMoney(uid: String,newMoney:Int)
 
+    suspend fun getDiary()
+
+    suspend fun getWeek()
+
+    suspend fun getSavedCans()
+
+    suspend fun getSavedMoney()
+
+    suspend fun getCurrency()
+
+    suspend fun getEnergyCount()
+    suspend fun getEnergyMoney()
+
+
+
 }
