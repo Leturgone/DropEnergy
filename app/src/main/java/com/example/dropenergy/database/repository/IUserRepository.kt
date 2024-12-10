@@ -18,18 +18,18 @@ interface IUserRepository {
 
     suspend fun  updateSavedMoney(uid: String,newMoney:Int)
 
-    suspend fun getDiary()
+    suspend fun getDiary(uid: String): MutableMap<String, DiaryRecord>?
 
-    suspend fun getWeek()
+    suspend fun getWeek(uid: String): List<CheckDay>?
 
-    suspend fun getSavedCans()
+    suspend fun getSavedCans(uid: String): Int?
 
-    suspend fun getSavedMoney()
+    suspend fun getSavedMoney(uid: String): Int?
 
-    suspend fun getCurrency()
+    suspend fun getCurrency(uid: String): String?
 
-    suspend fun getEnergyCount()
-    suspend fun getEnergyMoney()
+    suspend fun getEnergyCount(uid: String): Int?
+    suspend fun getEnergyMoney(uid: String): Int?
 
 
 
