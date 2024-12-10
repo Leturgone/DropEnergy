@@ -129,11 +129,80 @@ class DBViewModel(
         processing_user.value?.energy_count = count
     }
 
+    fun updateDiary(uid: String, diaryRecord: DiaryRecord) {
+        //Добавить логирование
+
+    }
+
+    fun updateWeek(uid: String, newDay: CheckDay) {
+        //Добавить логирование
+        //Возможжно надо будет поменять на мап
+
+    }
+
+    fun updateSavedCans(uid: String, newCans: Int) {
+        //Добавить логирование
+
+    }
+
+    fun updateSavedMoney(uid: String, newMoney: Int) {
+        //Добавить логирование
+
+    }
+
+    fun getDiary(uid: String): MutableMap<String, DiaryRecord>? {
+        //Добавить логирование
+
+    }
+
+    fun getWeek(uid: String): List<CheckDay>? {
+        //Добавить логирование
+
+    }
+
+    fun getSavedCans(uid: String): Int? {
+        //Добавить логирование
+
+    }
+
+    fun getSavedMoney(uid: String): Int? {
+        //Добавить логирование
+
+    }
+
+    fun getCurrency(uid: String): String? {
+        //Добавить логирование
+
+    }
+
+    fun getEnergyCount(uid: String): Int? {
+        //Добавить логирование
+
+    }
+
+    fun getEnergyMoney(uid: String): Int? {
+        //Добавить логирование
+
+    }
+
+
+
+
+
+
+
+
+
+
     fun logout(){
         authRepository.logout()
         _loginFlow.value = null
         _signupFlow.value = null
     }
+
+
+
+
 
 
 }
