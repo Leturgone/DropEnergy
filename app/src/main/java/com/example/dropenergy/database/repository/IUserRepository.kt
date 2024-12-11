@@ -20,7 +20,7 @@ interface IUserRepository {
 
     suspend fun getDiary(uid: String): MutableMap<String, DiaryRecord>?
 
-    suspend fun getWeek(uid: String): List<CheckDay>?
+    suspend fun getWeek(uid: String): MutableMap<String,Boolean>?
 
     suspend fun getSavedCans(uid: String): Int?
 

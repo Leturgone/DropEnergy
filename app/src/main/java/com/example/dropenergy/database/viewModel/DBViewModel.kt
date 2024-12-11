@@ -21,35 +21,14 @@ class DBViewModel(
     private val userRepository: IUserRepository
 ) : ViewModel() {
 
-    val dayCheckList = listOf(
-        CheckDay(
-            day = "Пн",
-            check = true
-        ),
-        CheckDay(
-            day = "Вт",
-            check = false
-        ),
-        CheckDay(
-            day = "Ср",
-            check = false
-        ),
-        CheckDay(
-            day = "Чт",
-            check = false
-        ),
-        CheckDay(
-            day = "Пт",
-            check = false
-        ),
-        CheckDay(
-            day = "Сб",
-            check = false
-        ),
-        CheckDay(
-            day = "Вс",
-            check = false
-        )
+    val dayCheckMap = mutableMapOf<String,Boolean>(
+        "Пн" to true,
+        "Вт" to true,
+        "Ср" to true,
+        "Чт" to true,
+        "Пт" to true,
+        "Сб" to true,
+        "Вс" to true
     )
 
 
@@ -117,7 +96,7 @@ class DBViewModel(
 
                 )
             ),
-            week = dayCheckList,0,0)
+            week = dayCheckMap,0,0)
     }
 
     fun addMoneyInf(currency:String, money : Int){
@@ -129,14 +108,14 @@ class DBViewModel(
         processing_user.value?.energy_count = count
     }
 
-    fun updateDiary(uid: String, diaryRecord: DiaryRecord) {
-        //Добавить логирование
-
+    fun updateDiary(uid: String, diaryRecord: DiaryRecord)  = viewModelScope.launch{
+        userRepository.updateDiary(uid,diaryRecord)
     }
 
-    fun updateWeek(uid: String, newDay: CheckDay) {
+    fun updateWeek(uid: String, newDay: CheckDay) = viewModelScope.launch {
         //Добавить логирование
         //Возможжно надо будет поменять на мап
+        //userRepository.updateWeek()
 
     }
 
@@ -150,40 +129,40 @@ class DBViewModel(
 
     }
 
-    fun getDiary(uid: String): MutableMap<String, DiaryRecord>? {
-        //Добавить логирование
-
-    }
-
-    fun getWeek(uid: String): List<CheckDay>? {
-        //Добавить логирование
-
-    }
-
-    fun getSavedCans(uid: String): Int? {
-        //Добавить логирование
-
-    }
-
-    fun getSavedMoney(uid: String): Int? {
-        //Добавить логирование
-
-    }
-
-    fun getCurrency(uid: String): String? {
-        //Добавить логирование
-
-    }
-
-    fun getEnergyCount(uid: String): Int? {
-        //Добавить логирование
-
-    }
-
-    fun getEnergyMoney(uid: String): Int? {
-        //Добавить логирование
-
-    }
+//    fun getDiary(uid: String): MutableMap<String, DiaryRecord>? {
+//        //Добавить логирование
+//
+//    }
+//
+//    fun getWeek(uid: String): List<CheckDay>? {
+//        //Добавить логирование
+//
+//    }
+//
+//    fun getSavedCans(uid: String): Int? {
+//        //Добавить логирование
+//
+//    }
+//
+//    fun getSavedMoney(uid: String): Int? {
+//        //Добавить логирование
+//
+//    }
+//
+//    fun getCurrency(uid: String): String? {
+//        //Добавить логирование
+//
+//    }
+//
+//    fun getEnergyCount(uid: String): Int? {
+//        //Добавить логирование
+//
+//    }
+//
+//    fun getEnergyMoney(uid: String): Int? {
+//        //Добавить логирование
+//
+//    }
 
 
 
