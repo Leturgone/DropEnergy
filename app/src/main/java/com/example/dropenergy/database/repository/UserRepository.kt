@@ -32,7 +32,7 @@ class UserRepository(
                         energy_money = user["energy_money"].toString().toInt(),
                         currency = user["currency"].toString(),
                         diary = user["diary"] as? MutableMap<String, DiaryRecord> ?: mutableMapOf(),
-                        week = user["week"] as? List<CheckDay> ?: listOf(),
+                        week = user["week"] as? MutableMap<String, Boolean> ?: mutableMapOf(),
                         saved_money = user["saved_money"].toString().toInt(),
                         saved_cans = user["saved_cans"].toString().toInt()
 
@@ -51,9 +51,7 @@ class UserRepository(
     }
 
     override suspend fun updateWeek(uid: String, newDay: CheckDay) {
-        //Добавить логирование
-        //Возможжно надо будет поменять на мап
-        TODO("Not yet implemented")
+        getUser(uid)?.week?.put(newDay.day,newDay.check)
     }
 
     override suspend fun updateSavedCans(uid: String, newCans: Int) {
@@ -71,7 +69,7 @@ class UserRepository(
         return getUser(uid)?.diary
     }
 
-    override suspend fun getWeek(uid: String): List<CheckDay>? {
+    override suspend fun getWeek(uid: String): MutableMap<String,Boolean>? {
         //Добавить логирование
         return getUser(uid)?.week
     }
