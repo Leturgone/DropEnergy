@@ -51,7 +51,8 @@ class UserRepository(
     }
 
     override suspend fun updateWeek(uid: String, newDay: CheckDay) {
-        getUser(uid)?.week?.put(newDay.day,newDay.check)
+        //Добавить логирование
+        getUser(uid)?.week?.set(newDay.day, newDay.check)
     }
 
     override suspend fun updateSavedCans(uid: String, newCans: Int) {
