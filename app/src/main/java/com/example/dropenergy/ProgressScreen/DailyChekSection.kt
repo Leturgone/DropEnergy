@@ -18,10 +18,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.dropenergy.data.CheckDay
 import androidx.compose.ui.graphics.Color
 import com.example.dropenergy.database.viewModel.DBViewModel
 
@@ -56,17 +54,17 @@ fun DailyCheckSection(viewModel: DBViewModel) {
                 //Список с днями и чеками входа
                 LazyRow(modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceAround){
-                    items(viewModel.dayCheckList.size){
-                        val dayCheck = viewModel.dayCheckList[it]
-
+                    items(viewModel.dayCheckMap.keys.toList().size){
+                        val day = viewModel.dayCheckMap.keys.toList()[it]
+                        val check = viewModel.dayCheckMap[day]
                         Column(verticalArrangement = Arrangement.Center) {
                             var tint = MaterialTheme.colorScheme.secondaryContainer
-                            if (dayCheck.check){
+                            if (check == true){
                                 tint = Color.Green
                             }
                             Icon(imageVector = Icons.Rounded.CheckCircleOutline,
                                 tint = tint, contentDescription = "Yes")
-                            Text(text = dayCheck.day,
+                            Text(text = day,
                                 fontSize = 8.sp,
                                 color = MaterialTheme.colorScheme.onBackground,
                                 fontWeight = FontWeight.Medium,
