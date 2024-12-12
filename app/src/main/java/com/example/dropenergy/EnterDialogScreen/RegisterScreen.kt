@@ -1,6 +1,5 @@
 package com.example.dropenergy.EnterDialogScreen
 
-import android.health.connect.datatypes.units.Length
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,7 +23,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,7 +39,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.dropenergy.database.repository.LoginRegState
 import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.ui.theme.Purple40
 import com.example.dropenergy.ui.theme.Purple80
