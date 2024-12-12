@@ -24,19 +24,28 @@ class UserRepository(
         database.child("users").child(uid).get().addOnSuccessListener {
             val user = it.value
             when(user){
-                is HashMap<*, *> ->
+                is HashMap<*, *> ->{
+                    val diaryMap = user["diary"] as? MutableMap<String, HashMap<String, String>> ?: mutableMapOf()
+                    val diaryRecords = diaryMap.mapValues { (key, innerMap) ->
+                        DiaryRecord(
+                            date = innerMap["date"] ?: "",
+                            recordText = innerMap["recordText"] ?: "",
+                            intensive = innerMap["intensive"]?.toIntOrNull()
+                        )
+                    }.toMutableMap()
                     result = User(
                         login = user["login"].toString(),
                         password = user["password"].toString(),
                         energy_count = user["energy_count"].toString().toInt(),
                         energy_money = user["energy_money"].toString().toInt(),
                         currency = user["currency"].toString(),
-                        diary = user["diary"] as? MutableMap<String, DiaryRecord> ?: mutableMapOf(),
+                        diary = diaryRecords,
                         week = user["week"] as? MutableMap<String, Boolean> ?: mutableMapOf(),
                         saved_money = user["saved_money"].toString().toInt(),
                         saved_cans = user["saved_cans"].toString().toInt()
 
                     )
+                }
             }
             Log.i("Firebase","Данные пользователя получены из БД $user")
         }.addOnFailureListener {
