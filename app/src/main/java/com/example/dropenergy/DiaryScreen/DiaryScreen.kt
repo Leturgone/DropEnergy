@@ -68,36 +68,34 @@ fun DiaryScreen(viewModel:DBViewModel){
                 is GetDBState.Success -> {
                     val diary = state.result.toList()
                     LazyColumn() {
-                        if (diary != null) {
-                            items(diary.size) {
-                                val record = diary[it]
-                                Log.e("Ошибка","${record.second}")
-                                val date = record.second.date
-                                Column(modifier = Modifier.padding(6.dp)) {
-                                    Row {
-                                        Icon(
-                                            imageVector = Icons.Rounded.Circle,
-                                            modifier = Modifier.size(15.dp),
-                                            tint = Color.LightGray,
-                                            contentDescription = "Yes"
-                                        )
-                                        Row {
-                                            Text(
-                                                text = record.second.recordText,
-                                                Modifier.padding(start = 8.dp)
-                                            )
-                                            Text(
-                                                text = record.second.date,
-                                                Modifier.padding(start = 6.dp)
-                                            )
-
-                                        }
-                                    }
-                                    Text(
-                                        text = "Интенсивность: ${record.second.date}",
-                                        Modifier.padding(start = 23.dp)
+                        items(diary.size) {
+                            val record = diary[it]
+                            Log.e("Ошибка","${record.second}")
+                            val date = record.second.date
+                            Column(modifier = Modifier.padding(6.dp)) {
+                                Row {
+                                    Icon(
+                                        imageVector = Icons.Rounded.Circle,
+                                        modifier = Modifier.size(15.dp),
+                                        tint = Color.LightGray,
+                                        contentDescription = "Yes"
                                     )
+                                    Row {
+                                        Text(
+                                            text = record.second.recordText,
+                                            Modifier.padding(start = 8.dp)
+                                        )
+                                        Text(
+                                            text = record.second.date,
+                                            Modifier.padding(start = 6.dp)
+                                        )
+
+                                    }
                                 }
+                                Text(
+                                    text = "Интенсивность: ${record.second.date}",
+                                    Modifier.padding(start = 23.dp)
+                                )
                             }
                         }
                     }
