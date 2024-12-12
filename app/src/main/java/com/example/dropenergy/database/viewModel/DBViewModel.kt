@@ -11,6 +11,7 @@ import com.example.dropenergy.database.repository.IAuthRepository
 import com.example.dropenergy.database.repository.IUserRepository
 import com.example.dropenergy.database.repository.LoginRegState
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -42,6 +43,10 @@ class DBViewModel(
     private val _signupFlow = MutableStateFlow<LoginRegState<FirebaseUser>?>(null)
 
     val signupFlow: StateFlow<LoginRegState<FirebaseUser>?> = _signupFlow
+
+    val diary = MutableLiveData<MutableMap<String, DiaryRecord>>()
+
+
 
     val currentUser = authRepository.getCurrentUser()
 
@@ -108,69 +113,65 @@ class DBViewModel(
         processing_user.value?.energy_count = count
     }
 
-    fun updateDiary(uid: String, diaryRecord: DiaryRecord)  = viewModelScope.launch{
+    fun updateDiary(uid: String, diaryRecord: DiaryRecord)  = viewModelScope.async{
         userRepository.updateDiary(uid,diaryRecord)
     }
 
     fun updateWeek(uid: String, newDay: CheckDay) = viewModelScope.launch {
         //Добавить логирование
-        //Возможжно надо будет поменять на мап
-        //userRepository.updateWeek()
+        userRepository.updateWeek(uid,newDay)
 
     }
 
-    fun updateSavedCans(uid: String, newCans: Int) {
+    fun updateSavedCans(uid: String, newCans: Int) = viewModelScope.launch {
         //Добавить логирование
+        userRepository.updateSavedCans(uid,newCans)
 
     }
 
-    fun updateSavedMoney(uid: String, newMoney: Int) {
+    fun updateSavedMoney(uid: String, newMoney: Int)= viewModelScope.launch  {
         //Добавить логирование
+        userRepository.updateSavedMoney(uid, newMoney)
 
     }
 
-//    fun getDiary(uid: String): MutableMap<String, DiaryRecord>? {
+    fun getDiary() = viewModelScope.launch {
+        //Добавить логирование
+        diary.value = currentUser?.let { userRepository.getDiary(it.uid) }
+    }
+
+//    fun getWeek(uid: String):List<CheckDay>? = viewModelScope.launch {
 //        //Добавить логирование
-//
-//    }
-//
-//    fun getWeek(uid: String): List<CheckDay>? {
-//        //Добавить логирование
-//
+//        return@launch userRepository.getWeek(uid)
 //    }
 //
 //    fun getSavedCans(uid: String): Int? {
 //        //Добавить логирование
+//        userRepository.getSavedCans(uid)
 //
 //    }
 //
 //    fun getSavedMoney(uid: String): Int? {
 //        //Добавить логирование
+//        userRepository.getSavedMoney(uid)
 //
 //    }
 //
 //    fun getCurrency(uid: String): String? {
 //        //Добавить логирование
-//
+//        userRepository.getCurrency(uid)
 //    }
 //
 //    fun getEnergyCount(uid: String): Int? {
 //        //Добавить логирование
+//        userRepository.getEnergyCount(uid)
 //
 //    }
 //
 //    fun getEnergyMoney(uid: String): Int? {
 //        //Добавить логирование
-//
+//        userRepository.getEnergyMoney(uid)
 //    }
-
-
-
-
-
-
-
-
 
 
     fun logout(){

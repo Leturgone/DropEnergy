@@ -44,6 +44,9 @@ var diaryList = listOf(
 
 @Composable
 fun DiaryScreen(viewModel:DBViewModel){
+
+    viewModel.getDiary()
+    val diary  = viewModel.diary.value?.toList()
     Column {
         Text(text = "Дневник",
             fontSize = 24.sp,
@@ -56,19 +59,21 @@ fun DiaryScreen(viewModel:DBViewModel){
         modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
     ) {
         LazyColumn(){
-            items(diaryList.size){
-                val record = diaryList[it]
-                Column(modifier = Modifier.padding(6.dp)) {
-                    Row {
-                        Icon(imageVector = Icons.Rounded.Circle, modifier = Modifier.size(15.dp),
-                            tint = Color.LightGray, contentDescription = "Yes")
+            if (diary != null) {
+                items(diary.size){
+                    val record = diary[it]
+                    Column(modifier = Modifier.padding(6.dp)) {
                         Row {
-                            Text(text = record.recordText, Modifier.padding(start = 8.dp))
-                            Text(text = record.date,Modifier.padding(start = 6.dp))
+                            Icon(imageVector = Icons.Rounded.Circle, modifier = Modifier.size(15.dp),
+                                tint = Color.LightGray, contentDescription = "Yes")
+                            Row {
+                                Text(text = record.second.recordText, Modifier.padding(start = 8.dp))
+                                Text(text = record.second.date,Modifier.padding(start = 6.dp))
 
+                            }
                         }
+                        Text(text = "Интенсивность: ${record.second.date}",Modifier.padding(start = 23.dp))
                     }
-                    Text(text = "Интенсивность: ${record.intensive}",Modifier.padding(start = 23.dp))
                 }
             }
         }
