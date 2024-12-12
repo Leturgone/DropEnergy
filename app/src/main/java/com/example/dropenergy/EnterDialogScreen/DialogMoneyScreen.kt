@@ -43,7 +43,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.dropenergy.database.repository.LoginRegState
+import com.example.dropenergy.database.repository.GetDBState
 import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.ui.theme.Purple80
 
@@ -155,7 +155,7 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
             }
             signupState?.value.let {state ->
                 when(state){
-                    is LoginRegState.Success -> {
+                    is GetDBState.Success -> {
                         LaunchedEffect(Unit) {
                             navController.popBackStack()
                             navController.popBackStack()
@@ -167,8 +167,8 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
                         }
 
                     }
-                    is LoginRegState.Loading -> Toast.makeText(ctx,"Загрузка", Toast.LENGTH_SHORT).show()
-                    is LoginRegState.Failure -> Toast.makeText(ctx,"Ошибка", Toast.LENGTH_SHORT).show()
+                    is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка", Toast.LENGTH_SHORT).show()
+                    is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка", Toast.LENGTH_SHORT).show()
                     else -> {null}
                 }
 

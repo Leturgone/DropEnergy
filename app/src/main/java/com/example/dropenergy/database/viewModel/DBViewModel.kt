@@ -9,8 +9,9 @@ import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.model.User
 import com.example.dropenergy.database.repository.IAuthRepository
 import com.example.dropenergy.database.repository.IUserRepository
-import com.example.dropenergy.database.repository.LoginRegState
+import com.example.dropenergy.database.repository.GetDBState
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -35,14 +36,19 @@ class DBViewModel(
 
     private val processing_user = MutableLiveData<User>()
 
-    private val _loginFlow = MutableStateFlow<LoginRegState<FirebaseUser>?>(null)
+    private val _loginFlow = MutableStateFlow<GetDBState<FirebaseUser>?>(null)
 
-    val loginFlow: StateFlow<LoginRegState<FirebaseUser>?> = _loginFlow
+    val loginFlow: StateFlow<GetDBState<FirebaseUser>?> = _loginFlow
 
-    private val _signupFlow = MutableStateFlow<LoginRegState<FirebaseUser>?>(null)
+    private val _signupFlow = MutableStateFlow<GetDBState<FirebaseUser>?>(null)
 
-    val signupFlow: StateFlow<LoginRegState<FirebaseUser>?> = _signupFlow
+    val signupFlow: StateFlow<GetDBState<FirebaseUser>?> = _signupFlow
 
+    val diary = MutableLiveData<MutableMap<String, DiaryRecord>>()
+
+    private val _diaryFlow = MutableStateFlow<GetDBState<MutableMap<String, DiaryRecord>>?>(null)
+
+    val diaryFlow: StateFlow<GetDBState<MutableMap<String, DiaryRecord>>?> = _diaryFlow
     val currentUser = authRepository.getCurrentUser()
 
 
@@ -55,9 +61,9 @@ class DBViewModel(
 //        }
     }
 
-    private fun get_uid(state: LoginRegState<*>):String?{
+    private fun get_uid(state: GetDBState<*>):String?{
         return when(state){
-            is LoginRegState.Success ->{
+            is GetDBState.Success ->{
                 try {
                     val user = state.result as FirebaseUser
                     user.uid
@@ -70,14 +76,14 @@ class DBViewModel(
     }
 
     fun login(email: String, password: String) = viewModelScope.launch {
-        _loginFlow.value = LoginRegState.Loading
+        _loginFlow.value = GetDBState.Loading
         val result = authRepository.login(email, password)
         processing_user.value = get_uid(result)?.let { userRepository.getUser(it) }
         _loginFlow.value = result
     }
 
     fun signup() = viewModelScope.launch {
-        _signupFlow.value = LoginRegState.Loading
+        _signupFlow.value = GetDBState.Loading
         processing_user.value?.let {user ->
             val result =  authRepository.signup(user.login, user.password)
             get_uid(result)?.let { userRepository.writeUser(it,user) }
@@ -114,63 +120,62 @@ class DBViewModel(
 
     fun updateWeek(uid: String, newDay: CheckDay) = viewModelScope.launch {
         //Добавить логирование
-        //Возможжно надо будет поменять на мап
-        //userRepository.updateWeek()
-
+        userRepository.updateWeek(uid,newDay)
     }
 
-    fun updateSavedCans(uid: String, newCans: Int) {
+    fun updateSavedCans(uid: String, newCans: Int) = viewModelScope.launch {
         //Добавить логирование
+        userRepository.updateSavedCans(uid,newCans)
 
     }
 
-    fun updateSavedMoney(uid: String, newMoney: Int) {
+    fun updateSavedMoney(uid: String, newMoney: Int)= viewModelScope.launch  {
         //Добавить логирование
+        userRepository.updateSavedMoney(uid, newMoney)
 
     }
 
-//    fun getDiary(uid: String): MutableMap<String, DiaryRecord>? {
+    fun getDiary() = viewModelScope.async {
+        //Добавить логирование
+        //diary.value = currentUser?.let { userRepository.getDiary(it.uid) }
+        _diaryFlow.value = GetDBState.Loading
+        val result = currentUser?.let {userRepository.getDiary(it.uid)}
+        _diaryFlow.value = result
+
+    }
+
+//    fun getWeek(uid: String):List<CheckDay>? = viewModelScope.launch {
 //        //Добавить логирование
-//
-//    }
-//
-//    fun getWeek(uid: String): List<CheckDay>? {
-//        //Добавить логирование
-//
+//        return@launch userRepository.getWeek(uid)
 //    }
 //
 //    fun getSavedCans(uid: String): Int? {
 //        //Добавить логирование
+//        userRepository.getSavedCans(uid)
 //
 //    }
 //
 //    fun getSavedMoney(uid: String): Int? {
 //        //Добавить логирование
+//        userRepository.getSavedMoney(uid)
 //
 //    }
 //
 //    fun getCurrency(uid: String): String? {
 //        //Добавить логирование
-//
+//        userRepository.getCurrency(uid)
 //    }
 //
 //    fun getEnergyCount(uid: String): Int? {
 //        //Добавить логирование
+//        userRepository.getEnergyCount(uid)
 //
 //    }
 //
 //    fun getEnergyMoney(uid: String): Int? {
 //        //Добавить логирование
-//
+//        userRepository.getEnergyMoney(uid)
 //    }
-
-
-
-
-
-
-
-
 
 
     fun logout(){

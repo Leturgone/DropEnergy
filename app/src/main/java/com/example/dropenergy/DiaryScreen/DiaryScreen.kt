@@ -1,5 +1,7 @@
 package com.example.dropenergy.DiaryScreen
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,14 +15,17 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dropenergy.data.DiaryRecord
+import com.example.dropenergy.database.repository.GetDBState
 import com.example.dropenergy.database.viewModel.DBViewModel
 
 
@@ -44,6 +49,9 @@ var diaryList = listOf(
 
 @Composable
 fun DiaryScreen(viewModel:DBViewModel){
+    val ctx = LocalContext.current
+    viewModel.getDiary()
+    //val diary  = viewModel.diary.value?.toList()
     Column {
         Text(text = "Дневник",
             fontSize = 24.sp,
@@ -55,23 +63,49 @@ fun DiaryScreen(viewModel:DBViewModel){
     Box(
         modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
     ) {
-        LazyColumn(){
-            items(diaryList.size){
-                val record = diaryList[it]
-                Column(modifier = Modifier.padding(6.dp)) {
-                    Row {
-                        Icon(imageVector = Icons.Rounded.Circle, modifier = Modifier.size(15.dp),
-                            tint = Color.LightGray, contentDescription = "Yes")
-                        Row {
-                            Text(text = record.recordText, Modifier.padding(start = 8.dp))
-                            Text(text = record.date,Modifier.padding(start = 6.dp))
+        viewModel.diaryFlow.collectAsState().value.let {state ->
+            when(state){
+                is GetDBState.Success -> {
+                    val diary = state.result.toList()
+                    LazyColumn() {
+                        items(diary.size) {
+                            val record = diary[it]
+                            Log.e("Ошибка","${record.second}")
+                            val date = record.second.date
+                            Column(modifier = Modifier.padding(6.dp)) {
+                                Row {
+                                    Icon(
+                                        imageVector = Icons.Rounded.Circle,
+                                        modifier = Modifier.size(15.dp),
+                                        tint = Color.LightGray,
+                                        contentDescription = "Yes"
+                                    )
+                                    Row {
+                                        Text(
+                                            text = record.second.recordText,
+                                            Modifier.padding(start = 8.dp)
+                                        )
+                                        Text(
+                                            text = record.second.date,
+                                            Modifier.padding(start = 6.dp)
+                                        )
 
+                                    }
+                                }
+                                Text(
+                                    text = "Интенсивность: ${record.second.date}",
+                                    Modifier.padding(start = 23.dp)
+                                )
+                            }
                         }
                     }
-                    Text(text = "Интенсивность: ${record.intensive}",Modifier.padding(start = 23.dp))
                 }
+                is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка", Toast.LENGTH_SHORT).show()
+                is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка", Toast.LENGTH_SHORT).show()
+                else -> {null}
             }
         }
+
     }
 }
 

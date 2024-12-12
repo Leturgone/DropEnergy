@@ -24,19 +24,28 @@ class UserRepository(
         database.child("users").child(uid).get().addOnSuccessListener {
             val user = it.value
             when(user){
-                is HashMap<*, *> ->
+                is HashMap<*, *> ->{
+                    val diaryMap = user["diary"] as? MutableMap<String, HashMap<String, String>> ?: mutableMapOf()
+                    val diaryRecords = diaryMap.mapValues { (key, innerMap) ->
+                        DiaryRecord(
+                            date = innerMap["date"] ?: "",
+                            recordText = innerMap["recordText"] ?: "",
+                            intensive = innerMap["intensive"]?.toIntOrNull()
+                        )
+                    }.toMutableMap()
                     result = User(
                         login = user["login"].toString(),
                         password = user["password"].toString(),
                         energy_count = user["energy_count"].toString().toInt(),
                         energy_money = user["energy_money"].toString().toInt(),
                         currency = user["currency"].toString(),
-                        diary = user["diary"] as? MutableMap<String, DiaryRecord> ?: mutableMapOf(),
+                        diary = diaryRecords,
                         week = user["week"] as? MutableMap<String, Boolean> ?: mutableMapOf(),
                         saved_money = user["saved_money"].toString().toInt(),
                         saved_cans = user["saved_cans"].toString().toInt()
 
                     )
+                }
             }
             Log.i("Firebase","Данные пользователя получены из БД $user")
         }.addOnFailureListener {
@@ -51,7 +60,8 @@ class UserRepository(
     }
 
     override suspend fun updateWeek(uid: String, newDay: CheckDay) {
-        getUser(uid)?.week?.put(newDay.day,newDay.check)
+        //Добавить логирование
+        getUser(uid)?.week?.set(newDay.day, newDay.check)
     }
 
     override suspend fun updateSavedCans(uid: String, newCans: Int) {
@@ -64,9 +74,14 @@ class UserRepository(
         getUser(uid)?.saved_money = newMoney
     }
 
-    override suspend fun getDiary(uid: String): MutableMap<String, DiaryRecord>? {
+    override suspend fun getDiary(uid: String): GetDBState<MutableMap<String, DiaryRecord>> {
         //Добавить логирование
-        return getUser(uid)?.diary
+        return try {
+            val diary = getUser(uid)?.diary
+            GetDBState.Success(diary!!)
+        }catch (e:Exception){
+            GetDBState.Failure(e)
+        }
     }
 
     override suspend fun getWeek(uid: String): MutableMap<String,Boolean>? {
