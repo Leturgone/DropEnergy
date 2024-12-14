@@ -1,6 +1,5 @@
 package com.example.dropenergy.DiaryScreen
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,31 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.repository.GetDBState
 import com.example.dropenergy.database.viewModel.DBViewModel
 
-
-var diaryList = listOf(
-    DiaryRecord(
-        date = "29.10.24 9:55",
-        recordText = "Я Справился с соблазном",
-        intensive = 8
-    ),
-    DiaryRecord(
-        date = "28.10.24 9:55",
-        recordText = "Я Справился с соблазном",
-        intensive = 8
-    ),
-    DiaryRecord(
-        date = "26.10.24 9:55",
-        recordText = "Я купил энергетик",
-        intensive = 10
-    )
-)
 
 @Composable
 fun DiaryScreen(viewModel:DBViewModel){
