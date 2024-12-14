@@ -86,32 +86,38 @@ class UserRepository(
         }
     }
 
-    override suspend fun getWeek(uid: String): MutableMap<String,Boolean>? {
-        //Добавить логирование
-        return getUser(uid)?.week
+    override suspend fun getWeek(uid: String): GetDBState<MutableMap<String,Boolean>> {
+        return try{
+            val week = getUser(uid)?.week
+            Log.e("Firebase","Полученная неделя $week")
+            GetDBState.Success(week!!)
+        }catch (e:Exception){
+            Log.e("Firebase","Ошибка в получении дневника")
+            GetDBState.Failure(e)
+        }
     }
 
-    override suspend fun getSavedCans(uid: String): Int? {
+    override suspend fun getSavedCans(uid: String): GetDBState<Int> {
         //Добавить логирование
         return getUser(uid)?.saved_cans
     }
 
-    override suspend fun getSavedMoney(uid: String): Int? {
+    override suspend fun getSavedMoney(uid: String): GetDBState<Int> {
         //Добавить логирование
         return getUser(uid)?.saved_money
     }
 
-    override suspend fun getCurrency(uid: String): String? {
+    override suspend fun getCurrency(uid: String): GetDBState<String> {
         //Добавить логирование
         return getUser(uid)?.currency
     }
 
-    override suspend fun getEnergyCount(uid: String): Int? {
+    override suspend fun getEnergyCount(uid: String): GetDBState<Int> {
         //Добавить логирование
         return getUser(uid)?.energy_count
     }
 
-    override suspend fun getEnergyMoney(uid: String): Int? {
+    override suspend fun getEnergyMoney(uid: String): GetDBState<Int> {
         //Добавить логирование
         return getUser(uid)?.energy_money
     }
