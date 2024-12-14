@@ -131,13 +131,25 @@ class UserRepository(
     }
 
     override suspend fun getEnergyCount(uid: String): GetDBState<Int> {
-        //Добавить логирование
-        return getUser(uid)?.energy_count
+        return try{
+            val energyCount = getUser(uid)?.energy_count
+            Log.e("Firebase","Полученная валюта $energyCount")
+            GetDBState.Success(energyCount!!)
+        }catch (e:Exception){
+            Log.e("Firebase","Ошибка в получении дневника")
+            GetDBState.Failure(e)
+        }
     }
 
     override suspend fun getEnergyMoney(uid: String): GetDBState<Int> {
-        //Добавить логирование
-        return getUser(uid)?.energy_money
+        return try{
+            val energyMoney = getUser(uid)?.energy_money
+            Log.e("Firebase","Полученная валюта $energyMoney")
+            GetDBState.Success(energyMoney!!)
+        }catch (e:Exception){
+            Log.e("Firebase","Ошибка в получении дневника")
+            GetDBState.Failure(e)
+        }
     }
 
 
