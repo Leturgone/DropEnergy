@@ -1,7 +1,6 @@
 package com.example.dropenergy.database.repository
 
 import android.util.Log
-import androidx.compose.foundation.pager.PageSize.Fill.calculateMainAxisPageSize
 import com.example.dropenergy.data.CheckDay
 import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.model.User
@@ -99,9 +98,9 @@ class UserRepository(
 
     override suspend fun getSavedCans(uid: String): GetDBState<Int> {
         return try{
-            val savesCans = getUser(uid)?.saved_cans
-            Log.e("Firebase","Полученное количество банок $savesCans")
-            GetDBState.Success(savesCans!!)
+            val savedCans = getUser(uid)?.saved_cans
+            Log.e("Firebase","Полученное количество банок $savedCans")
+            GetDBState.Success(savedCans!!)
         }catch (e:Exception){
             Log.e("Firebase","Ошибка в получении дневника")
             GetDBState.Failure(e)
@@ -109,8 +108,15 @@ class UserRepository(
     }
 
     override suspend fun getSavedMoney(uid: String): GetDBState<Int> {
-        //Добавить логирование
-        return getUser(uid)?.saved_money
+        return try{
+            val savedMoney = getUser(uid)?.saved_money
+            Log.e("Firebase","Полученное количество банок $savedMoney")
+            GetDBState.Success(savedMoney!!)
+        }catch (e:Exception){
+            Log.e("Firebase","Ошибка в получении дневника")
+            GetDBState.Failure(e)
+        }
+
     }
 
     override suspend fun getCurrency(uid: String): GetDBState<String> {
