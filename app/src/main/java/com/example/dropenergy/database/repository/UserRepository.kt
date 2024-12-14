@@ -98,8 +98,14 @@ class UserRepository(
     }
 
     override suspend fun getSavedCans(uid: String): GetDBState<Int> {
-        //Добавить логирование
-        return getUser(uid)?.saved_cans
+        return try{
+            val savesCans = getUser(uid)?.saved_cans
+            Log.e("Firebase","Полученное количество банок $savesCans")
+            GetDBState.Success(savesCans!!)
+        }catch (e:Exception){
+            Log.e("Firebase","Ошибка в получении дневника")
+            GetDBState.Failure(e)
+        }
     }
 
     override suspend fun getSavedMoney(uid: String): GetDBState<Int> {
