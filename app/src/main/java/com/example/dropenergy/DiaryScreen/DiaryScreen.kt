@@ -59,7 +59,6 @@ fun DiaryScreen(viewModel:DBViewModel){
     LaunchedEffect(Unit) {
         viewModel.getDiary()
     }
-    //val diary  = viewModel.diary.value?.toList()
     Column {
         Text(text = "Дневник",
             fontSize = 24.sp,
@@ -95,18 +94,19 @@ fun DiaryScreen(viewModel:DBViewModel){
                         )
                         Row {
                             Text(
-                                text = record.second.recordText,
+                                text = record.second.date,
                                 Modifier.padding(start = 8.dp)
                             )
                             Text(
-                                text = record.second.date,
+                                text = record.second.recordText,
                                 Modifier.padding(start = 6.dp)
                             )
 
                         }
                     }
+                    if(record.second.intensive!=null)
                     Text(
-                        text = "Интенсивность: ${record.second.date}",
+                        text = "Интенсивность: ${record.second.intensive}",
                         Modifier.padding(start = 23.dp)
                     )
                 }
