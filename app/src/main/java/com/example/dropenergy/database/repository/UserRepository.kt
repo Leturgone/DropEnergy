@@ -10,6 +10,7 @@ import kotlinx.coroutines.tasks.await
 class UserRepository(
     private val database: DatabaseReference
 ) : IUserRepository{
+
     override suspend fun writeUser(uid: String,user: User) {
         database.child("users").child(uid).setValue(user).addOnSuccessListener {
             Log.i("Firebase","Пользователь загружен в БД")
@@ -77,7 +78,7 @@ class UserRepository(
     override suspend fun getDiary(uid: String): GetDBState<MutableMap<String, DiaryRecord>> {
         return try {
             val diary = getUser(uid)?.diary
-            Log.e("Firebase","Полученный дневник $diary")
+            Log.i("Firebase","Полученный дневник $diary")
             GetDBState.Success(diary!!)
         }catch (e:Exception){
             Log.e("Firebase","Ошибка в получении дневника")
@@ -88,10 +89,10 @@ class UserRepository(
     override suspend fun getWeek(uid: String): GetDBState<MutableMap<String,Boolean>> {
         return try{
             val week = getUser(uid)?.week
-            Log.e("Firebase","Полученная неделя $week")
+            Log.i("Firebase","Полученная неделя $week")
             GetDBState.Success(week!!)
         }catch (e:Exception){
-            Log.e("Firebase","Ошибка в получении дневника")
+            Log.e("Firebase","Ошибка в получении недели")
             GetDBState.Failure(e)
         }
     }
@@ -99,10 +100,10 @@ class UserRepository(
     override suspend fun getSavedCans(uid: String): GetDBState<Int> {
         return try{
             val savedCans = getUser(uid)?.saved_cans
-            Log.e("Firebase","Полученное количество банок $savedCans")
+            Log.i("Firebase","Полученное количество невыпитых банок $savedCans")
             GetDBState.Success(savedCans!!)
         }catch (e:Exception){
-            Log.e("Firebase","Ошибка в получении дневника")
+            Log.e("Firebase","Ошибка в получении количества невыпитых банок")
             GetDBState.Failure(e)
         }
     }
@@ -110,10 +111,10 @@ class UserRepository(
     override suspend fun getSavedMoney(uid: String): GetDBState<Int> {
         return try{
             val savedMoney = getUser(uid)?.saved_money
-            Log.e("Firebase","Полученное количество банок $savedMoney")
+            Log.i("Firebase","Полученное сэкономленных денег $savedMoney")
             GetDBState.Success(savedMoney!!)
         }catch (e:Exception){
-            Log.e("Firebase","Ошибка в получении дневника")
+            Log.e("Firebase","Ошибка в сэкономленных денег ")
             GetDBState.Failure(e)
         }
 
@@ -122,10 +123,10 @@ class UserRepository(
     override suspend fun getCurrency(uid: String): GetDBState<String> {
         return try{
             val currency = getUser(uid)?.currency
-            Log.e("Firebase","Полученная валюта $currency")
+            Log.i("Firebase","Полученная валюта $currency")
             GetDBState.Success(currency!!)
         }catch (e:Exception){
-            Log.e("Firebase","Ошибка в получении дневника")
+            Log.e("Firebase","Ошибка в получении валюты")
             GetDBState.Failure(e)
         }
     }
@@ -133,10 +134,10 @@ class UserRepository(
     override suspend fun getEnergyCount(uid: String): GetDBState<Int> {
         return try{
             val energyCount = getUser(uid)?.energy_count
-            Log.e("Firebase","Полученная валюта $energyCount")
+            Log.i("Firebase","Полученная $energyCount")
             GetDBState.Success(energyCount!!)
         }catch (e:Exception){
-            Log.e("Firebase","Ошибка в получении дневника")
+            Log.e("Firebase","Ошибка в получении количества банок")
             GetDBState.Failure(e)
         }
     }
@@ -144,10 +145,10 @@ class UserRepository(
     override suspend fun getEnergyMoney(uid: String): GetDBState<Int> {
         return try{
             val energyMoney = getUser(uid)?.energy_money
-            Log.e("Firebase","Полученная валюта $energyMoney")
+            Log.i("Firebase","Полученная валюта $energyMoney")
             GetDBState.Success(energyMoney!!)
         }catch (e:Exception){
-            Log.e("Firebase","Ошибка в получении дневника")
+            Log.e("Firebase","Ошибка в получении количества денег")
             GetDBState.Failure(e)
         }
     }
