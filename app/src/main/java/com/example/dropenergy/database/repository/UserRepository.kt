@@ -33,6 +33,7 @@ class UserRepository(
                             intensive = innerMap["intensive"]?.toIntOrNull()
                         )
                     }.toMutableMap()
+
                     result = User(
                         login = user["login"].toString(),
                         password = user["password"].toString(),
@@ -75,11 +76,12 @@ class UserRepository(
     }
 
     override suspend fun getDiary(uid: String): GetDBState<MutableMap<String, DiaryRecord>> {
-        //Добавить логирование
         return try {
             val diary = getUser(uid)?.diary
+            Log.e("Firebase","Полученный дневник $diary")
             GetDBState.Success(diary!!)
         }catch (e:Exception){
+            Log.e("Firebase","Ошибка в получении дневника")
             GetDBState.Failure(e)
         }
     }
