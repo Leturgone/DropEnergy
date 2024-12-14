@@ -20,16 +20,16 @@ interface IUserRepository {
 
     suspend fun getDiary(uid: String): GetDBState<MutableMap<String, DiaryRecord>>
 
-    suspend fun getWeek(uid: String): MutableMap<String,Boolean>?
+    suspend fun getWeek(uid: String): GetDBState<MutableMap<String,Boolean>>
 
-    suspend fun getSavedCans(uid: String): Int?
+    suspend fun getSavedCans(uid: String): GetDBState<Int>
 
-    suspend fun getSavedMoney(uid: String): Int?
+    suspend fun getSavedMoney(uid: String): GetDBState<Int>
 
-    suspend fun getCurrency(uid: String): String?
+    suspend fun getCurrency(uid: String): GetDBState<String>
 
-    suspend fun getEnergyCount(uid: String): Int?
-    suspend fun getEnergyMoney(uid: String): Int?
+    suspend fun getEnergyCount(uid: String): GetDBState<Int>
+    suspend fun getEnergyMoney(uid: String): GetDBState<Int>
 
 
 
