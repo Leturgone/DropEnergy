@@ -49,6 +49,9 @@ class DBViewModel(
     private val _diaryFlow = MutableStateFlow<GetDBState<MutableMap<String, DiaryRecord>>?>(null)
 
     val diaryFlow: StateFlow<GetDBState<MutableMap<String, DiaryRecord>>?> = _diaryFlow
+
+
+
     val currentUser = authRepository.getCurrentUser()
 
 
@@ -135,16 +138,15 @@ class DBViewModel(
 
     }
 
-    fun getDiary() = viewModelScope.async {
+    fun getDiary() = viewModelScope.launch {
         //Добавить логирование
-        //diary.value = currentUser?.let { userRepository.getDiary(it.uid) }
         _diaryFlow.value = GetDBState.Loading
         val result = currentUser?.let {userRepository.getDiary(it.uid)}
         _diaryFlow.value = result
 
     }
 
-//    fun getWeek(uid: String):List<CheckDay>? = viewModelScope.launch {
+//    fun getWeek(uid: String)= viewModelScope.launch {
 //        //Добавить логирование
 //        return@launch userRepository.getWeek(uid)
 //    }
