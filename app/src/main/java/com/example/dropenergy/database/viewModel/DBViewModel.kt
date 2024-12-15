@@ -1,6 +1,7 @@
 package com.example.dropenergy.database.viewModel
 
 import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,13 +24,13 @@ class DBViewModel(
 ) : ViewModel() {
 
     val dayCheckMap = mutableMapOf<String,Boolean>(
-        "Пн" to true,
-        "Вт" to true,
-        "Ср" to true,
-        "Чт" to true,
-        "Пт" to true,
-        "Сб" to true,
-        "Вс" to true
+        "Пн" to false,
+        "Вт" to false,
+        "Ср" to false,
+        "Чт" to false,
+        "Пт" to false,
+        "Сб" to false,
+        "Вс" to false
     )
 
 
@@ -44,13 +45,12 @@ class DBViewModel(
 
     val signupFlow: StateFlow<GetDBState<FirebaseUser>?> = _signupFlow
 
-    val diary = MutableLiveData<MutableMap<String, DiaryRecord>>()
-
     private val _diaryFlow = MutableStateFlow<GetDBState<MutableMap<String, DiaryRecord>>?>(null)
 
     val diaryFlow: StateFlow<GetDBState<MutableMap<String, DiaryRecord>>?> = _diaryFlow
 
-
+    private val _weekFlow = MutableStateFlow<GetDBState<MutableMap<String,Boolean>>?>(null)
+    val weekFlow: StateFlow<GetDBState<MutableMap<String,Boolean>>?> = _weekFlow
 
     val currentUser = authRepository.getCurrentUser()
 
@@ -139,17 +139,17 @@ class DBViewModel(
     }
 
     fun getDiary() = viewModelScope.launch {
-        //Добавить логирование
         _diaryFlow.value = GetDBState.Loading
         val result = currentUser?.let {userRepository.getDiary(it.uid)}
         _diaryFlow.value = result
 
     }
 
-//    fun getWeek(uid: String)= viewModelScope.launch {
-//        //Добавить логирование
-//        return@launch userRepository.getWeek(uid)
-//    }
+    fun getWeek()= viewModelScope.launch {
+        _weekFlow.value = GetDBState.Loading
+        val result = currentUser?.let {userRepository.getWeek(it.uid)}
+        _weekFlow.value = result
+    }
 //
 //    fun getSavedCans(uid: String): Int? {
 //        //Добавить логирование

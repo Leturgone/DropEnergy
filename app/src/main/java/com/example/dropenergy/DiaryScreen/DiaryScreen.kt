@@ -50,11 +50,11 @@ fun DiaryScreen(viewModel:DBViewModel){
     Box(
         modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
     ) {
+
         viewModel.diaryFlow.collectAsState().value.let {state ->
             when(state){
                 is GetDBState.Success -> {
                     diary = state.result.toList()
-                    //viewModel.stop()
                 }
                 is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка списка", Toast.LENGTH_SHORT).show()
                 is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка загрузки", Toast.LENGTH_SHORT).show()
@@ -84,11 +84,12 @@ fun DiaryScreen(viewModel:DBViewModel){
 
                         }
                     }
-                    if(record.second.intensive!=null)
-                    Text(
-                        text = "Интенсивность: ${record.second.intensive}",
-                        Modifier.padding(start = 23.dp)
-                    )
+                    if(record.second.intensive!=null) {
+                        Text(
+                            text = "Интенсивность: ${record.second.intensive}",
+                            Modifier.padding(start = 23.dp)
+                        )
+                    }
                 }
             }
         }
