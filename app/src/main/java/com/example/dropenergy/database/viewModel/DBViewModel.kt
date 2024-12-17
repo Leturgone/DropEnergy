@@ -50,7 +50,16 @@ class DBViewModel(
     val diaryFlow: StateFlow<GetDBState<MutableMap<String, DiaryRecord>>?> = _diaryFlow
 
     private val _weekFlow = MutableStateFlow<GetDBState<MutableMap<String,Boolean>>?>(null)
+
     val weekFlow: StateFlow<GetDBState<MutableMap<String,Boolean>>?> = _weekFlow
+
+    private val _savedMoneyFlow = MutableStateFlow<GetDBState<Int>?>(null)
+
+    val savedMoneyFlow: StateFlow<GetDBState<Int>?> = _savedMoneyFlow
+
+    private val _savedCansFlow = MutableStateFlow<GetDBState<Int>?>(null)
+
+    val savedCansFlow: StateFlow<GetDBState<Int>?> = _savedCansFlow
 
     val currentUser = authRepository.getCurrentUser()
 
