@@ -57,6 +57,9 @@ class DBViewModel(
 
     val savedMoneyFlow: StateFlow<GetDBState<Int>?> = _savedMoneyFlow
 
+    private val _savedCansFlow = MutableStateFlow<GetDBState<Int>?>(null)
+
+    val savedCansFlow: StateFlow<GetDBState<Int>?> = _savedCansFlow
 
     val currentUser = authRepository.getCurrentUser()
 
