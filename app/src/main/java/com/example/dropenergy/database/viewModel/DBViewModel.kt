@@ -159,6 +159,8 @@ class DBViewModel(
         val result = currentUser?.let {userRepository.getWeek(it.uid)}
         _weekFlow.value = result
     }
+
+
 //
 //    fun getSavedCans(uid: String): Int? {
 //        //Добавить логирование
