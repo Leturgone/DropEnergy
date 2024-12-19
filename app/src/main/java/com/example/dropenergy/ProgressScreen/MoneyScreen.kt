@@ -41,6 +41,7 @@ fun MoneyScreen(viewModel: DBViewModel){
     val ctx = LocalContext.current
     LaunchedEffect(Unit) {
         viewModel.getSavedMoney()
+        viewModel.getEverydayMoney()
     }
 
     viewModel.savedMoneyFlow.collectAsState().value.let {state ->
@@ -50,6 +51,19 @@ fun MoneyScreen(viewModel: DBViewModel){
             }
             is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка сохр денег", Toast.LENGTH_SHORT).show()
             is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка сохр денег", Toast.LENGTH_SHORT).show()
+            else -> {null}
+        }
+    }
+    viewModel.everydayMoneyFlow.collectAsState().value.let {state ->
+        when(state){
+            is GetDBState.Success -> {
+                in_day_money = state.result
+                in_week_money = in_day_money*7
+                in_mounth_money = in_day_money*30
+                in_year_money = in_day_money*365
+            }
+            is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка ежед денег", Toast.LENGTH_SHORT).show()
+            is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка ежед денег", Toast.LENGTH_SHORT).show()
             else -> {null}
         }
     }
