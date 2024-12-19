@@ -166,11 +166,12 @@ class DBViewModel(
 //
 //    }
 //
-//    fun getSavedMoney(uid: String): Int? {
-//        //Добавить логирование
-//        userRepository.getSavedMoney(uid)
-//
-//    }
+
+    fun getSavedMoney() = viewModelScope.launch {
+        _savedMoneyFlow.value = GetDBState.Loading
+        val result = currentUser?.let { userRepository.getSavedMoney(it.uid) }
+        _savedMoneyFlow.value = result
+    }
 //
 //    fun getCurrency(uid: String): String? {
 //        //Добавить логирование
