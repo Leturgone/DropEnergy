@@ -57,11 +57,17 @@ class DBViewModel(
 
     val savedMoneyFlow: StateFlow<GetDBState<Int>?> = _savedMoneyFlow
 
+    private val _everydayMoneyFlow = MutableStateFlow<GetDBState<Int>?>(null)
+
+    val everydayMoneyFlow: StateFlow<GetDBState<Int>?> = _everydayMoneyFlow
+
     private val _savedCansFlow = MutableStateFlow<GetDBState<Int>?>(null)
 
     val savedCansFlow: StateFlow<GetDBState<Int>?> = _savedCansFlow
 
     val currentUser = authRepository.getCurrentUser()
+
+
 
 
 
@@ -172,6 +178,13 @@ class DBViewModel(
         val result = currentUser?.let { userRepository.getSavedMoney(it.uid) }
         _savedMoneyFlow.value = result
     }
+
+    fun getEverydayMoney() = viewModelScope.launch {
+        _everydayMoneyFlow.value = GetDBState.Loading
+        val result = currentUser?.let { userRepository.getEnergyMoney(it.uid) }
+        _everydayMoneyFlow.value = result
+    }
+
 //
 //    fun getCurrency(uid: String): String? {
 //        //Добавить логирование
@@ -184,10 +197,7 @@ class DBViewModel(
 //
 //    }
 //
-//    fun getEnergyMoney(uid: String): Int? {
-//        //Добавить логирование
-//        userRepository.getEnergyMoney(uid)
-//    }
+
 
 
     fun logout(){
