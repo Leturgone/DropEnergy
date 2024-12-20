@@ -61,6 +61,11 @@ class DBViewModel(
 
     val everydayMoneyFlow: StateFlow<GetDBState<Int>?> = _everydayMoneyFlow
 
+    private val _currency= MutableStateFlow<GetDBState<String>?>(null)
+
+    val currency: StateFlow<GetDBState<String>?> = _currency
+
+
     private val _savedCansFlow = MutableStateFlow<GetDBState<Int>?>(null)
 
     val savedCansFlow: StateFlow<GetDBState<Int>?> = _savedCansFlow
@@ -165,14 +170,6 @@ class DBViewModel(
         val result = currentUser?.let {userRepository.getWeek(it.uid)}
         _weekFlow.value = result
     }
-//
-//    fun getSavedCans(uid: String): Int? {
-//        //Добавить логирование
-//        userRepository.getSavedCans(uid)
-//
-//    }
-//
-
     fun getSavedMoney() = viewModelScope.launch {
         _savedMoneyFlow.value = GetDBState.Loading
         val result = currentUser?.let { userRepository.getSavedMoney(it.uid) }
@@ -185,11 +182,22 @@ class DBViewModel(
         _everydayMoneyFlow.value = result
     }
 
-//
-//    fun getCurrency(uid: String): String? {
+
+    fun getCurrency() = viewModelScope.launch {
+        //Добавить логирование
+        _currency.value = GetDBState.Loading
+        val result = currentUser?.let { userRepository.getCurrency(it.uid) }
+        _currency.value = result
+    }
+
+    //
+//    fun getSavedCans(uid: String): Int? {
 //        //Добавить логирование
-//        userRepository.getCurrency(uid)
+//        userRepository.getSavedCans(uid)
+//
 //    }
+//
+
 //
 //    fun getEnergyCount(uid: String): Int? {
 //        //Добавить логирование
