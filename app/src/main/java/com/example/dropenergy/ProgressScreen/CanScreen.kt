@@ -50,6 +50,20 @@ fun CanScreen(viewModel:DBViewModel){
         }
     }
 
+    viewModel.everyDayCansFlow.collectAsState().value.let {state ->
+        when(state){
+            is GetDBState.Success -> {
+                in_day_can = state.result
+                in_week_can = in_day_can * 7
+                in_mounth_can = in_day_can * 30
+                in_year_can = in_day_can * 365
+            }
+            is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка ежед банок", Toast.LENGTH_SHORT).show()
+            is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка ежед банок ", Toast.LENGTH_SHORT).show()
+            else -> {null}
+        }
+    }
+
 
 
     Column {
