@@ -71,6 +71,9 @@ class DBViewModel(
 
     val savedCansFlow: StateFlow<GetDBState<Int>?> = _savedCansFlow
 
+    private  val _everydayCansFlow = MutableStateFlow<GetDBState<Int>?>(null)
+
+    val everyDayCansFlow: StateFlow<GetDBState<Int>?> = _everydayCansFlow
 
 
     val currentUser = authRepository.getCurrentUser()
@@ -202,13 +205,14 @@ class DBViewModel(
     }
 
 
-//
-//    fun getEnergyCount(uid: String): Int? {
-//        //Добавить логирование
-//        userRepository.getEnergyCount(uid)
-//
-//    }
-//
+
+    fun getEverydayCans() = viewModelScope.launch {
+        //Добавить логирование
+        _everydayCansFlow.value = GetDBState.Loading
+        val result = currentUser?.let { userRepository.getEnergyCount(it.uid) }
+        _everydayCansFlow.value = result
+    }
+
 
 
 
