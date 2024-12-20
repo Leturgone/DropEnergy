@@ -164,6 +164,9 @@ class DBViewModel(
 
     }
 
+
+    //Методы для получения данных из репозитория для БД
+
     fun getDiary() = viewModelScope.launch {
         _diaryFlow.value = GetDBState.Loading
         val result = currentUser?.let {userRepository.getDiary(it.uid)}
