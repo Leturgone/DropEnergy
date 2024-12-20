@@ -31,17 +31,29 @@ import com.example.dropenergy.database.viewModel.DBViewModel
 @Composable
 fun MoneyScreen(viewModel: DBViewModel){
 
-    //Подгрузка из БД
     var ekonom_money by remember { mutableIntStateOf(0) }
     var in_day_money by remember { mutableIntStateOf(0) }
     var in_week_money by remember { mutableIntStateOf(0) }
     var in_mounth_money by remember { mutableIntStateOf(0) }
     var in_year_money by remember { mutableIntStateOf(0) }
+    var currency by remember { mutableStateOf<String>("") }
 
     val ctx = LocalContext.current
     LaunchedEffect(Unit) {
         viewModel.getSavedMoney()
         viewModel.getEverydayMoney()
+        viewModel.getCurrency()
+    }
+
+    viewModel.currency.collectAsState().value.let {state ->
+        when(state){
+            is GetDBState.Success -> {
+                currency = state.result
+            }
+            is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка валюты", Toast.LENGTH_SHORT).show()
+            is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка загр валюты", Toast.LENGTH_SHORT).show()
+            else -> {null}
+        }
     }
 
     viewModel.savedMoneyFlow.collectAsState().value.let {state ->
@@ -78,7 +90,7 @@ fun MoneyScreen(viewModel: DBViewModel){
                     modifier = Modifier.padding(16.dp)
                 )
                 Text(
-                    text = "$ekonom_money р",
+                    text = "$ekonom_money $currency",
                     fontSize = 24.sp,
                     color = MaterialTheme.colorScheme.onBackground,
                     fontWeight = FontWeight.Bold,
@@ -95,25 +107,25 @@ fun MoneyScreen(viewModel: DBViewModel){
             modifier = Modifier.padding(16.dp))
 
         Column(Modifier.padding(start = 16.dp)) {
-            Text(text = "$in_day_money р в день",
+            Text(text = "$in_day_money $currency в день",
                 fontSize = 24.sp,
                 color = MaterialTheme.colorScheme.onBackground,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(16.dp))
 
-            Text(text = "$in_week_money р в неделю ",
+            Text(text = "$in_week_money $currency в неделю ",
                 fontSize = 24.sp,
                 color = MaterialTheme.colorScheme.onBackground,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(16.dp))
 
-            Text(text = "$in_mounth_money р в месяц ",
+            Text(text = "$in_mounth_money $currency в месяц ",
                 fontSize = 24.sp,
                 color = MaterialTheme.colorScheme.onBackground,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(16.dp))
 
-            Text(text = "$in_year_money р год ",
+            Text(text = "$in_year_money $currency год ",
                 fontSize = 24.sp,
                 color = MaterialTheme.colorScheme.onBackground,
                 fontWeight = FontWeight.Bold,
