@@ -53,15 +53,32 @@ class DBViewModel(
 
     val weekFlow: StateFlow<GetDBState<MutableMap<String,Boolean>>?> = _weekFlow
 
+
     private val _savedMoneyFlow = MutableStateFlow<GetDBState<Int>?>(null)
 
     val savedMoneyFlow: StateFlow<GetDBState<Int>?> = _savedMoneyFlow
+
+    private val _everydayMoneyFlow = MutableStateFlow<GetDBState<Int>?>(null)
+
+    val everydayMoneyFlow: StateFlow<GetDBState<Int>?> = _everydayMoneyFlow
+
+    private val _currency= MutableStateFlow<GetDBState<String>?>(null)
+
+    val currency: StateFlow<GetDBState<String>?> = _currency
+
 
     private val _savedCansFlow = MutableStateFlow<GetDBState<Int>?>(null)
 
     val savedCansFlow: StateFlow<GetDBState<Int>?> = _savedCansFlow
 
+    private  val _everydayCansFlow = MutableStateFlow<GetDBState<Int>?>(null)
+
+    val everyDayCansFlow: StateFlow<GetDBState<Int>?> = _everydayCansFlow
+
+
     val currentUser = authRepository.getCurrentUser()
+
+
 
 
 
@@ -147,6 +164,9 @@ class DBViewModel(
 
     }
 
+
+    //Методы для получения данных из репозитория для БД
+
     fun getDiary() = viewModelScope.launch {
         _diaryFlow.value = GetDBState.Loading
         val result = currentUser?.let {userRepository.getDiary(it.uid)}
@@ -160,35 +180,44 @@ class DBViewModel(
         _weekFlow.value = result
     }
 
+    
+    fun getSavedMoney() = viewModelScope.launch {
+        _savedMoneyFlow.value = GetDBState.Loading
+        val result = currentUser?.let { userRepository.getSavedMoney(it.uid) }
+        _savedMoneyFlow.value = result
+    }
 
-//
-//    fun getSavedCans(uid: String): Int? {
-//        //Добавить логирование
-//        userRepository.getSavedCans(uid)
-//
-//    }
-//
-//    fun getSavedMoney(uid: String): Int? {
-//        //Добавить логирование
-//        userRepository.getSavedMoney(uid)
-//
-//    }
-//
-//    fun getCurrency(uid: String): String? {
-//        //Добавить логирование
-//        userRepository.getCurrency(uid)
-//    }
-//
-//    fun getEnergyCount(uid: String): Int? {
-//        //Добавить логирование
-//        userRepository.getEnergyCount(uid)
-//
-//    }
-//
-//    fun getEnergyMoney(uid: String): Int? {
-//        //Добавить логирование
-//        userRepository.getEnergyMoney(uid)
-//    }
+    fun getEverydayMoney() = viewModelScope.launch {
+        _everydayMoneyFlow.value = GetDBState.Loading
+        val result = currentUser?.let { userRepository.getEnergyMoney(it.uid) }
+        _everydayMoneyFlow.value = result
+    }
+
+
+    fun getCurrency() = viewModelScope.launch {
+        //Добавить логирование
+        _currency.value = GetDBState.Loading
+        val result = currentUser?.let { userRepository.getCurrency(it.uid) }
+        _currency.value = result
+    }
+
+
+    fun getSavedCans() = viewModelScope.launch {
+        //Добавить логирование
+        _savedCansFlow.value = GetDBState.Loading
+        val result = currentUser?.let { userRepository.getSavedCans(it.uid)}
+        _savedCansFlow.value = result
+    }
+
+
+
+    fun getEverydayCans() = viewModelScope.launch {
+        //Добавить логирование
+        _everydayCansFlow.value = GetDBState.Loading
+        val result = currentUser?.let { userRepository.getEnergyCount(it.uid) }
+        _everydayCansFlow.value = result
+    }
+
 
 
     fun logout(){
