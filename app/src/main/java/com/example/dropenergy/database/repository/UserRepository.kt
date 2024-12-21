@@ -145,8 +145,9 @@ class UserRepository(
     override suspend fun getEnergyMoney(uid: String): GetDBState<Int> {
         return try{
             val energyMoney = getUser(uid)?.energy_money
-            Log.i("Firebase","Полученная валюта $energyMoney")
-            GetDBState.Success(energyMoney!!)
+            val cansCount = getUser(uid)?.energy_count
+            Log.i("Firebase","Полученная ежед деньги $energyMoney")
+            GetDBState.Success(energyMoney!! * cansCount!!)
         }catch (e:Exception){
             Log.e("Firebase","Ошибка в получении количества денег")
             GetDBState.Failure(e)
