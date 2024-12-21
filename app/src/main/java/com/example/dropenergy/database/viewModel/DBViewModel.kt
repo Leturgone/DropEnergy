@@ -170,6 +170,7 @@ class DBViewModel(
         val result = currentUser?.let {userRepository.getWeek(it.uid)}
         _weekFlow.value = result
     }
+
     fun getSavedMoney() = viewModelScope.launch {
         _savedMoneyFlow.value = GetDBState.Loading
         val result = currentUser?.let { userRepository.getSavedMoney(it.uid) }
@@ -190,7 +191,6 @@ class DBViewModel(
         _currency.value = result
     }
 
-    //
 //    fun getSavedCans(uid: String): Int? {
 //        //Добавить логирование
 //        userRepository.getSavedCans(uid)
