@@ -179,6 +179,8 @@ class DBViewModel(
         val result = currentUser?.let {userRepository.getWeek(it.uid)}
         _weekFlow.value = result
     }
+
+    
     fun getSavedMoney() = viewModelScope.launch {
         _savedMoneyFlow.value = GetDBState.Loading
         val result = currentUser?.let { userRepository.getSavedMoney(it.uid) }
@@ -215,7 +217,6 @@ class DBViewModel(
         val result = currentUser?.let { userRepository.getEnergyCount(it.uid) }
         _everydayCansFlow.value = result
     }
-
 
 
 
