@@ -131,7 +131,7 @@ class UserRepository(
         }
     }
 
-    override suspend fun getEnergyCount(uid: String): GetDBState<Int> {
+    override suspend fun getEverydayCans(uid: String): GetDBState<Int> {
         return try{
             val energyCount = getUser(uid)?.energy_count
             Log.i("Firebase","Полученная $energyCount")
@@ -142,7 +142,7 @@ class UserRepository(
         }
     }
 
-    override suspend fun getEnergyMoney(uid: String): GetDBState<Int> {
+    override suspend fun getEverydayMoney(uid: String): GetDBState<Int> {
         return try{
             val energyMoney = getUser(uid)?.energy_money
             val cansCount = getUser(uid)?.energy_count

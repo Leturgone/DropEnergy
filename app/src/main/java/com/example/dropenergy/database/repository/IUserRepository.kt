@@ -28,8 +28,8 @@ interface IUserRepository {
 
     suspend fun getCurrency(uid: String): GetDBState<String>
 
-    suspend fun getEnergyCount(uid: String): GetDBState<Int>
-    suspend fun getEnergyMoney(uid: String): GetDBState<Int>
+    suspend fun getEverydayCans(uid: String): GetDBState<Int>
+    suspend fun getEverydayMoney(uid: String): GetDBState<Int>
 
 
 

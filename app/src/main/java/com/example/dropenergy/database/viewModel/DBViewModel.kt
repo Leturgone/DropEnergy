@@ -1,7 +1,6 @@
 package com.example.dropenergy.database.viewModel
 
 import android.util.Log
-import androidx.compose.runtime.MutableState
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,7 +11,6 @@ import com.example.dropenergy.database.repository.IAuthRepository
 import com.example.dropenergy.database.repository.IUserRepository
 import com.example.dropenergy.database.repository.GetDBState
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -189,7 +187,7 @@ class DBViewModel(
 
     fun getEverydayMoney() = viewModelScope.launch {
         _everydayMoneyFlow.value = GetDBState.Loading
-        val result = currentUser?.let { userRepository.getEnergyMoney(it.uid) }
+        val result = currentUser?.let { userRepository.getEverydayMoney(it.uid) }
         _everydayMoneyFlow.value = result
     }
 
@@ -214,7 +212,7 @@ class DBViewModel(
     fun getEverydayCans() = viewModelScope.launch {
         //Добавить логирование
         _everydayCansFlow.value = GetDBState.Loading
-        val result = currentUser?.let { userRepository.getEnergyCount(it.uid) }
+        val result = currentUser?.let { userRepository.getEverydayCans(it.uid) }
         _everydayCansFlow.value = result
     }
 
