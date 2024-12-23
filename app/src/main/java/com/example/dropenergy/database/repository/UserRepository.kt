@@ -56,10 +56,12 @@ class UserRepository(
     }
 
     override suspend fun updateDiary(uid: String, diaryRecord: DiaryRecord) {
+
         val userDiary = getUser(uid)?.diary
         userDiary?.put(diaryRecord.date,diaryRecord)
         database.child("users").child(uid).child("diary").setValue(userDiary).addOnSuccessListener {
             Log.i("Firebase","Дневник загружен в БД")
+
         }.addOnFailureListener {
             Log.e("Firebase","Не удалось загрузить Дневник в БД")
         }
@@ -67,7 +69,7 @@ class UserRepository(
     }
 
     override suspend fun updateWeek(uid: String, newDay: CheckDay) {
-        //Добавить логирование
+
         getUser(uid)?.week?.set(newDay.day, newDay.check)
     }
 
