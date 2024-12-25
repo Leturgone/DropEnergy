@@ -70,6 +70,7 @@ class UserRepository(
 
     override suspend fun updateWeek(uid: String, newDay: CheckDay) {
 
+
         getUser(uid)?.week?.set(newDay.day, newDay.check)
     }
 
