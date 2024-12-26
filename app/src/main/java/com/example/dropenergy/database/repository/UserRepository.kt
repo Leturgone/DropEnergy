@@ -72,6 +72,8 @@ class UserRepository(
 
 
         getUser(uid)?.week?.set(newDay.day, newDay.check)
+
+
     }
 
     override suspend fun updateSavedCans(uid: String, newCans: Int) {
