@@ -73,7 +73,7 @@ class UserRepository(
         val userWeek = getUser(uid)?.week
         userWeek?.set(newDay.day, newDay.check)
         database.child("users").child(uid).child("week").setValue(userWeek).addOnSuccessListener {
-            Log.i("Firebase","Дневник загружен в БД")
+            Log.i("Firebase","Неделя загружена в БД")
 
         }.addOnFailureListener {
             Log.e("Firebase","Не удалось загрузить Дневник в БД")
@@ -83,11 +83,23 @@ class UserRepository(
     override suspend fun updateSavedCans(uid: String, newCans: Int) {
         //Добавить логирование
         getUser(uid)?.saved_cans = newCans
+        database.child("users").child(uid).child("week").setValue(getUser(uid)?.saved_cans).addOnSuccessListener {
+            Log.i("Firebase","Дневник загружен в БД")
+
+        }.addOnFailureListener {
+            Log.e("Firebase","Не удалось загрузить Дневник в БД")
+        }
     }
 
     override suspend fun updateSavedMoney(uid: String, newMoney: Int) {
         //Добавить логирование
         getUser(uid)?.saved_money = newMoney
+        database.child("users").child(uid).child("week").setValue(getUser(uid)?.saved_money).addOnSuccessListener {
+            Log.i("Firebase","Дневник загружен в БД")
+
+        }.addOnFailureListener {
+            Log.e("Firebase","Не удалось загрузить Дневник в БД")
+        }
     }
 
     override suspend fun getDiary(uid: String): GetDBState<MutableMap<String, DiaryRecord>> {
