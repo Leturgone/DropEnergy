@@ -56,7 +56,6 @@ class UserRepository(
     }
 
     override suspend fun updateDiary(uid: String, diaryRecord: DiaryRecord) {
-
         val userDiary = getUser(uid)?.diary
         userDiary?.put(diaryRecord.date,diaryRecord)
         database.child("users").child(uid).child("diary").setValue(userDiary).addOnSuccessListener {
@@ -69,12 +68,10 @@ class UserRepository(
     }
 
     override suspend fun updateWeek(uid: String, newDay: CheckDay) {
-
         val userWeek = getUser(uid)?.week
         userWeek?.set(newDay.day, newDay.check)
         database.child("users").child(uid).child("week").setValue(userWeek).addOnSuccessListener {
             Log.i("Firebase","Неделя загружена в БД")
-
         }.addOnFailureListener {
             Log.e("Firebase","Не удалось загрузить Дневник в БД")
         }
@@ -94,7 +91,6 @@ class UserRepository(
         getUser(uid)?.saved_money = newMoney
         database.child("users").child(uid).child("week").setValue(getUser(uid)?.saved_money).addOnSuccessListener {
             Log.i("Firebase","Сохр деньги загружены в БД")
-
         }.addOnFailureListener {
             Log.e("Firebase","Не удалось загрузить сохр деньги в БД")
         }
