@@ -21,11 +21,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-
+import com.example.dropenergy.database.viewModel.DBViewModel
 
 
 @Composable
-fun AddRecordScreen(navController: NavController){
+fun AddRecordScreen(navController: NavController,viewModel: DBViewModel){
     Column {
         Text(text = "Создать запись",
             fontSize = 24.sp,
