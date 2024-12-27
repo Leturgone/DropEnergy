@@ -81,24 +81,22 @@ class UserRepository(
     }
 
     override suspend fun updateSavedCans(uid: String, newCans: Int) {
-        //Добавить логирование
         getUser(uid)?.saved_cans = newCans
         database.child("users").child(uid).child("week").setValue(getUser(uid)?.saved_cans).addOnSuccessListener {
-            Log.i("Firebase","Дневник загружен в БД")
+            Log.i("Firebase","Сохр банки загружены в БД")
 
         }.addOnFailureListener {
-            Log.e("Firebase","Не удалось загрузить Дневник в БД")
+            Log.e("Firebase","Не удалось загрузить сохр банки в БД")
         }
     }
 
     override suspend fun updateSavedMoney(uid: String, newMoney: Int) {
-        //Добавить логирование
         getUser(uid)?.saved_money = newMoney
         database.child("users").child(uid).child("week").setValue(getUser(uid)?.saved_money).addOnSuccessListener {
-            Log.i("Firebase","Дневник загружен в БД")
+            Log.i("Firebase","Сохр деньги загружены в БД")
 
         }.addOnFailureListener {
-            Log.e("Firebase","Не удалось загрузить Дневник в БД")
+            Log.e("Firebase","Не удалось загрузить сохр деньги в БД")
         }
     }
 
