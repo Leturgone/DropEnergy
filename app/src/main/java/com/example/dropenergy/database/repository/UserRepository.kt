@@ -70,10 +70,14 @@ class UserRepository(
 
     override suspend fun updateWeek(uid: String, newDay: CheckDay) {
 
+        val userWeek = getUser(uid)?.week
+        userWeek?.set(newDay.day, newDay.check)
+        database.child("users").child(uid).child("week").setValue(userWeek).addOnSuccessListener {
+            Log.i("Firebase","Дневник загружен в БД")
 
-        getUser(uid)?.week?.set(newDay.day, newDay.check)
-
-
+        }.addOnFailureListener {
+            Log.e("Firebase","Не удалось загрузить Дневник в БД")
+        }
     }
 
     override suspend fun updateSavedCans(uid: String, newCans: Int) {
