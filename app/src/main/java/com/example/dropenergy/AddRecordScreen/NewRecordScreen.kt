@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.dropenergy.data.DiaryRecord
+import com.example.dropenergy.database.viewModel.DBViewModel
 import com.maxkeppeker.sheets.core.models.base.rememberSheetState
 import com.maxkeppeler.sheets.calendar.CalendarDialog
 import com.maxkeppeler.sheets.calendar.models.CalendarConfig
@@ -46,7 +47,7 @@ import java.time.LocalDate
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("NewApi", "UnrememberedMutableState")
 @Composable
-fun NewRecordScreen(category: String,navController: NavHostController){
+fun NewRecordScreen(category: String,navController: NavHostController, viewModel: DBViewModel){
     val calendarState = rememberSheetState()
     var sliderValue by remember { mutableFloatStateOf(8f) }
     var dateValue by remember { mutableStateOf(LocalDate.now().toString()) }
