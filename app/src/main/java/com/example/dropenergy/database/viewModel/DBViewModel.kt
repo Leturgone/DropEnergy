@@ -141,24 +141,22 @@ class DBViewModel(
         processing_user.value?.energy_count = count
     }
 
-    fun updateDiary(uid: String, diaryRecord: DiaryRecord)  = viewModelScope.launch{
-        userRepository.updateDiary(uid,diaryRecord)
+    fun updateDiary(diaryRecord: DiaryRecord)  = viewModelScope.launch{
+        currentUser?.let { userRepository.updateDiary(it.uid,diaryRecord)}
     }
 
-    fun updateWeek(uid: String, newDay: CheckDay) = viewModelScope.launch {
-        //Добавить логирование
-        userRepository.updateWeek(uid,newDay)
+    fun updateWeek(newDay: CheckDay) = viewModelScope.launch {
+        currentUser?.let { userRepository.updateWeek(it.uid,newDay)}
     }
 
-    fun updateSavedCans(uid: String, newCans: Int) = viewModelScope.launch {
-        //Добавить логирование
-        userRepository.updateSavedCans(uid,newCans)
+    fun updateSavedCans(newCans: Int) = viewModelScope.launch {
+        currentUser?.let {  userRepository.updateSavedCans(it.uid,newCans)}
 
     }
 
-    fun updateSavedMoney(uid: String, newMoney: Int)= viewModelScope.launch  {
+    fun updateSavedMoney(newMoney: Int)= viewModelScope.launch  {
         //Добавить логирование
-        userRepository.updateSavedMoney(uid, newMoney)
+        currentUser?.let {  userRepository.updateSavedMoney(it.uid, newMoney)}
 
     }
 
