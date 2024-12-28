@@ -136,6 +136,8 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
                             recordText = category,
                             intensive = sliderValue.toInt() )
 
+                        viewModel.updateDiary(record)
+
                         navController.navigate("progress")
                                      },
                         modifier = Modifier.padding(horizontal = 8.dp),
