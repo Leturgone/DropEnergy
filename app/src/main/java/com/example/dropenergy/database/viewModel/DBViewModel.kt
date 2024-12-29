@@ -125,7 +125,7 @@ class DBViewModel(
             null,null,null,
             diary = mutableMapOf(
                 date to DiaryRecord(
-                    date = date, recordText = "Я зарегистрировался в приложении",intensive = null
+                    date = date, recordText = "Я зарегистрировался в приложении",intensive = ""
 
                 )
             ),
