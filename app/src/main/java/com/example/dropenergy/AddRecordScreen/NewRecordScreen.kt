@@ -134,8 +134,7 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
                         val record = DiaryRecord(
                             date = dateValue,
                             recordText = category,
-                            intensive = sliderValue.toInt() )
-
+                            intensive = sliderValue.toInt().toString() )
                         viewModel.updateDiary(record)
 
                         navController.navigate("progress")
