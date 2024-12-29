@@ -5,7 +5,9 @@ import com.example.dropenergy.data.CheckDay
 import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.model.User
 import com.google.firebase.database.DatabaseReference
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
+import kotlin.coroutines.resume
 
 class UserRepository(
     private val database: DatabaseReference
@@ -61,6 +63,7 @@ class UserRepository(
         database.child("users").child(uid).child("diary").setValue(userDiary).addOnSuccessListener {
             Log.i("Firebase","Дневник загружен в БД")
 
+
         }.addOnFailureListener {
             Log.e("Firebase","Не удалось загрузить Дневник в БД")
         }
@@ -87,12 +90,18 @@ class UserRepository(
         }
     }
 
-    override suspend fun updateSavedMoney(uid: String, newMoney: Int) {
+    override suspend fun updateSavedMoney(uid: String, newMoney: Int): GetDBState<Unit> {
         getUser(uid)?.saved_money = newMoney
-        database.child("users").child(uid).child("week").setValue(getUser(uid)?.saved_money).addOnSuccessListener {
-            Log.i("Firebase","Сохр деньги загружены в БД")
-        }.addOnFailureListener {
-            Log.e("Firebase","Не удалось загрузить сохр деньги в БД")
+
+        return suspendCancellableCoroutine { contination ->
+            database.child("users").child(uid).child("week").setValue(newMoney)
+                .addOnSuccessListener {
+                    Log.i("Firebase", "Сохр деньги загружены в БД")
+                    contination.resume(GetDBState.Success(Unit))
+                }.addOnFailureListener {
+                    Log.e("Firebase", "Не удалось загрузить сохр деньги в БД")
+                    contination.resume(GetDBState.Failure(it))
+                }
         }
     }
 
