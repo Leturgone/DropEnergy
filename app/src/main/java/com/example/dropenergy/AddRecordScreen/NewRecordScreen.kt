@@ -136,6 +136,9 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
                             recordText = category,
                             intensive = sliderValue.toInt().toString() )
                         viewModel.updateDiary(record)
+                        //viewModel.updateWeek()
+                        //viewModel.updateSavedCans()
+                        //viewModel.updateSavedMoney()
 
                         navController.navigate("progress")
                                      },
