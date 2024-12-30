@@ -3,7 +3,7 @@ package com.example.dropenergy.data
 
 
 data class DiaryRecord(
-    val date: String,
+    var date: String,
     val recordText: String,
     val intensive: String
 )

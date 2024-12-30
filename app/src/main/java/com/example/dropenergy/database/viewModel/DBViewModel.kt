@@ -15,6 +15,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class DBViewModel(
     private val authRepository: IAuthRepository,
@@ -120,7 +123,8 @@ class DBViewModel(
 
 
     fun createUser(login: String, password: String, now: LocalDate){
-        val date = LocalDate.now().toString()
+        val dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        val date = dtf.format(LocalDateTime.now())
         processing_user.value = User(login,password,
             null,null,null,
             diary = mutableMapOf(
