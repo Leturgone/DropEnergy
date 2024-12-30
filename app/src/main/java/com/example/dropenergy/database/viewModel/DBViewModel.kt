@@ -22,13 +22,13 @@ class DBViewModel(
 ) : ViewModel() {
 
     val dayCheckMap = mutableMapOf<String,Boolean>(
-        "Пн" to false,
-        "Вт" to false,
-        "Ср" to false,
-        "Чт" to false,
-        "Пт" to false,
-        "Сб" to false,
-        "Вс" to false
+        "Mo" to false,
+        "Tu" to false,
+        "We" to false,
+        "Th" to false,
+        "Fr" to false,
+        "Sa" to false,
+        "Su" to false
     )
 
 
@@ -155,7 +155,7 @@ class DBViewModel(
     }
 
     fun updateSavedMoney(newMoney: Int)= viewModelScope.launch  {
-        //Добавить логирование
+
         currentUser?.let {  userRepository.updateSavedMoney(it.uid, newMoney)}
 
     }
