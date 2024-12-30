@@ -6,6 +6,9 @@ import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.model.User
 import com.google.firebase.database.DatabaseReference
 import kotlinx.coroutines.tasks.await
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class UserRepository(
     private val database: DatabaseReference
@@ -30,8 +33,7 @@ class UserRepository(
                         DiaryRecord(
                             date = innerMap["date"] ?: "",
                             recordText = innerMap["recordText"] ?: "",
-                            intensive = innerMap["intensive"]?.toIntOrNull()
-                        )
+                            intensive = innerMap["intensive"]?:"")
                     }.toMutableMap()
 
                     result = User(
@@ -56,11 +58,13 @@ class UserRepository(
     }
 
     override suspend fun updateDiary(uid: String, diaryRecord: DiaryRecord) {
+        val dtf = DateTimeFormatter.ofPattern("HH:mm")
+        val tim = dtf.format(LocalDateTime.now()).toString()
         val userDiary = getUser(uid)?.diary
-        userDiary?.put(diaryRecord.date,diaryRecord)
+        diaryRecord.date = diaryRecord.date +" " + tim
+        userDiary?.put(diaryRecord.date, diaryRecord)
         database.child("users").child(uid).child("diary").setValue(userDiary).addOnSuccessListener {
             Log.i("Firebase","Дневник загружен в БД")
-
         }.addOnFailureListener {
             Log.e("Firebase","Не удалось загрузить Дневник в БД")
         }
@@ -91,6 +95,7 @@ class UserRepository(
         getUser(uid)?.saved_money = newMoney
         database.child("users").child(uid).child("week").setValue(getUser(uid)?.saved_money).addOnSuccessListener {
             Log.i("Firebase","Сохр деньги загружены в БД")
+
         }.addOnFailureListener {
             Log.e("Firebase","Не удалось загрузить сохр деньги в БД")
         }

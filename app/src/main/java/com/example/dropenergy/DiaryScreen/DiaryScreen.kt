@@ -84,7 +84,7 @@ fun DiaryScreen(viewModel:DBViewModel){
 
                         }
                     }
-                    if(record.second.intensive!=null) {
+                    if(record.second.intensive!="") {
                         Text(
                             text = "Интенсивность: ${record.second.intensive}",
                             Modifier.padding(start = 23.dp)

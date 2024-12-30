@@ -15,6 +15,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class DBViewModel(
     private val authRepository: IAuthRepository,
@@ -22,13 +25,13 @@ class DBViewModel(
 ) : ViewModel() {
 
     val dayCheckMap = mutableMapOf<String,Boolean>(
-        "Пн" to false,
-        "Вт" to false,
-        "Ср" to false,
-        "Чт" to false,
-        "Пт" to false,
-        "Сб" to false,
-        "Вс" to false
+        "Mo" to false,
+        "Tu" to false,
+        "We" to false,
+        "Th" to false,
+        "Fr" to false,
+        "Sa" to false,
+        "Su" to false
     )
 
 
@@ -120,12 +123,13 @@ class DBViewModel(
 
 
     fun createUser(login: String, password: String, now: LocalDate){
-        val date = LocalDate.now().toString()
+        val dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        val date = dtf.format(LocalDateTime.now())
         processing_user.value = User(login,password,
             null,null,null,
             diary = mutableMapOf(
                 date to DiaryRecord(
-                    date = date, recordText = "Я зарегистрировался в приложении",intensive = null
+                    date = date, recordText = "Я зарегистрировался в приложении",intensive = ""
 
                 )
             ),
@@ -141,24 +145,22 @@ class DBViewModel(
         processing_user.value?.energy_count = count
     }
 
-    fun updateDiary(uid: String, diaryRecord: DiaryRecord)  = viewModelScope.launch{
-        userRepository.updateDiary(uid,diaryRecord)
+    fun updateDiary(diaryRecord: DiaryRecord)  = viewModelScope.launch{
+        currentUser?.let { userRepository.updateDiary(it.uid,diaryRecord)}
     }
 
-    fun updateWeek(uid: String, newDay: CheckDay) = viewModelScope.launch {
-        //Добавить логирование
-        userRepository.updateWeek(uid,newDay)
+    fun updateWeek(newDay: CheckDay) = viewModelScope.launch {
+        currentUser?.let { userRepository.updateWeek(it.uid,newDay)}
     }
 
-    fun updateSavedCans(uid: String, newCans: Int) = viewModelScope.launch {
-        //Добавить логирование
-        userRepository.updateSavedCans(uid,newCans)
+    fun updateSavedCans(newCans: Int) = viewModelScope.launch {
+        currentUser?.let {  userRepository.updateSavedCans(it.uid,newCans)}
 
     }
 
-    fun updateSavedMoney(uid: String, newMoney: Int)= viewModelScope.launch  {
-        //Добавить логирование
-        userRepository.updateSavedMoney(uid, newMoney)
+    fun updateSavedMoney(newMoney: Int)= viewModelScope.launch  {
+
+        currentUser?.let {  userRepository.updateSavedMoney(it.uid, newMoney)}
 
     }
 
