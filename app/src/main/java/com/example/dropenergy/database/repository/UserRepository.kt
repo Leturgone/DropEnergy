@@ -81,13 +81,13 @@ class UserRepository(
     }
 
     override suspend fun updateSavedCans(uid: String, status: Boolean) {
+        val newCans: Int
         try {
-            when(status) {
-                true -> getUser(uid)?.savedCans =
-                    getUser(uid)?.savedCans?.plus(getUser(uid)?.everydayCans!!)!!
-                false -> getUser(uid)?.savedCans = 0
+            newCans = when(status) {
+                true -> getUser(uid)?.savedCans?.plus(getUser(uid)?.everydayCans!!)!!
+                false -> 0
             }
-            database.child("users").child(uid).child("week").setValue(getUser(uid)?.savedCans)
+            database.child("users").child(uid).child("saved_cans").setValue(newCans)
                 .addOnSuccessListener {
                     Log.i("Firebase", "Сохр банки загружены в БД")
 
@@ -101,7 +101,7 @@ class UserRepository(
 
     override suspend fun updateSavedMoney(uid: String, newMoney: Int) {
         getUser(uid)?.savedMoney = newMoney
-        database.child("users").child(uid).child("week").setValue(getUser(uid)?.savedMoney).addOnSuccessListener {
+        database.child("users").child(uid).child("saved_money").setValue(getUser(uid)?.savedMoney).addOnSuccessListener {
             Log.i("Firebase","Сохр деньги загружены в БД")
 
         }.addOnFailureListener {
