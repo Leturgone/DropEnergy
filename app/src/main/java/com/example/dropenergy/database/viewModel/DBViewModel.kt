@@ -152,8 +152,8 @@ class DBViewModel(
         currentUser?.let { userRepository.updateWeek(it.uid,newDay)}
     }
 
-    fun updateSavedCans(newCans: Int) = viewModelScope.launch {
-        currentUser?.let {  userRepository.updateSavedCans(it.uid,newCans)}
+    fun updateSavedCans(status: Boolean) = viewModelScope.launch {
+        currentUser?.let {  userRepository.updateSavedCans(it.uid,status)}
 
     }
 
