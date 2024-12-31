@@ -80,11 +80,13 @@ class UserRepository(
         }
     }
 
-    override suspend fun updateSavedCans(uid: String, newCans: Int) {
+    override suspend fun updateSavedCans(uid: String, status: Boolean) {
         try {
-
-            getUser(uid)?.savedCans = getUser(uid)?.savedCans?.plus(getUser(uid)?.everydayCans!!)!!
-
+            when(status) {
+                true -> getUser(uid)?.savedCans =
+                    getUser(uid)?.savedCans?.plus(getUser(uid)?.everydayCans!!)!!
+                false -> getUser(uid)?.savedCans = 0
+            }
             database.child("users").child(uid).child("week").setValue(getUser(uid)?.savedCans)
                 .addOnSuccessListener {
                     Log.i("Firebase", "Сохр банки загружены в БД")
