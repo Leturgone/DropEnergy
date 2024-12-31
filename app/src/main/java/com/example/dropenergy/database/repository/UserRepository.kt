@@ -6,7 +6,6 @@ import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.model.User
 import com.google.firebase.database.DatabaseReference
 import kotlinx.coroutines.tasks.await
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -39,13 +38,13 @@ class UserRepository(
                     result = User(
                         login = user["login"].toString(),
                         password = user["password"].toString(),
-                        energy_count = user["energy_count"].toString().toInt(),
-                        energy_money = user["energy_money"].toString().toInt(),
+                        everydayCans = user["energy_count"].toString().toInt(),
+                        everydayMoney = user["energy_money"].toString().toInt(),
                         currency = user["currency"].toString(),
                         diary = diaryRecords,
                         week = user["week"] as? MutableMap<String, Boolean> ?: mutableMapOf(),
-                        saved_money = user["saved_money"].toString().toInt(),
-                        saved_cans = user["saved_cans"].toString().toInt()
+                        savedMoney = user["saved_money"].toString().toInt(),
+                        savedCans = user["saved_cans"].toString().toInt()
 
                     )
                 }
@@ -81,19 +80,28 @@ class UserRepository(
         }
     }
 
-    override suspend fun updateSavedCans(uid: String, newCans: Int) {
-        getUser(uid)?.saved_cans = newCans
-        database.child("users").child(uid).child("week").setValue(getUser(uid)?.saved_cans).addOnSuccessListener {
-            Log.i("Firebase","Сохр банки загружены в БД")
+    override suspend fun updateSavedCans(uid: String, status: Boolean) {
+        val newCans: Int
+        try {
+            newCans = when(status) {
+                true -> getUser(uid)?.savedCans?.plus(getUser(uid)?.everydayCans!!)!!
+                false -> 0
+            }
+            database.child("users").child(uid).child("saved_cans").setValue(newCans)
+                .addOnSuccessListener {
+                    Log.i("Firebase", "Сохр банки загружены в БД")
 
-        }.addOnFailureListener {
-            Log.e("Firebase","Не удалось загрузить сохр банки в БД")
+                }.addOnFailureListener {
+                Log.e("Firebase", "Не удалось загрузить сохр банки в БД")
+            }
+        }catch (e:Exception){
+            Log.e("Firebase", "Ошибка в сложении банок")
         }
     }
 
     override suspend fun updateSavedMoney(uid: String, newMoney: Int) {
-        getUser(uid)?.saved_money = newMoney
-        database.child("users").child(uid).child("week").setValue(getUser(uid)?.saved_money).addOnSuccessListener {
+        getUser(uid)?.savedMoney = newMoney
+        database.child("users").child(uid).child("saved_money").setValue(getUser(uid)?.savedMoney).addOnSuccessListener {
             Log.i("Firebase","Сохр деньги загружены в БД")
 
         }.addOnFailureListener {
@@ -125,7 +133,7 @@ class UserRepository(
 
     override suspend fun getSavedCans(uid: String): GetDBState<Int> {
         return try{
-            val savedCans = getUser(uid)?.saved_cans
+            val savedCans = getUser(uid)?.savedCans
             Log.i("Firebase","Полученное количество невыпитых банок $savedCans")
             GetDBState.Success(savedCans!!)
         }catch (e:Exception){
@@ -136,7 +144,7 @@ class UserRepository(
 
     override suspend fun getSavedMoney(uid: String): GetDBState<Int> {
         return try{
-            val savedMoney = getUser(uid)?.saved_money
+            val savedMoney = getUser(uid)?.savedMoney
             Log.i("Firebase","Полученное сэкономленных денег $savedMoney")
             GetDBState.Success(savedMoney!!)
         }catch (e:Exception){
@@ -159,7 +167,7 @@ class UserRepository(
 
     override suspend fun getEverydayCans(uid: String): GetDBState<Int> {
         return try{
-            val energyCount = getUser(uid)?.energy_count
+            val energyCount = getUser(uid)?.everydayCans
             Log.i("Firebase","Полученная $energyCount")
             GetDBState.Success(energyCount!!)
         }catch (e:Exception){
@@ -170,8 +178,8 @@ class UserRepository(
 
     override suspend fun getEverydayMoney(uid: String): GetDBState<Int> {
         return try{
-            val energyMoney = getUser(uid)?.energy_money
-            val cansCount = getUser(uid)?.energy_count
+            val energyMoney = getUser(uid)?.everydayMoney
+            val cansCount = getUser(uid)?.everydayCans
             Log.i("Firebase","Полученная ежед деньги $energyMoney")
             GetDBState.Success(energyMoney!! * cansCount!!)
         }catch (e:Exception){

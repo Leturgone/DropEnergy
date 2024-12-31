@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class DBViewModel(
@@ -138,11 +137,11 @@ class DBViewModel(
 
     fun addMoneyInf(currency:String, money : Int){
         processing_user.value?.currency = currency
-        processing_user.value?.energy_money = money
+        processing_user.value?.everydayMoney = money
     }
 
     fun addCans(count: Int){
-        processing_user.value?.energy_count = count
+        processing_user.value?.everydayCans = count
     }
 
     fun updateDiary(diaryRecord: DiaryRecord)  = viewModelScope.launch{
@@ -153,8 +152,8 @@ class DBViewModel(
         currentUser?.let { userRepository.updateWeek(it.uid,newDay)}
     }
 
-    fun updateSavedCans(newCans: Int) = viewModelScope.launch {
-        currentUser?.let {  userRepository.updateSavedCans(it.uid,newCans)}
+    fun updateSavedCans(status: Boolean) = viewModelScope.launch {
+        currentUser?.let {  userRepository.updateSavedCans(it.uid,status)}
 
     }
 

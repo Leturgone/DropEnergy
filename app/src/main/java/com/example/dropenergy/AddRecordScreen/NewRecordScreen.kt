@@ -137,8 +137,20 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
                             intensive = sliderValue.toInt().toString() )
                         viewModel.updateDiary(record)
                         //viewModel.updateWeek()
-                        //viewModel.updateSavedCans()
-                        //viewModel.updateSavedMoney()
+                        when(category) {
+                            "Я хочу энергетик" -> {
+                                viewModel.updateSavedCans(true)
+                                //viewModel.updateSavedMoney()
+                            }
+                            "Я купил энергетик" -> {
+                                viewModel.updateSavedCans(false)
+                                //viewModel.updateSavedMoney()
+                            }
+                            "Я справился с соблазном" -> {
+                                viewModel.updateSavedCans(true)
+                                //viewModel.updateSavedMoney()
+                            }
+                        }
 
                         navController.navigate("progress")
                                      },
