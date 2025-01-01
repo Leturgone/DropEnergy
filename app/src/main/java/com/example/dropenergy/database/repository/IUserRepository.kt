@@ -16,7 +16,7 @@ interface IUserRepository {
 
     suspend fun updateSavedCans(uid: String,status: Boolean)
 
-    suspend fun  updateSavedMoney(uid: String,newMoney:Int)
+    suspend fun  updateSavedMoney(uid: String,status: Boolean)
 
     suspend fun getDiary(uid: String): GetDBState<MutableMap<String, DiaryRecord>>
 
