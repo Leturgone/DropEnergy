@@ -140,15 +140,15 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
                         when(category) {
                             "Я хочу энергетик" -> {
                                 viewModel.updateSavedCans(true)
-                                //viewModel.updateSavedMoney()
+                                viewModel.updateSavedMoney(true)
                             }
                             "Я купил энергетик" -> {
                                 viewModel.updateSavedCans(false)
-                                //viewModel.updateSavedMoney()
+                                viewModel.updateSavedMoney(false)
                             }
                             "Я справился с соблазном" -> {
                                 viewModel.updateSavedCans(true)
-                                //viewModel.updateSavedMoney()
+                                viewModel.updateSavedMoney(true)
                             }
                         }
 

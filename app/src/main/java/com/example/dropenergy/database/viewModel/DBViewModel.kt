@@ -157,9 +157,8 @@ class DBViewModel(
 
     }
 
-    fun updateSavedMoney(newMoney: Int)= viewModelScope.launch  {
-
-        currentUser?.let {  userRepository.updateSavedMoney(it.uid, newMoney)}
+    fun updateSavedMoney(status: Boolean)= viewModelScope.launch  {
+        currentUser?.let {  userRepository.updateSavedMoney(it.uid, status)}
 
     }
 
