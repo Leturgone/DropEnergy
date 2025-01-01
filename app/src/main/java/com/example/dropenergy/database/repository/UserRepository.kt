@@ -99,14 +99,23 @@ class UserRepository(
         }
     }
 
-    override suspend fun updateSavedMoney(uid: String, newMoney: Int) {
-        getUser(uid)?.savedMoney = newMoney
-        database.child("users").child(uid).child("saved_money").setValue(getUser(uid)?.savedMoney).addOnSuccessListener {
-            Log.i("Firebase","Сохр деньги загружены в БД")
+    override suspend fun updateSavedMoney(uid: String, status: Boolean) {
+        val newMoney : Int
+        try {
+            newMoney = when (status) {
+                true -> getUser(uid)?.savedMoney?.plus(getUser(uid)?.everydayMoney!!)!!
+                false -> 0
+            }
+            database.child("users").child(uid).child("saved_money").setValue(newMoney)
+                .addOnSuccessListener {
+                Log.i("Firebase", "Сохр деньги загружены в БД")
 
-        }.addOnFailureListener {
-            Log.e("Firebase","Не удалось загрузить сохр деньги в БД")
-        }
+            }.addOnFailureListener {
+                Log.e("Firebase", "Не удалось загрузить сохр деньги в БД")
+            }
+        }catch (e:Exception){
+                Log.e("Firebase", "Ошибка в сложении денег")
+            }
     }
 
     override suspend fun getDiary(uid: String): GetDBState<MutableMap<String, DiaryRecord>> {
