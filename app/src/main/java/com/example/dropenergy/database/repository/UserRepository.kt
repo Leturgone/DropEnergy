@@ -38,13 +38,13 @@ class UserRepository(
                     result = User(
                         login = user["login"].toString(),
                         password = user["password"].toString(),
-                        everydayCans = user["energy_count"].toString().toInt(),
-                        everydayMoney = user["energy_money"].toString().toInt(),
+                        everydayCans = user["everydayCans"].toString().toInt(),
+                        everydayMoney = user["everydayMoney"].toString().toInt(),
                         currency = user["currency"].toString(),
                         diary = diaryRecords,
                         week = user["week"] as? MutableMap<String, Boolean> ?: mutableMapOf(),
-                        savedMoney = user["saved_money"].toString().toInt(),
-                        savedCans = user["saved_cans"].toString().toInt()
+                        savedMoney = user["savedMoney"].toString().toInt(),
+                        savedCans = user["savedCans"].toString().toInt()
 
                     )
                 }
@@ -87,7 +87,7 @@ class UserRepository(
                 true -> getUser(uid)?.savedCans?.plus(getUser(uid)?.everydayCans!!)!!
                 false -> 0
             }
-            database.child("users").child(uid).child("saved_cans").setValue(newCans)
+            database.child("users").child(uid).child("savedCans").setValue(newCans)
                 .addOnSuccessListener {
                     Log.i("Firebase", "Сохр банки загружены в БД")
 
@@ -106,7 +106,7 @@ class UserRepository(
                 true -> getUser(uid)?.savedMoney?.plus(getUser(uid)?.everydayMoney!!)!!
                 false -> 0
             }
-            database.child("users").child(uid).child("saved_money").setValue(newMoney)
+            database.child("users").child(uid).child("savedMoney").setValue(newMoney)
                 .addOnSuccessListener {
                 Log.i("Firebase", "Сохр деньги загружены в БД")
 
