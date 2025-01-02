@@ -24,13 +24,13 @@ class DBViewModel(
 ) : ViewModel() {
 
     val dayCheckMap = mutableMapOf<String,Boolean>(
-        "Mo" to false,
-        "Tu" to false,
-        "We" to false,
-        "Th" to false,
-        "Fr" to false,
-        "Sa" to false,
-        "Su" to false
+        "MO" to false,
+        "TU" to false,
+        "WE" to false,
+        "TH" to false,
+        "FR" to false,
+        "SA" to false,
+        "SU" to false
     )
 
 

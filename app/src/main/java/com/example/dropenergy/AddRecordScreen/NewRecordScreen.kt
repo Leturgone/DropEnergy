@@ -36,6 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.dropenergy.data.CheckDay
 import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.viewModel.DBViewModel
 import com.maxkeppeker.sheets.core.models.base.rememberSheetState
@@ -50,7 +51,7 @@ import java.time.LocalDate
 fun NewRecordScreen(category: String,navController: NavHostController, viewModel: DBViewModel){
     val calendarState = rememberSheetState()
     var sliderValue by remember { mutableFloatStateOf(8f) }
-    var dateValue by remember { mutableStateOf(LocalDate.now().toString()) }
+    var dateValue by remember { mutableStateOf(LocalDate.now()) }
     Box(
         modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
     ){
@@ -75,7 +76,7 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
                 )
 
                 Row(modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.Center) {
-                    Text(text = dateValue,
+                    Text(text = dateValue.toString(),
                         fontSize = 24.sp,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.Bold,
@@ -94,7 +95,7 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
                         config = CalendarConfig(monthSelection = true
                         ),
                         selection = CalendarSelection.Date{date ->
-                            dateValue = date.toString()
+                            dateValue = date
                             Log.d("SelectedDate","$date")
 
                         } )
@@ -132,11 +133,16 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
                     Button(onClick = {
                         //Загрузка в БД
                         val record = DiaryRecord(
-                            date = dateValue,
+                            date = dateValue.toString(),
                             recordText = category,
                             intensive = sliderValue.toInt().toString() )
+
+                        val weekDay = CheckDay(
+                            day = dateValue.dayOfWeek.toString().slice(0..1),
+                            check = true
+                        )
                         viewModel.updateDiary(record)
-                        //viewModel.updateWeek()
+                        viewModel.updateWeek(weekDay)
                         when(category) {
                             "Я хочу энергетик" -> {
                                 viewModel.updateSavedCans(true)
@@ -151,8 +157,7 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
                                 viewModel.updateSavedMoney(true)
                             }
                         }
-
-                        navController.navigate("progress")
+                        navController.popBackStack()
                                      },
                         modifier = Modifier.padding(horizontal = 8.dp),
                         colors = ButtonDefaults.buttonColors(Color.Green) ) {
