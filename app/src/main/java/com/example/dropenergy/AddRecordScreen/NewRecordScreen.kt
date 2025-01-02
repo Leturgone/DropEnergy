@@ -157,8 +157,7 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
                                 viewModel.updateSavedMoney(true)
                             }
                         }
-
-                        navController.navigate("progress")
+                        navController.popBackStack()
                                      },
                         modifier = Modifier.padding(horizontal = 8.dp),
                         colors = ButtonDefaults.buttonColors(Color.Green) ) {
