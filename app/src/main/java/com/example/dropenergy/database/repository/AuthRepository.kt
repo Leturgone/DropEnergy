@@ -46,9 +46,9 @@ class AuthRepository(
     }
 
     override fun getCurrentUser(): FirebaseUser? {
-        Log.e("Firebase","Начато получение юзера")
+        Log.i("Firebase","Начато получение юзера")
         val currentUser = firebaseAuth.currentUser
-        Log.e("Firebase","Полученный юзер $currentUser")
+        Log.i("Firebase","Полученный юзер $currentUser")
         return currentUser
     }
 
