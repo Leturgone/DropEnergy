@@ -32,7 +32,7 @@ class AuthRepository(
         return try {
             val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
             result?.user?.updateProfile(UserProfileChangeRequest.Builder().build())?.await()
-            Log.i("Firebase","Регистрация выполнена")
+            Log.i("Firebase","Регистрация выполнена ${firebaseAuth.currentUser?.uid}")
             GetDBState.Success(result.user!!)
         } catch (e : Exception){
             Log.e("Firebase","Произошла ошибка при регистрации")
@@ -46,7 +46,10 @@ class AuthRepository(
     }
 
     override fun getCurrentUser(): FirebaseUser? {
-        return firebaseAuth.currentUser
+        Log.i("Firebase","Начато получение юзера")
+        val currentUser = firebaseAuth.currentUser
+        Log.i("Firebase","Полученный юзер $currentUser")
+        return currentUser
     }
 
 }
