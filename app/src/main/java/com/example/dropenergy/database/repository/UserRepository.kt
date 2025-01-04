@@ -13,29 +13,74 @@ class UserRepository(
     private val database: DatabaseReference
 ) : IUserRepository{
 
-    override suspend fun writeUser(uid: String,user: User) {
-        database.child("users").child(uid).setValue(user).addOnSuccessListener {
-            Log.i("Firebase","Пользователь загружен в БД")
-        }.addOnFailureListener {
-            Log.e("Firebase","Не удалось загрузить в БД")
-        }
+//    override suspend fun writeUser(uid: String,user: User) {
+//        database.child("users").child(uid).setValue(user).addOnSuccessListener {
+//            Log.i("Firebase","Пользователь загружен в БД")
+//        }.addOnFailureListener {
+//            Log.e("Firebase","Не удалось загрузить в БД")
+//        }
+//    }
+override suspend fun writeUser(uid: String,user: User){
+    try {
+        database.child("users").child(uid).setValue(user).await()
+        Log.i("Firebase","Пользователь загружен в БД $uid")
+    }catch (e: Exception){
+        Log.e("Firebase","Не удалось загрузить в БД")
     }
+}
+
+//    override suspend fun getUser(uid:String): User? {
+//        var result: User? = null
+//        database.child("users").child(uid).get().addOnSuccessListener {
+//            val user = it.value
+//            when(user){
+//                is HashMap<*, *> ->{
+//                    val diaryMap = user["diary"] as? MutableMap<String, HashMap<String, String>> ?: mutableMapOf()
+//                    val diaryRecords = diaryMap.mapValues { (key, innerMap) ->
+//                        DiaryRecord(
+//                            date = innerMap["date"] ?: "",
+//                            recordText = innerMap["recordText"] ?: "",
+//                            intensive = innerMap["intensive"]?:"")
+//                    }.toMutableMap()
+//
+//                    result = User(
+//                        login = user["login"].toString(),
+//                        password = user["password"].toString(),
+//                        everydayCans = user["everydayCans"].toString().toInt(),
+//                        everydayMoney = user["everydayMoney"].toString().toInt(),
+//                        currency = user["currency"].toString(),
+//                        diary = diaryRecords,
+//                        week = user["week"] as? MutableMap<String, Boolean> ?: mutableMapOf(),
+//                        savedMoney = user["savedMoney"].toString().toInt(),
+//                        savedCans = user["savedCans"].toString().toInt()
+//
+//                    )
+//                }
+//            }
+//            Log.i("Firebase","Данные пользователя получены из БД $user")
+//        }.addOnFailureListener {
+//            Log.e("Firebase","Не удалось загрузить из БД")
+//        }.await()
+//        return result
+//    }
 
     override suspend fun getUser(uid:String): User? {
-        var result: User? = null
-        database.child("users").child(uid).get().addOnSuccessListener {
-            val user = it.value
-            when(user){
-                is HashMap<*, *> ->{
-                    val diaryMap = user["diary"] as? MutableMap<String, HashMap<String, String>> ?: mutableMapOf()
+        return try {
+            val task = database.child("users").child(uid).get().await()
+            val user = task.value
+            when (user) {
+                is HashMap<*, *> -> {
+                    val diaryMap = user["diary"] as? MutableMap<String, HashMap<String, String>>
+                        ?: mutableMapOf()
                     val diaryRecords = diaryMap.mapValues { (key, innerMap) ->
                         DiaryRecord(
                             date = innerMap["date"] ?: "",
                             recordText = innerMap["recordText"] ?: "",
-                            intensive = innerMap["intensive"]?:"")
+                            intensive = innerMap["intensive"] ?: ""
+                        )
                     }.toMutableMap()
 
-                    result = User(
+                    val result = User(
                         login = user["login"].toString(),
                         password = user["password"].toString(),
                         everydayCans = user["everydayCans"].toString().toInt(),
@@ -47,13 +92,19 @@ class UserRepository(
                         savedCans = user["savedCans"].toString().toInt()
 
                     )
+                    Log.i("Firebase", "Данные пользователя получены из БД $user")
+                    result
                 }
+
+                else -> {
+                    Log.e("Firebase","Не удалось загрузить из БД $user")
+                    null}
             }
-            Log.i("Firebase","Данные пользователя получены из БД $user")
-        }.addOnFailureListener {
+        }
+        catch (e: Exception){
             Log.e("Firebase","Не удалось загрузить из БД")
-        }.await()
-        return result
+            null
+        }
     }
 
     override suspend fun updateDiary(uid: String, diaryRecord: DiaryRecord) {
@@ -120,8 +171,9 @@ class UserRepository(
 
     override suspend fun getDiary(uid: String): GetDBState<MutableMap<String, DiaryRecord>> {
         return try {
+            Log.i("Firebase","Начато получение дневника $uid")
             val diary = getUser(uid)?.diary
-            Log.i("Firebase","Полученный дневник $diary")
+            Log.i("Firebase","Полученный дневник $diary $uid")
             GetDBState.Success(diary!!)
         }catch (e:Exception){
             Log.e("Firebase","Ошибка в получении дневника")
@@ -131,6 +183,7 @@ class UserRepository(
 
     override suspend fun getWeek(uid: String): GetDBState<MutableMap<String,Boolean>> {
         return try{
+            Log.i("Firebase","Начато получение недели $uid")
             val week = getUser(uid)?.week
             Log.i("Firebase","Полученная неделя $week")
             GetDBState.Success(week!!)
