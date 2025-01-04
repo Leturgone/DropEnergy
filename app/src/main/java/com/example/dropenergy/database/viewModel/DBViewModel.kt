@@ -11,6 +11,7 @@ import com.example.dropenergy.database.repository.IAuthRepository
 import com.example.dropenergy.database.repository.IUserRepository
 import com.example.dropenergy.database.repository.GetDBState
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -76,7 +77,7 @@ class DBViewModel(
     val everyDayCansFlow: StateFlow<GetDBState<Int>?> = _everydayCansFlow
 
 
-    val currentUser = authRepository.getCurrentUser()
+    var currentUser = authRepository.getCurrentUser()
 
 
 
@@ -107,14 +108,17 @@ class DBViewModel(
     fun login(email: String, password: String) = viewModelScope.launch {
         _loginFlow.value = GetDBState.Loading
         val result = authRepository.login(email, password)
+        updateUser()
         processing_user.value = get_uid(result)?.let { userRepository.getUser(it) }
         _loginFlow.value = result
     }
 
     fun signup() = viewModelScope.launch {
         _signupFlow.value = GetDBState.Loading
+        Log.i("Firebase","Начата регистрация")
         processing_user.value?.let {user ->
             val result =  authRepository.signup(user.login, user.password)
+            updateUser()
             get_uid(result)?.let { userRepository.writeUser(it,user) }
             _signupFlow.value = result
         }
@@ -173,8 +177,13 @@ class DBViewModel(
     }
 
     fun getWeek()= viewModelScope.launch {
+        Log.i("Firebase","Начато получение недели")
         _weekFlow.value = GetDBState.Loading
-        val result = currentUser?.let {userRepository.getWeek(it.uid)}
+        Log.i("Firebase","Проставлено состояние")
+        val result = currentUser?.let {
+
+            userRepository.getWeek(it.uid)
+        }
         _weekFlow.value = result
     }
 
@@ -224,9 +233,7 @@ class DBViewModel(
         _signupFlow.value = null
     }
 
-
-
-
-
-
+    fun updateUser(){
+        currentUser = authRepository.getCurrentUser()
+    }
 }
