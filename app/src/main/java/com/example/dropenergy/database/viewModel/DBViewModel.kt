@@ -11,7 +11,6 @@ import com.example.dropenergy.database.repository.IAuthRepository
 import com.example.dropenergy.database.repository.IUserRepository
 import com.example.dropenergy.database.repository.GetDBState
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -77,7 +76,7 @@ class DBViewModel(
     val everyDayCansFlow: StateFlow<GetDBState<Int>?> = _everydayCansFlow
 
 
-    var currentUser = authRepository.getCurrentUser()
+    private var currentUser = authRepository.getCurrentUser()
 
 
 
@@ -202,7 +201,6 @@ class DBViewModel(
 
 
     fun getCurrency() = viewModelScope.launch {
-        //Добавить логирование
         _currency.value = GetDBState.Loading
         val result = currentUser?.let { userRepository.getCurrency(it.uid) }
         _currency.value = result
@@ -210,7 +208,6 @@ class DBViewModel(
 
 
     fun getSavedCans() = viewModelScope.launch {
-        //Добавить логирование
         _savedCansFlow.value = GetDBState.Loading
         val result = currentUser?.let { userRepository.getSavedCans(it.uid)}
         _savedCansFlow.value = result
@@ -219,7 +216,6 @@ class DBViewModel(
 
 
     fun getEverydayCans() = viewModelScope.launch {
-        //Добавить логирование
         _everydayCansFlow.value = GetDBState.Loading
         val result = currentUser?.let { userRepository.getEverydayCans(it.uid) }
         _everydayCansFlow.value = result
@@ -233,7 +229,9 @@ class DBViewModel(
         _signupFlow.value = null
     }
 
-    fun updateUser(){
+    private fun updateUser(){
         currentUser = authRepository.getCurrentUser()
     }
+
+
 }
