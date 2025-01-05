@@ -64,6 +64,17 @@ override suspend fun writeUser(uid: String,user: User){
 //        return result
 //    }
 
+
+    private fun orderWeek(nonOrderWeek : MutableMap<String, Boolean>): MutableMap<String, Boolean> {
+        val weekDaysOrder = listOf("MO", "TU", "WE", "TH", "FR", "SA", "SU")
+        val orderedWeekMap = mutableMapOf<String, Boolean>().apply {
+            weekDaysOrder.forEach{day ->
+                this[day] = nonOrderWeek[day]?:false
+            }
+        }
+        return  orderedWeekMap
+    }
+
     override suspend fun getUser(uid:String): User? {
         return try {
             val task = database.child("users").child(uid).get().await()
@@ -72,7 +83,7 @@ override suspend fun writeUser(uid: String,user: User){
                 is HashMap<*, *> -> {
                     val diaryMap = user["diary"] as? MutableMap<String, HashMap<String, String>>
                         ?: mutableMapOf()
-                    val diaryRecords = diaryMap.mapValues { (key, innerMap) ->
+                    val diaryRecords = diaryMap.mapValues { (_, innerMap) ->
                         DiaryRecord(
                             date = innerMap["date"] ?: "",
                             recordText = innerMap["recordText"] ?: "",
@@ -80,6 +91,9 @@ override suspend fun writeUser(uid: String,user: User){
                         )
                     }.toMutableMap()
 
+                    val weekMap = user["week"] as? MutableMap<String, Boolean> ?: mutableMapOf()
+
+                    val orderedWeek = orderWeek(weekMap)
                     val result = User(
                         login = user["login"].toString(),
                         password = user["password"].toString(),
@@ -87,7 +101,7 @@ override suspend fun writeUser(uid: String,user: User){
                         everydayMoney = user["everydayMoney"].toString().toInt(),
                         currency = user["currency"].toString(),
                         diary = diaryRecords,
-                        week = user["week"] as? MutableMap<String, Boolean> ?: mutableMapOf(),
+                        week = orderedWeek,
                         savedMoney = user["savedMoney"].toString().toInt(),
                         savedCans = user["savedCans"].toString().toInt()
 
