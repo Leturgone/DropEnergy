@@ -143,6 +143,7 @@ fun RegScreen(navController: NavHostController, viewModel: DBViewModel?){
                     color = Purple40,
                     modifier = Modifier.clickable {
                         navController.navigate("login")
+                        navController.popBackStack()
                     })
 
                 Spacer(modifier = Modifier.height(1.dp))
