@@ -58,7 +58,9 @@ fun BottomNavigationBar(navController: NavHostController){
                 NavigationBarItem(selected = currentRoute == item.route,
                     modifier = Modifier.testTag(item.route),
                     onClick = {
-                        navController.navigate(item.route)
+                        navController.navigate(item.route){
+                            popUpTo(item.route)
+                        }
 
                     },
                     icon = {
