@@ -32,5 +32,4 @@ interface IUserRepository {
     suspend fun getEverydayMoney(uid: String): GetDBState<Int>
 
 
-
 }

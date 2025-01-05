@@ -13,56 +13,24 @@ class UserRepository(
     private val database: DatabaseReference
 ) : IUserRepository{
 
-//    override suspend fun writeUser(uid: String,user: User) {
-//        database.child("users").child(uid).setValue(user).addOnSuccessListener {
-//            Log.i("Firebase","Пользователь загружен в БД")
-//        }.addOnFailureListener {
-//            Log.e("Firebase","Не удалось загрузить в БД")
-//        }
-//    }
-override suspend fun writeUser(uid: String,user: User){
-    try {
-        database.child("users").child(uid).setValue(user).await()
-        Log.i("Firebase","Пользователь загружен в БД $uid")
-    }catch (e: Exception){
-        Log.e("Firebase","Не удалось загрузить в БД")
+    override suspend fun writeUser(uid: String,user: User){
+        try {
+            database.child("users").child(uid).setValue(user).await()
+            Log.i("Firebase","Пользователь загружен в БД $uid")
+        }catch (e: Exception){
+            Log.e("Firebase","Не удалось загрузить в БД")
+        }
     }
-}
 
-//    override suspend fun getUser(uid:String): User? {
-//        var result: User? = null
-//        database.child("users").child(uid).get().addOnSuccessListener {
-//            val user = it.value
-//            when(user){
-//                is HashMap<*, *> ->{
-//                    val diaryMap = user["diary"] as? MutableMap<String, HashMap<String, String>> ?: mutableMapOf()
-//                    val diaryRecords = diaryMap.mapValues { (key, innerMap) ->
-//                        DiaryRecord(
-//                            date = innerMap["date"] ?: "",
-//                            recordText = innerMap["recordText"] ?: "",
-//                            intensive = innerMap["intensive"]?:"")
-//                    }.toMutableMap()
-//
-//                    result = User(
-//                        login = user["login"].toString(),
-//                        password = user["password"].toString(),
-//                        everydayCans = user["everydayCans"].toString().toInt(),
-//                        everydayMoney = user["everydayMoney"].toString().toInt(),
-//                        currency = user["currency"].toString(),
-//                        diary = diaryRecords,
-//                        week = user["week"] as? MutableMap<String, Boolean> ?: mutableMapOf(),
-//                        savedMoney = user["savedMoney"].toString().toInt(),
-//                        savedCans = user["savedCans"].toString().toInt()
-//
-//                    )
-//                }
-//            }
-//            Log.i("Firebase","Данные пользователя получены из БД $user")
-//        }.addOnFailureListener {
-//            Log.e("Firebase","Не удалось загрузить из БД")
-//        }.await()
-//        return result
-//    }
+    private fun orderWeek(nonOrderWeek : MutableMap<String, Boolean>): MutableMap<String, Boolean> {
+        val weekDaysOrder = listOf("MO", "TU", "WE", "TH", "FR", "SA", "SU")
+        val orderedWeekMap = mutableMapOf<String, Boolean>().apply {
+            weekDaysOrder.forEach{day ->
+                this[day] = nonOrderWeek[day]?:false
+            }
+        }
+        return  orderedWeekMap
+    }
 
     override suspend fun getUser(uid:String): User? {
         return try {
@@ -72,7 +40,7 @@ override suspend fun writeUser(uid: String,user: User){
                 is HashMap<*, *> -> {
                     val diaryMap = user["diary"] as? MutableMap<String, HashMap<String, String>>
                         ?: mutableMapOf()
-                    val diaryRecords = diaryMap.mapValues { (key, innerMap) ->
+                    val diaryRecords = diaryMap.mapValues { (_, innerMap) ->
                         DiaryRecord(
                             date = innerMap["date"] ?: "",
                             recordText = innerMap["recordText"] ?: "",
@@ -80,6 +48,9 @@ override suspend fun writeUser(uid: String,user: User){
                         )
                     }.toMutableMap()
 
+                    val weekMap = user["week"] as? MutableMap<String, Boolean> ?: mutableMapOf()
+
+                    val orderedWeek = orderWeek(weekMap)
                     val result = User(
                         login = user["login"].toString(),
                         password = user["password"].toString(),
@@ -87,7 +58,7 @@ override suspend fun writeUser(uid: String,user: User){
                         everydayMoney = user["everydayMoney"].toString().toInt(),
                         currency = user["currency"].toString(),
                         diary = diaryRecords,
-                        week = user["week"] as? MutableMap<String, Boolean> ?: mutableMapOf(),
+                        week = orderedWeek,
                         savedMoney = user["savedMoney"].toString().toInt(),
                         savedCans = user["savedCans"].toString().toInt()
 
