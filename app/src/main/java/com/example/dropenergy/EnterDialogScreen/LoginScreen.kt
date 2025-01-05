@@ -144,7 +144,9 @@ fun LoginScreen(navController: NavHostController, viewModel: DBViewModel?){
                         is GetDBState.Success -> {
                             LaunchedEffect(Unit) {
                                 navController.popBackStack()
+                                navController.popBackStack()
                                 navController.navigate("progress")
+
                             }
 
                         }
