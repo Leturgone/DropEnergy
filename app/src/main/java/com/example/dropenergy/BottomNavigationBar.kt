@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AddCircle
 import androidx.compose.material.icons.rounded.BarChart
+import androidx.compose.material.icons.rounded.Build
 import androidx.compose.material.icons.rounded.Create
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -41,6 +42,11 @@ val items = listOf(
         title = "Дневник",
         route = "diary" ,
         icon = Icons.Rounded.Create
+    ),
+    BottomNavigation(
+        title = "Настройки",
+        route = "options",
+        icon = Icons.Rounded.Build
     )
 )
 
@@ -59,7 +65,7 @@ fun BottomNavigationBar(navController: NavHostController){
                     modifier = Modifier.testTag(item.route),
                     onClick = {
                         navController.navigate(item.route){
-                            popUpTo(item.route)
+                            popUpTo(item.route){inclusive = true}
                         }
 
                     },
