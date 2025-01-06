@@ -65,7 +65,7 @@ fun BottomNavigationBar(navController: NavHostController){
                     modifier = Modifier.testTag(item.route),
                     onClick = {
                         navController.navigate(item.route){
-                            popUpTo(item.route)
+                            popUpTo(item.route){inclusive = true}
                         }
 
                     },
