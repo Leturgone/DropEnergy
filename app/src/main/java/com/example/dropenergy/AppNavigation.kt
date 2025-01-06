@@ -41,7 +41,7 @@ fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController,
         composable("login") { LoginScreen(navController,viewModel) }
         composable("dialog_cans") { AskCansScreen(navController,viewModel) }
         composable("dialog_money") { AskMoneyScreen(navController,viewModel) }
-        composable("options") { OptionsScreen() }
+        composable("options") { OptionsScreen(navController,viewModel) }
 
     }
 }
