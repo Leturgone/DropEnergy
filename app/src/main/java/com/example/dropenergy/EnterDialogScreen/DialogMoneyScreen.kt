@@ -143,8 +143,12 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
                     )
                 }
                 Button(onClick = {
-                    viewModel?.addMoneyInf(currency = currencyText, money = inputText.toInt())
-                    viewModel?.signup()
+                    try {
+                        viewModel?.addMoneyInf(currency = currencyText, money = inputText.toInt())
+                        viewModel?.signup()
+                    }catch (e:java.lang.NumberFormatException){
+                        Toast.makeText(ctx,"Введите только число", Toast.LENGTH_SHORT).show()
+                    }
                 },
                     colors = ButtonDefaults.buttonColors(containerColor = buttonColor)
                     ) {
