@@ -151,7 +151,7 @@ fun LoginScreen(navController: NavHostController, viewModel: DBViewModel?){
 
                         }
                         is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка", Toast.LENGTH_SHORT).show()
-                        is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка", Toast.LENGTH_SHORT).show()
+                        is GetDBState.Failure -> Toast.makeText(ctx,"Неверный логин или пароль", Toast.LENGTH_SHORT).show()
                         else -> {null}
                     }
 
