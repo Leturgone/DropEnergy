@@ -28,7 +28,6 @@ fun OptionsScreen(navController: NavHostController, viewModel: DBViewModel){
         ) { viewModel.logout()
             navController.popBackStack()
             navController.popBackStack()
-            navController.popBackStack()
             navController.navigate("reg")
         }
 
