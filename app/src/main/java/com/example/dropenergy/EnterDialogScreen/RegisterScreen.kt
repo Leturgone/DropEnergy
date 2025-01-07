@@ -121,11 +121,14 @@ fun RegScreen(navController: NavHostController, viewModel: DBViewModel?){
                 Button(onClick = {
                     if( loginInputText.isEmpty() || !loginInputText.matches("^[A-Za-z0-9@.]+$".toRegex())
                         || loginInputText.matches("\\s".toRegex())){
-                        Toast.makeText(ctx,"Логин не должен содержать пробелов",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(ctx,"Проверьте логин на ошибки",Toast.LENGTH_SHORT).show()
                     }
                     else if( passwordInputText.isEmpty() || !passwordInputText.matches("^[A-Za-z0-9]+$".toRegex())
                         || passwordInputText.matches("\\s".toRegex())){
                         Toast.makeText(ctx,"Пароль не должен содержать пробелов",Toast.LENGTH_SHORT).show()
+                    }
+                    else if (passwordInputText.length < 8){
+                        Toast.makeText(ctx,"Пароль должен содержать минимум 8 символов",Toast.LENGTH_SHORT).show()
                     }
                     else {
                         //Загрузка в бд

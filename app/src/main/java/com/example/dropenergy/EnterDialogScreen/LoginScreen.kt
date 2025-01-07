@@ -129,6 +129,9 @@ fun LoginScreen(navController: NavHostController, viewModel: DBViewModel?){
                         || passwordInputText.matches("\\s".toRegex())){
                         Toast.makeText(ctx,"Пароль не должен содержать пробелов", Toast.LENGTH_SHORT).show()
                     }
+                    else if (passwordInputText.length < 8){
+                        Toast.makeText(ctx,"Пароль должен содержать минимум 8 символов",Toast.LENGTH_SHORT).show()
+                    }
                     else {
                         viewModel?.login(loginInputText,passwordInputText)
                     }
