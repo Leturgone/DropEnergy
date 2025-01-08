@@ -60,16 +60,16 @@ fun DiaryScreen(viewModel:DBViewModel){
                     else -> {null}
                 }
             }
-            LazyColumn() {
+            LazyColumn(modifier = Modifier.padding(6.dp)) {
                 items(diary.size) {
                     val record = diary[it]
-                    Column(modifier = Modifier.padding(6.dp)) {
-                        Row {
+                    Column() {
+                        Row(modifier = Modifier.padding(top = 8.dp)) {
                             Icon(
                                 imageVector = Icons.Rounded.Circle,
-                                modifier = Modifier.size(15.dp),
+                                modifier = Modifier.size(15.dp).padding(start = 6.dp),
                                 tint = Color.LightGray,
-                                contentDescription = "Yes"
+                                contentDescription = "Icon"
                             )
                             Row {
                                 Text(
@@ -86,7 +86,7 @@ fun DiaryScreen(viewModel:DBViewModel){
                         if(record.second.intensive!="") {
                             Text(
                                 text = "Интенсивность: ${record.second.intensive}",
-                                Modifier.padding(start = 23.dp)
+                                Modifier.padding(start = 23.dp, top = 6.dp)
                             )
                         }
                     }
