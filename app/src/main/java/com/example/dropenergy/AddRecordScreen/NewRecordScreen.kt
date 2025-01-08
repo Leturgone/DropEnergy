@@ -25,7 +25,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -59,7 +58,12 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
             Column {
                 Row(modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.Center) {
                     Text(
-                        text = category,
+                        text = when(category){
+                            "green" ->"Я справился с соблазном"
+                            "red" -> "Я купил энергетик"
+                            "yellow" -> "Я хочу энергетик"
+                            else -> {"Я зарегистрировался в приложении"}
+                        },
                         fontSize = 30.sp,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.Bold,
@@ -134,7 +138,7 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
                         //Загрузка в БД
                         val record = DiaryRecord(
                             date = dateValue.toString(),
-                            recordText = category,
+                            recordColor = category,
                             intensive = sliderValue.toInt().toString() )
 
                         val weekDay = CheckDay(
@@ -144,15 +148,15 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
                         viewModel.updateDiary(record)
                         viewModel.updateWeek(weekDay)
                         when(category) {
-                            "Я хочу энергетик" -> {
+                            "green" -> {
                                 viewModel.updateSavedCans(true)
                                 viewModel.updateSavedMoney(true)
                             }
-                            "Я купил энергетик" -> {
+                            "red" -> {
                                 viewModel.updateSavedCans(false)
                                 viewModel.updateSavedMoney(false)
                             }
-                            "Я справился с соблазном" -> {
+                            "yellow" -> {
                                 viewModel.updateSavedCans(true)
                                 viewModel.updateSavedMoney(true)
                             }

@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseReference
 import kotlinx.coroutines.tasks.await
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.SortedMap
 
 class UserRepository(
     private val database: DatabaseReference
@@ -43,7 +44,7 @@ class UserRepository(
                     val diaryRecords = diaryMap.mapValues { (_, innerMap) ->
                         DiaryRecord(
                             date = innerMap["date"] ?: "",
-                            recordText = innerMap["recordText"] ?: "",
+                            recordColor = innerMap["recordColor"] ?: "",
                             intensive = innerMap["intensive"] ?: ""
                         )
                     }.toMutableMap()
@@ -140,7 +141,7 @@ class UserRepository(
             }
     }
 
-    override suspend fun getDiary(uid: String): GetDBState<MutableMap<String, DiaryRecord>> {
+    override suspend fun getDiary(uid: String): GetDBState<SortedMap<String, DiaryRecord>> {
         return try {
             Log.i("Firebase","Начато получение дневника $uid")
             val diary = getUser(uid)?.diary?.toSortedMap(reverseOrder())
