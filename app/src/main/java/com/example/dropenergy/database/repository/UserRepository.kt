@@ -143,7 +143,7 @@ class UserRepository(
     override suspend fun getDiary(uid: String): GetDBState<MutableMap<String, DiaryRecord>> {
         return try {
             Log.i("Firebase","Начато получение дневника $uid")
-            val diary = getUser(uid)?.diary
+            val diary = getUser(uid)?.diary?.toSortedMap(reverseOrder())
             Log.i("Firebase","Полученный дневник $diary $uid")
             GetDBState.Success(diary!!)
         }catch (e:Exception){
