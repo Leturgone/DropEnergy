@@ -38,26 +38,27 @@ fun OptionsScreen(navController: NavHostController, viewModel: DBViewModel){
             fontSize = 24.sp,
             color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(14.dp)
         )
-    }
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 60.dp),
-    ) {
-        LazyColumn() {
-            items(optList.size) {
-                val option = optList[it]
-                Column(Modifier.padding(start = 13.dp).clickable {option.function()}.fillMaxWidth()){
-                    Text(text = option.title,
-                        fontSize = 20.sp,
-                        color = MaterialTheme.colorScheme.onBackground,
-                        fontWeight = FontWeight.Normal,
-                        modifier = Modifier.padding(16.dp),
-                    )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 6.dp),
+        ) {
+            LazyColumn() {
+                items(optList.size) {
+                    val option = optList[it]
+                    Column(Modifier.padding(start = 13.dp).clickable {option.function()}.fillMaxWidth()){
+                        Text(text = option.title,
+                            fontSize = 20.sp,
+                            color = MaterialTheme.colorScheme.onBackground,
+                            fontWeight = FontWeight.Normal,
+                            modifier = Modifier.padding(16.dp),
+                        )
+                    }
                 }
             }
         }
     }
+
 }
