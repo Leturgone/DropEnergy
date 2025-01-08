@@ -46,55 +46,56 @@ fun DiaryScreen(viewModel:DBViewModel){
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(16.dp)
         )
-    }
-    Box(
-        modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
-    ) {
+        Box(
+            modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+        ) {
 
-        viewModel.diaryFlow.collectAsState().value.let {state ->
-            when(state){
-                is GetDBState.Success -> {
-                    diary = state.result.toList()
+            viewModel.diaryFlow.collectAsState().value.let {state ->
+                when(state){
+                    is GetDBState.Success -> {
+                        diary = state.result.toList()
+                    }
+                    is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка списка", Toast.LENGTH_SHORT).show()
+                    is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка загрузки", Toast.LENGTH_SHORT).show()
+                    else -> {null}
                 }
-                is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка списка", Toast.LENGTH_SHORT).show()
-                is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка загрузки", Toast.LENGTH_SHORT).show()
-                else -> {null}
             }
-        }
-        LazyColumn() {
-            items(diary.size) {
-                val record = diary[it]
-                Column(modifier = Modifier.padding(6.dp)) {
-                    Row {
-                        Icon(
-                            imageVector = Icons.Rounded.Circle,
-                            modifier = Modifier.size(15.dp),
-                            tint = Color.LightGray,
-                            contentDescription = "Yes"
-                        )
+            LazyColumn() {
+                items(diary.size) {
+                    val record = diary[it]
+                    Column(modifier = Modifier.padding(6.dp)) {
                         Row {
-                            Text(
-                                text = record.second.date,
-                                Modifier.padding(start = 8.dp)
+                            Icon(
+                                imageVector = Icons.Rounded.Circle,
+                                modifier = Modifier.size(15.dp),
+                                tint = Color.LightGray,
+                                contentDescription = "Yes"
                             )
-                            Text(
-                                text = record.second.recordText,
-                                Modifier.padding(start = 6.dp)
-                            )
+                            Row {
+                                Text(
+                                    text = record.second.date,
+                                    Modifier.padding(start = 8.dp)
+                                )
+                                Text(
+                                    text = record.second.recordText,
+                                    Modifier.padding(start = 6.dp)
+                                )
 
+                            }
+                        }
+                        if(record.second.intensive!="") {
+                            Text(
+                                text = "Интенсивность: ${record.second.intensive}",
+                                Modifier.padding(start = 23.dp)
+                            )
                         }
                     }
-                    if(record.second.intensive!="") {
-                        Text(
-                            text = "Интенсивность: ${record.second.intensive}",
-                            Modifier.padding(start = 23.dp)
-                        )
-                    }
                 }
             }
-        }
 
+        }
     }
+
 }
 
 
