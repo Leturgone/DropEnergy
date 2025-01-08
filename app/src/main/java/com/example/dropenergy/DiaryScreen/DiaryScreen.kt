@@ -77,7 +77,13 @@ fun DiaryScreen(viewModel:DBViewModel){
                                     Modifier.padding(start = 8.dp)
                                 )
                                 Text(
-                                    text = record.second.recordText,
+                                    text =
+                                    when(record.second.recordColor){
+                                        "green" ->"Я справился с соблазном"
+                                        "red" -> "Я купил энергетик"
+                                        "yellow" -> "Я хочу энергетик"
+                                        else -> {"Я зарегистрировался в приложении"}
+                                    },
                                     Modifier.padding(start = 6.dp)
                                 )
 
