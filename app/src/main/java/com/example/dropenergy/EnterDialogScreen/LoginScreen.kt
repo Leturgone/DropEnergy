@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -119,6 +120,25 @@ fun LoginScreen(navController: NavHostController, viewModel: DBViewModel?){
                 }
 
 
+                loginState?.value.let {state ->
+                    when(state){
+                        is GetDBState.Success -> {
+                            LaunchedEffect(Unit) {
+                                navController.popBackStack()
+                                navController.popBackStack()
+                                navController.navigate("progress")
+
+                            }
+
+                        }
+                        is GetDBState.Loading -> {
+                            CircularProgressIndicator()
+                        }
+                        is GetDBState.Failure -> Toast.makeText(ctx,"Неверный логин или пароль", Toast.LENGTH_SHORT).show()
+                        else -> {null}
+                    }
+
+                }
 
                 Button(onClick = {
                     if( loginInputText.isEmpty() || !loginInputText.matches("^[A-Za-z0-9@.]+$".toRegex())
@@ -142,23 +162,7 @@ fun LoginScreen(navController: NavHostController, viewModel: DBViewModel?){
                     Text(text = "Дальше")
                 }
 
-                loginState?.value.let {state ->
-                    when(state){
-                        is GetDBState.Success -> {
-                            LaunchedEffect(Unit) {
-                                navController.popBackStack()
-                                navController.popBackStack()
-                                navController.navigate("progress")
 
-                            }
-
-                        }
-                        is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка", Toast.LENGTH_SHORT).show()
-                        is GetDBState.Failure -> Toast.makeText(ctx,"Неверный логин или пароль", Toast.LENGTH_SHORT).show()
-                        else -> {null}
-                    }
-
-                }
 
 
 
