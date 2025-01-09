@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Circle
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -54,48 +55,11 @@ fun DiaryScreen(viewModel:DBViewModel){
                 when(state){
                     is GetDBState.Success -> {
                         diary = state.result.toList()
+                        DiaryList(diary = diary)
                     }
-                    is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка списка", Toast.LENGTH_SHORT).show()
+                    is GetDBState.Loading -> CircularProgressIndicator()
                     is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка загрузки", Toast.LENGTH_SHORT).show()
                     else -> {null}
-                }
-            }
-            LazyColumn(modifier = Modifier.padding(6.dp)) {
-                items(diary.size) {
-                    val record = diary[it]
-                    Column() {
-                        Row(modifier = Modifier.padding(top = 8.dp)) {
-                            Icon(
-                                imageVector = Icons.Rounded.Circle,
-                                modifier = Modifier.size(15.dp).padding(start = 6.dp),
-                                tint = Color.LightGray,
-                                contentDescription = "Icon"
-                            )
-                            Row {
-                                Text(
-                                    text = record.second.date,
-                                    Modifier.padding(start = 8.dp)
-                                )
-                                Text(
-                                    text =
-                                    when(record.second.recordColor){
-                                        "green" ->"Я справился с соблазном"
-                                        "red" -> "Я купил энергетик"
-                                        "yellow" -> "Я хочу энергетик"
-                                        else -> {"Я зарегистрировался в приложении"}
-                                    },
-                                    Modifier.padding(start = 6.dp)
-                                )
-
-                            }
-                        }
-                        if(record.second.intensive!="") {
-                            Text(
-                                text = "Интенсивность: ${record.second.intensive}",
-                                Modifier.padding(start = 23.dp, top = 6.dp)
-                            )
-                        }
-                    }
                 }
             }
 
@@ -104,6 +68,50 @@ fun DiaryScreen(viewModel:DBViewModel){
 
 }
 
+
+@Composable
+fun DiaryList(diary: List<Pair<String, DiaryRecord>>){
+    LazyColumn(modifier = Modifier.padding(6.dp)) {
+        items(diary.size) {
+            val record = diary[it]
+            Column() {
+                Row(modifier = Modifier.padding(top = 8.dp)) {
+                    Icon(
+                        imageVector = Icons.Rounded.Circle,
+                        modifier = Modifier
+                            .size(15.dp)
+                            .padding(start = 6.dp),
+                        tint = Color.LightGray,
+                        contentDescription = "Icon"
+                    )
+                    Row {
+                        Text(
+                            text = record.second.date,
+                            Modifier.padding(start = 8.dp)
+                        )
+                        Text(
+                            text =
+                            when(record.second.recordColor){
+                                "green" ->"Я справился с соблазном"
+                                "red" -> "Я купил энергетик"
+                                "yellow" -> "Я хочу энергетик"
+                                else -> {"Я зарегистрировался в приложении"}
+                            },
+                            Modifier.padding(start = 6.dp)
+                        )
+
+                    }
+                }
+                if(record.second.intensive!="") {
+                    Text(
+                        text = "Интенсивность: ${record.second.intensive}",
+                        Modifier.padding(start = 23.dp, top = 6.dp)
+                    )
+                }
+            }
+        }
+    }
+}
 
 
 
