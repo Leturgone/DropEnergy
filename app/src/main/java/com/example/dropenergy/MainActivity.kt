@@ -95,7 +95,7 @@ fun ProgressScreen(navController:NavHostController,viewModel:DBViewModel){
     Column {
         DailyCheckSection(viewModel)
         Spacer(modifier =Modifier.height(12.dp))
-        ProgressSection(navController,viewModel)
+        ProgressSection(navController)
     }
 
 }
