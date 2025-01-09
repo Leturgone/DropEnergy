@@ -18,6 +18,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -166,12 +167,10 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
                             navController.popBackStack()
                             navController.popBackStack()
                             navController.navigate("progress")
-
-
                         }
 
                     }
-                    is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка", Toast.LENGTH_SHORT).show()
+                    is GetDBState.Loading -> CircularProgressIndicator()
                     is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка", Toast.LENGTH_SHORT).show()
                     else -> {null}
                 }
