@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -28,7 +29,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.dropenergy.R
 import com.example.dropenergy.data.ProgressCategory
-import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.ui.theme.Green
 import com.example.dropenergy.ui.theme.Yellow40
 
@@ -41,14 +41,14 @@ fun ProgressSection(navController : NavHostController){
 
     progressCategories = listOf(
         ProgressCategory(
-            categoryName = "Деньги",
+            categoryName = stringResource(id = R.string.money),
             icon = Icons.Rounded.AttachMoney,
             backgroundOfIcon = Yellow40,
             categoryValue = 53,
             screenFunName = "moneyScreen"
         ),
         ProgressCategory(
-            categoryName = "Банки",
+            categoryName = stringResource(id = R.string.cans),
             icon = ImageVector.vectorResource(R.drawable.energy_drink),
             backgroundOfIcon = Green,
             categoryValue = 1,
@@ -57,7 +57,7 @@ fun ProgressSection(navController : NavHostController){
     )
 
     Column {
-        Text(text = "Прогресс",
+        Text(text = stringResource(id = R.string.progress),
             fontSize = 24.sp,
             color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.Bold,
@@ -81,7 +81,7 @@ fun ProgressSection(navController : NavHostController){
                             .size(120.dp)
                             .clickable {}
                             .padding(13.dp)
-                            .clickable(onClick = {navController.navigate(cat.screenFunName)}
+                            .clickable(onClick = { navController.navigate(cat.screenFunName) }
                             ), verticalArrangement = Arrangement.SpaceBetween)
                     {
                         Row() {
