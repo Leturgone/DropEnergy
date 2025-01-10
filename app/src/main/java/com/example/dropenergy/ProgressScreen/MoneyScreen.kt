@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -45,40 +46,6 @@ fun MoneyScreen(viewModel: DBViewModel){
         viewModel.getCurrency()
     }
 
-    viewModel.currency.collectAsState().value.let {state ->
-        when(state){
-            is GetDBState.Success -> {
-                currency = state.result
-            }
-            is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка валюты", Toast.LENGTH_SHORT).show()
-            is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка загр валюты", Toast.LENGTH_SHORT).show()
-            else -> {null}
-        }
-    }
-
-    viewModel.savedMoneyFlow.collectAsState().value.let {state ->
-        when(state){
-            is GetDBState.Success -> {
-                ekonom_money = state.result
-            }
-            is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка сохр денег", Toast.LENGTH_SHORT).show()
-            is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка сохр денег", Toast.LENGTH_SHORT).show()
-            else -> {null}
-        }
-    }
-    viewModel.everydayMoneyFlow.collectAsState().value.let {state ->
-        when(state){
-            is GetDBState.Success -> {
-                in_day_money = state.result
-                in_week_money = in_day_money*7
-                in_mounth_money = in_day_money*30
-                in_year_money = in_day_money*365
-            }
-            is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка ежед денег", Toast.LENGTH_SHORT).show()
-            is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка ежед денег", Toast.LENGTH_SHORT).show()
-            else -> {null}
-        }
-    }
     Column {
         Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -89,13 +56,29 @@ fun MoneyScreen(viewModel: DBViewModel){
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(16.dp)
                 )
-                Text(
-                    text = "$ekonom_money $currency",
-                    fontSize = 24.sp,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(16.dp)
-                )
+                viewModel.currency.collectAsState().value.let {state ->
+                    when(state){
+                        is GetDBState.Success -> {
+                            currency = state.result
+                            viewModel.savedMoneyFlow.collectAsState().value.let {state ->
+                                when(state){
+                                    is GetDBState.Success -> {
+                                        ekonom_money = state.result
+                                        SavedMoney(currency = currency, ekonom_money =ekonom_money )
+                                    }
+                                    is GetDBState.Loading -> CircularProgressIndicator(Modifier.padding(16.dp))
+                                    is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка сохр денег", Toast.LENGTH_SHORT).show()
+                                    else -> {null}
+                                }
+                            }
+
+                        }
+                        is GetDBState.Loading -> CircularProgressIndicator(Modifier.padding(16.dp))
+                        is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка загр валюты", Toast.LENGTH_SHORT).show()
+                        else -> {null}
+                    }
+                }
+
             }
 
         }
@@ -107,30 +90,67 @@ fun MoneyScreen(viewModel: DBViewModel){
             modifier = Modifier.padding(16.dp))
 
         Column(Modifier.padding(start = 16.dp)) {
-            Text(text = "$in_day_money $currency в день",
-                fontSize = 24.sp,
-                color = MaterialTheme.colorScheme.onBackground,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(16.dp))
-
-            Text(text = "$in_week_money $currency в неделю ",
-                fontSize = 24.sp,
-                color = MaterialTheme.colorScheme.onBackground,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(16.dp))
-
-            Text(text = "$in_mounth_money $currency в месяц ",
-                fontSize = 24.sp,
-                color = MaterialTheme.colorScheme.onBackground,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(16.dp))
-
-            Text(text = "$in_year_money $currency год ",
-                fontSize = 24.sp,
-                color = MaterialTheme.colorScheme.onBackground,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(16.dp))
+            viewModel.everydayMoneyFlow.collectAsState().value.let {state ->
+                when(state){
+                    is GetDBState.Success -> {
+                        in_day_money = state.result
+                        in_week_money = in_day_money*7
+                        in_mounth_money = in_day_money*30
+                        in_year_money = in_day_money*365
+                        FutureMoney(
+                            currency = currency,
+                            in_day_money = in_day_money,
+                            in_week_money = in_week_money,
+                            in_mounth_money = in_mounth_money,
+                            in_year_money = in_year_money
+                        )
+                    }
+                    is GetDBState.Loading -> CircularProgressIndicator(Modifier.padding(16.dp))
+                    is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка ежед денег", Toast.LENGTH_SHORT).show()
+                    else -> {null}
+                }
+            }
         }
 
     }
+}
+
+@Composable
+fun SavedMoney(currency:String, ekonom_money: Int){
+    Text(
+        text = "$ekonom_money $currency",
+        fontSize = 24.sp,
+        color = MaterialTheme.colorScheme.onBackground,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(16.dp)
+    )
+}
+
+
+@Composable
+fun FutureMoney(currency:String, in_day_money: Int, in_week_money: Int,
+                in_mounth_money: Int, in_year_money: Int ){
+    Text(text = "$in_day_money $currency в день",
+        fontSize = 24.sp,
+        color = MaterialTheme.colorScheme.onBackground,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(16.dp))
+
+    Text(text = "$in_week_money $currency в неделю ",
+        fontSize = 24.sp,
+        color = MaterialTheme.colorScheme.onBackground,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(16.dp))
+
+    Text(text = "$in_mounth_money $currency в месяц ",
+        fontSize = 24.sp,
+        color = MaterialTheme.colorScheme.onBackground,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(16.dp))
+
+    Text(text = "$in_year_money $currency год ",
+        fontSize = 24.sp,
+        color = MaterialTheme.colorScheme.onBackground,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(16.dp))
 }

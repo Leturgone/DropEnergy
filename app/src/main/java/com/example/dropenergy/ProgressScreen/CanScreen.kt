@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,36 +40,10 @@ fun CanScreen(viewModel:DBViewModel){
     }
 
 
-    viewModel.savedCansFlow.collectAsState().value.let {state ->
-        when(state){
-            is GetDBState.Success -> {
-                ekonom_can = state.result
-            }
-            is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка сохр банок", Toast.LENGTH_SHORT).show()
-            is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка сохр банок ", Toast.LENGTH_SHORT).show()
-            else -> {null}
-        }
-    }
-
-    viewModel.everyDayCansFlow.collectAsState().value.let {state ->
-        when(state){
-            is GetDBState.Success -> {
-                in_day_can = state.result
-                in_week_can = in_day_can * 7
-                in_mounth_can = in_day_can * 30
-                in_year_can = in_day_can * 365
-            }
-            is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка ежед банок", Toast.LENGTH_SHORT).show()
-            is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка ежед банок ", Toast.LENGTH_SHORT).show()
-            else -> {null}
-        }
-    }
-
-
-
     Column {
         Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
                 Text(
                     text = "Не выпито",
                     fontSize = 28.sp,
@@ -76,13 +51,18 @@ fun CanScreen(viewModel:DBViewModel){
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(16.dp)
                 )
-                Text(
-                    text = "$ekonom_can банок",
-                    fontSize = 24.sp,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(16.dp)
-                )
+                viewModel.savedCansFlow.collectAsState().value.let {state ->
+                    when(state){
+                        is GetDBState.Success -> {
+                            ekonom_can = state.result
+                            SavedCans(ekonom_can = ekonom_can)
+                        }
+                        is GetDBState.Loading ->  CircularProgressIndicator()
+                        is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка сохр банок ", Toast.LENGTH_SHORT).show()
+                        else -> {null}
+                    }
+                }
+
             }
 
         }
@@ -94,31 +74,70 @@ fun CanScreen(viewModel:DBViewModel){
             modifier = Modifier.padding(16.dp))
 
         Column(Modifier.padding(start = 16.dp)) {
+            viewModel.everyDayCansFlow.collectAsState().value.let {state ->
+                when(state){
+                    is GetDBState.Success -> {
+                        in_day_can = state.result
+                        in_week_can = in_day_can * 7
+                        in_mounth_can = in_day_can * 30
+                        in_year_can = in_day_can * 365
 
-            Text(text = "$in_day_can банок в день",
-                fontSize = 24.sp,
-                color = MaterialTheme.colorScheme.onBackground,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(16.dp))
+                        FutureCans(
+                            in_day_can = in_day_can,
+                            in_week_can = in_week_can,
+                            in_mounth_can = in_mounth_can,
+                            in_year_can =in_year_can
+                        )
+                    }
+                    is GetDBState.Loading -> CircularProgressIndicator(Modifier.padding(16.dp))
+                    is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка ежед банок ", Toast.LENGTH_SHORT).show()
+                    else -> {null}
+                }
+            }
 
-            Text(text = "$in_week_can банок в неделю ",
-                fontSize = 24.sp,
-                color = MaterialTheme.colorScheme.onBackground,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(16.dp))
 
-            Text(text = "$in_mounth_can банок в месяц ",
-                fontSize = 24.sp,
-                color = MaterialTheme.colorScheme.onBackground,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(16.dp))
-
-            Text(text = "$in_year_can банок год ",
-                fontSize = 24.sp,
-                color = MaterialTheme.colorScheme.onBackground,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(16.dp))
         }
 
     }
 }
+
+
+@Composable
+fun SavedCans(ekonom_can: Int){
+    Text(
+        text = "$ekonom_can банок",
+        fontSize = 24.sp,
+        color = MaterialTheme.colorScheme.onBackground,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(16.dp)
+    )
+}
+
+
+@Composable
+fun FutureCans(in_day_can: Int,in_week_can: Int, in_mounth_can:Int, in_year_can:Int ){
+    Text(text = "$in_day_can банок в день",
+        fontSize = 24.sp,
+        color = MaterialTheme.colorScheme.onBackground,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(16.dp))
+
+    Text(text = "$in_week_can банок в неделю ",
+        fontSize = 24.sp,
+        color = MaterialTheme.colorScheme.onBackground,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(16.dp))
+
+    Text(text = "$in_mounth_can банок в месяц ",
+        fontSize = 24.sp,
+        color = MaterialTheme.colorScheme.onBackground,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(16.dp))
+
+    Text(text = "$in_year_can банок год ",
+        fontSize = 24.sp,
+        color = MaterialTheme.colorScheme.onBackground,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(16.dp))
+}
+

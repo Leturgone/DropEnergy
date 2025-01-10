@@ -37,7 +37,7 @@ lateinit var  progressCategories: List<ProgressCategory>
 
 
 @Composable
-fun ProgressSection(navController : NavHostController,viewModel: DBViewModel){
+fun ProgressSection(navController : NavHostController){
 
     progressCategories = listOf(
         ProgressCategory(

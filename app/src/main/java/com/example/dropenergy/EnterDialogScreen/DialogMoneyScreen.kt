@@ -66,7 +66,7 @@ fun CurrencyListItem(currency: String, isSelected: Boolean, onClick: () -> Unit)
 
 }
 
-//@Preview(showBackground = true)
+
 @Composable
 fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
     var inputText  by remember { mutableStateOf("") }

@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CheckCircleOutline
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -55,21 +56,7 @@ fun DailyCheckSection(viewModel: DBViewModel) {
         Box(modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)){
-
-            viewModel.weekFlow.collectAsState().value.let {state ->
-                when(state){
-                    is GetDBState.Success -> {
-                        week = state.result.toList()
-                    }
-                    is GetDBState.Loading -> Toast.makeText(ctx,"Загрузка недели", Toast.LENGTH_SHORT).show()
-                    is GetDBState.Failure -> {
-                        week =viewModel.dayCheckMap.toList()
-                        Toast.makeText(ctx,"Ошибка загрузки недели", Toast.LENGTH_SHORT).show()}
-                    else -> {null}
-                }
-            }
-
-
+            
             Column(
                 modifier = Modifier
                     .clip(RoundedCornerShape(25.dp))
@@ -77,41 +64,58 @@ fun DailyCheckSection(viewModel: DBViewModel) {
                     .clickable {}
                     .padding(10.dp)
             ) {
+
                 Text(text = "Эта неделя",
                     fontSize = 10.sp,
                     color = MaterialTheme.colorScheme.onBackground,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.padding(16.dp))
-                //Список с днями и чеками входа
-                LazyRow(modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround){
-                    items(week.size){
-                        val record = week[it]
-                        val day = record.first
-                        val check = record.second
-
-                        Column(verticalArrangement = Arrangement.Center) {
-                            var tint = MaterialTheme.colorScheme.secondaryContainer
-                            if (check){
-                                tint = Color.Green
-                            }
-                            Icon(imageVector = Icons.Rounded.CheckCircleOutline,
-                                tint = tint, contentDescription = "Yes")
-                            Text(text = day,
-                                fontSize = 8.sp,
-                                color = MaterialTheme.colorScheme.onBackground,
-                                fontWeight = FontWeight.Medium,
-                                modifier = Modifier.padding(4.dp))
+                viewModel.weekFlow.collectAsState().value.let {state ->
+                    when(state){
+                        is GetDBState.Success -> {
+                            week = state.result.toList()
+                            WeekSection(week = week)
                         }
-
+                        is GetDBState.Loading -> CircularProgressIndicator()
+                        is GetDBState.Failure -> {
+                            week =viewModel.dayCheckMap.toList()
+                            WeekSection(week = week)
+                            Toast.makeText(ctx,"Ошибка загрузки недели", Toast.LENGTH_SHORT).show()}
+                        else -> {null}
                     }
                 }
-
             }
         }
     }
 
+}
 
+@Composable
+fun WeekSection(week: List<Pair<String, Boolean>>){
+    //Список с днями и чеками входа
+    LazyRow(modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceAround){
+        items(week.size){
+            val record = week[it]
+            val day = record.first
+            val check = record.second
+
+            Column(verticalArrangement = Arrangement.Center) {
+                var tint = MaterialTheme.colorScheme.secondaryContainer
+                if (check){
+                    tint = Color.Green
+                }
+                Icon(imageVector = Icons.Rounded.CheckCircleOutline,
+                    tint = tint, contentDescription = "Yes")
+                Text(text = day,
+                    fontSize = 8.sp,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.padding(4.dp))
+            }
+
+        }
+    }
 }
 
 
