@@ -19,5 +19,15 @@
     <string name="this_week">Эта неделя</string>
     <string name="loading_week_err">Ошибка загрузки недели</string>
 
+    <string-array name="days_of_week">
+        <item>ПН</item>
+        <item>ВТ</item>
+        <item>СР</item>
+        <item>ЧТ</item>
+        <item>ПТ</item>
+        <item>СБ</item>
+        <item>ВС</item>
+    </string-array>
+
 
 </resources>
