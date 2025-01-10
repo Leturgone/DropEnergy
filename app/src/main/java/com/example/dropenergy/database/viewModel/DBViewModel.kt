@@ -85,9 +85,9 @@ class DBViewModel(
     init {
         Log.d("AuthViewModel", "AuthViewModel создана")
         //Проверка логина
-//        if (authRepository.getCurrentUser() != null){
-//            _loginFlow.value = LoginRegState.Success(authRepository.getCurrentUser()!!)
-//        }
+        if (authRepository.getCurrentUser() != null){
+            _loginFlow.value = GetDBState.Success(authRepository.getCurrentUser()!!)
+        }
     }
 
     private fun get_uid(state: GetDBState<*>):String?{
