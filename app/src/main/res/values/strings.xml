@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">DropEnergy</string>
+    <string name="statistics">Статистика</string>
+    <string name="diary">Дневник</string>
+    <string name="options">Настройки</string>
+    <string name="money">Деньги</string>
+    <string name="cans">Банки</string>
+    <string name="progress">Прогресс</string>
+    <string name="saved_money">Сэкономлено</string>
+    <string name="predict">Прогноз</string>
+    <string name="in_day">в день</string>
+    <string name="in_week">в неделю</string>
+    <string name="in_month">в месяц</string>
+    <string name="in_year">в год</string>
+    <string name="loading_everyday_money_err">Не удалось загрузить ежедневные деньги</string>
+    <string name="loading_saved_money_err">Не удалось загрузить сохраненные деньги</string>
+    <string name="loading_currency_err">Не удалось загрузить валюту</string>
+    <string name="daily_check">Ежедневная отметка</string>
+    <string name="this_week">Эта неделя</string>
+    <string name="loading_week_err">Ошибка загрузки недели</string>
+
+
 </resources>
