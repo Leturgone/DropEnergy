@@ -124,7 +124,7 @@ class DBViewModel(
     }
 
 
-    fun createUser(login: String, password: String, now: LocalDate){
+    fun createUser(login: String, password: String){
         val dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
         val date = dtf.format(LocalDateTime.now())
         processing_user.value = User(login,password,
