@@ -16,35 +16,40 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.dropenergy.data.BottomNavigation
 
-val items = listOf(
-    BottomNavigation(
-        title = "Статистика",
-        route = "progress",
-        icon = Icons.Rounded.BarChart
-    ),
-    BottomNavigation(
-        title = null,
-        route = "add_record",
-        icon = Icons.Rounded.AddCircle
-    ),
-    BottomNavigation(
-        title = "Дневник",
-        route = "diary" ,
-        icon = Icons.Rounded.Create
-    ),
-    BottomNavigation(
-        title = "Настройки",
-        route = "options",
-        icon = Icons.Rounded.Build
-    )
-)
+
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController){
+
+    val items = listOf(
+        BottomNavigation(
+            title = stringResource(id = R.string.statistics),
+            route = "progress",
+            icon = Icons.Rounded.BarChart
+        ),
+        BottomNavigation(
+            title = null,
+            route = "add_record",
+            icon = Icons.Rounded.AddCircle
+        ),
+        BottomNavigation(
+            title = stringResource(id = R.string.diary),
+            route = "diary" ,
+            icon = Icons.Rounded.Create
+        ),
+        BottomNavigation(
+            title = stringResource(id = R.string.options),
+            route = "options",
+            icon = Icons.Rounded.Build
+        )
+    )
+
+
     NavigationBar {
 
         //Отслеживание текушего маршрута
