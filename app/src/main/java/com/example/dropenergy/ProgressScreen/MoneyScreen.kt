@@ -20,10 +20,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.dropenergy.R
 import com.example.dropenergy.database.repository.GetDBState
 import com.example.dropenergy.database.viewModel.DBViewModel
 
@@ -50,7 +51,7 @@ fun MoneyScreen(viewModel: DBViewModel){
         Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "Сэкономлено",
+                    text = stringResource(R.string.saved_money),
                     fontSize = 28.sp,
                     color = MaterialTheme.colorScheme.onBackground,
                     fontWeight = FontWeight.Bold,
@@ -67,14 +68,16 @@ fun MoneyScreen(viewModel: DBViewModel){
                                         SavedMoney(currency = currency, ekonom_money =ekonom_money )
                                     }
                                     is GetDBState.Loading -> CircularProgressIndicator(Modifier.padding(16.dp))
-                                    is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка сохр денег", Toast.LENGTH_SHORT).show()
+                                    is GetDBState.Failure -> Toast.makeText(ctx,
+                                        stringResource(id = R.string.loading_saved_money_err), Toast.LENGTH_SHORT).show()
                                     else -> {null}
                                 }
                             }
 
                         }
                         is GetDBState.Loading -> CircularProgressIndicator(Modifier.padding(16.dp))
-                        is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка загр валюты", Toast.LENGTH_SHORT).show()
+                        is GetDBState.Failure -> Toast.makeText(ctx, stringResource(id = R.string.loading_currency_err),
+                            Toast.LENGTH_SHORT).show()
                         else -> {null}
                     }
                 }
@@ -83,7 +86,7 @@ fun MoneyScreen(viewModel: DBViewModel){
 
         }
 
-        Text(text = "Прогноз",
+        Text(text = stringResource(id = R.string.predict),
             fontSize = 24.sp,
             color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.Bold,
@@ -106,7 +109,8 @@ fun MoneyScreen(viewModel: DBViewModel){
                         )
                     }
                     is GetDBState.Loading -> CircularProgressIndicator(Modifier.padding(16.dp))
-                    is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка ежед денег", Toast.LENGTH_SHORT).show()
+                    is GetDBState.Failure -> Toast.makeText(ctx, stringResource(id = R.string.loading_everyday_money_err),
+                        Toast.LENGTH_SHORT).show()
                     else -> {null}
                 }
             }
@@ -130,25 +134,25 @@ fun SavedMoney(currency:String, ekonom_money: Int){
 @Composable
 fun FutureMoney(currency:String, in_day_money: Int, in_week_money: Int,
                 in_mounth_money: Int, in_year_money: Int ){
-    Text(text = "$in_day_money $currency в день",
+    Text(text = "$in_day_money $currency ${stringResource(id = R.string.in_day)}",
         fontSize = 24.sp,
         color = MaterialTheme.colorScheme.onBackground,
         fontWeight = FontWeight.Bold,
         modifier = Modifier.padding(16.dp))
 
-    Text(text = "$in_week_money $currency в неделю ",
+    Text(text = "$in_week_money $currency ${stringResource(id = R.string.in_week)} ",
         fontSize = 24.sp,
         color = MaterialTheme.colorScheme.onBackground,
         fontWeight = FontWeight.Bold,
         modifier = Modifier.padding(16.dp))
 
-    Text(text = "$in_mounth_money $currency в месяц ",
+    Text(text = "$in_mounth_money $currency ${stringResource(id = R.string.in_month)} ",
         fontSize = 24.sp,
         color = MaterialTheme.colorScheme.onBackground,
         fontWeight = FontWeight.Bold,
         modifier = Modifier.padding(16.dp))
 
-    Text(text = "$in_year_money $currency год ",
+    Text(text = "$in_year_money $currency ${stringResource(id = R.string.in_year)} ",
         fontSize = 24.sp,
         color = MaterialTheme.colorScheme.onBackground,
         fontWeight = FontWeight.Bold,
