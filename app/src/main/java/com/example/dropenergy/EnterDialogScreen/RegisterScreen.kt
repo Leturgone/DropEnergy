@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -23,6 +24,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,6 +42,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.dropenergy.database.repository.GetDBState
 import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.ui.theme.Purple40
 import com.example.dropenergy.ui.theme.Purple80
@@ -52,6 +56,25 @@ fun RegScreen(navController: NavHostController, viewModel: DBViewModel?){
     var passwordVisible by remember { mutableStateOf(false) }
     var loginOK by remember { mutableStateOf(false) }
     var buttonColor by remember { mutableStateOf(Purple80) }
+
+    val loginState = viewModel?.loginFlow?.collectAsState()
+    loginState?.value.let {state ->
+        when(state){
+            is GetDBState.Success -> {
+                LaunchedEffect(Unit) {
+                    navController.popBackStack()
+                    navController.popBackStack()
+                    navController.navigate("progress")
+
+                }
+
+            }
+            else -> {null}
+        }
+
+    }
+
+
     val ctx = LocalContext.current
 
     Column {
@@ -132,7 +155,7 @@ fun RegScreen(navController: NavHostController, viewModel: DBViewModel?){
                     }
                     else {
                         //Загрузка в бд
-                        viewModel?.createUser(loginInputText,passwordInputText,LocalDate.now())
+                        viewModel?.createUser(loginInputText,passwordInputText)
                         navController.navigate("dialog_cans")
 
                     }
@@ -149,8 +172,6 @@ fun RegScreen(navController: NavHostController, viewModel: DBViewModel?){
                     })
 
                 Spacer(modifier = Modifier.height(1.dp))
-
-
             }
         }
     }
