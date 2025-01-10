@@ -32,7 +32,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
 
-    //private val viewModel  = AuthViewModel(AuthRepository())
     private val viewModel by viewModel<DBViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

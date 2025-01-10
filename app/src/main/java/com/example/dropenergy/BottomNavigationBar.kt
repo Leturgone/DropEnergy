@@ -16,15 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
-import com.example.dropenergy.AddRecordScreen.AddRecordScreen
-import com.example.dropenergy.DiaryScreen.DiaryScreen
 import com.example.dropenergy.data.BottomNavigation
 
 val items = listOf(
@@ -64,10 +57,8 @@ fun BottomNavigationBar(navController: NavHostController){
                 NavigationBarItem(selected = currentRoute == item.route,
                     modifier = Modifier.testTag(item.route),
                     onClick = {
-                        navController.navigate(item.route){
-                            popUpTo(item.route){inclusive = true}
-                        }
-
+                        navController.popBackStack()
+                        navController.navigate(item.route)
                     },
                     icon = {
                         Icon(imageVector = item.icon, contentDescription =item.title, tint = MaterialTheme.colorScheme.onBackground)

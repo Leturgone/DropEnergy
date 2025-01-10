@@ -85,9 +85,9 @@ class DBViewModel(
     init {
         Log.d("AuthViewModel", "AuthViewModel создана")
         //Проверка логина
-//        if (authRepository.getCurrentUser() != null){
-//            _loginFlow.value = LoginRegState.Success(authRepository.getCurrentUser()!!)
-//        }
+        if (authRepository.getCurrentUser() != null){
+            _loginFlow.value = GetDBState.Success(authRepository.getCurrentUser()!!)
+        }
     }
 
     private fun get_uid(state: GetDBState<*>):String?{
@@ -124,7 +124,7 @@ class DBViewModel(
     }
 
 
-    fun createUser(login: String, password: String, now: LocalDate){
+    fun createUser(login: String, password: String){
         val dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
         val date = dtf.format(LocalDateTime.now())
         processing_user.value = User(login,password,
