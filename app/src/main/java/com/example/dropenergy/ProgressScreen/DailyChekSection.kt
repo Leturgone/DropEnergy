@@ -30,9 +30,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.res.stringResource
 import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.repository.GetDBState
 import com.example.dropenergy.database.viewModel.DBViewModel
+import com.example.dropenergy.R
 
 
 
@@ -46,7 +49,7 @@ fun DailyCheckSection(viewModel: DBViewModel) {
 
     Column(modifier = Modifier
         .fillMaxWidth()) {
-        Text(text = "Ежедневная отметка",
+        Text(text = stringResource(id = R.string.daily_check),
             fontSize = 24.sp,
             color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.Bold,
@@ -65,7 +68,7 @@ fun DailyCheckSection(viewModel: DBViewModel) {
                     .padding(10.dp)
             ) {
 
-                Text(text = "Эта неделя",
+                Text(text = stringResource(id = R.string.this_week),
                     fontSize = 10.sp,
                     color = MaterialTheme.colorScheme.onBackground,
                     fontWeight = FontWeight.Medium,
@@ -80,7 +83,7 @@ fun DailyCheckSection(viewModel: DBViewModel) {
                         is GetDBState.Failure -> {
                             week =viewModel.dayCheckMap.toList()
                             WeekSection(week = week)
-                            Toast.makeText(ctx,"Ошибка загрузки недели", Toast.LENGTH_SHORT).show()}
+                            Toast.makeText(ctx, stringResource(id = R.string.loading_week_err), Toast.LENGTH_SHORT).show()}
                         else -> {null}
                     }
                 }
@@ -97,7 +100,7 @@ fun WeekSection(week: List<Pair<String, Boolean>>){
         horizontalArrangement = Arrangement.SpaceAround){
         items(week.size){
             val record = week[it]
-            val day = record.first
+            val day = stringArrayResource(id = R.array.days_of_week)[it]
             val check = record.second
 
             Column(verticalArrangement = Arrangement.Center) {
