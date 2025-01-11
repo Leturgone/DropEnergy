@@ -16,7 +16,6 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -43,11 +42,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.dropenergy.R
 import com.example.dropenergy.database.repository.GetDBState
 import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.ui.theme.Purple40
 import com.example.dropenergy.ui.theme.Purple80
-import com.example.dropenergy.R
 
 //@Preview(showBackground = true)
 @Composable
