@@ -18,7 +18,6 @@
     <string name="daily_check">Ежедневная отметка</string>
     <string name="this_week">Эта неделя</string>
     <string name="loading_week_err">Ошибка загрузки недели</string>
-
     <string-array name="days_of_week">
         <item>ПН</item>
         <item>ВТ</item>
@@ -28,7 +27,6 @@
         <item>СБ</item>
         <item>ВС</item>
     </string-array>
-
     <string name="saved_cans">Не выпито</string>
     <string name="_cans">банок</string>
     <string name="loading_saved_cans_err">Не удалось загрузить не выпитые банки</string>
@@ -43,6 +41,12 @@
     <string name="record_date">Дата записи</string>
     <string name="rate">Оцените</string>
     <string name="save">Сохранить</string>
+    <string name="dialog_cans_question">Сколько вы покупаете энергетиков в день?</string>
+    <string name="count">Количество</string>
+    <string name="number_err">Введите только число</string>
+    <string name="next">Дальше</string>
+
+
 
 
 </resources>
