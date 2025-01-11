@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -46,7 +47,7 @@ import com.example.dropenergy.database.repository.GetDBState
 import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.ui.theme.Purple40
 import com.example.dropenergy.ui.theme.Purple80
-import java.time.LocalDate
+import com.example.dropenergy.R
 
 //@Preview(showBackground = true)
 @Composable
@@ -76,6 +77,9 @@ fun RegScreen(navController: NavHostController, viewModel: DBViewModel?){
 
 
     val ctx = LocalContext.current
+    val emailErr = stringResource(id = R.string.email_err)
+    val passwordErr = stringResource(id = R.string.password_err)
+    val shortPasswordErr = stringResource(id = R.string.password_short_err)
 
     Column {
         LinearProgressIndicator(
@@ -91,7 +95,7 @@ fun RegScreen(navController: NavHostController, viewModel: DBViewModel?){
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Spacer(modifier = Modifier.height(60.dp))
                     Text(
-                        text = "Создать аккаунт",
+                        text = stringResource(id = R.string.registration),
                         fontSize = 28.sp,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.Bold,
@@ -102,22 +106,19 @@ fun RegScreen(navController: NavHostController, viewModel: DBViewModel?){
 
                     OutlinedTextField(
                         value = loginInputText,
-                        label = { Text("Логин") },
+                        label = { Text(stringResource(id = R.string.email)) },
                         singleLine = true,
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Email),
                         onValueChange = {
                             loginInputText = it
                             loginOK = true
                         })
-
-
-
                     Spacer(modifier = Modifier.height(60.dp))
 
                     OutlinedTextField(
                         value = passwordInputText,
                         singleLine = true,
-                        label = { Text("Пароль") },
+                        label = { Text(stringResource(id = R.string.password)) },
                         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Password),
                         onValueChange = {
@@ -139,19 +140,17 @@ fun RegScreen(navController: NavHostController, viewModel: DBViewModel?){
                         })
                 }
 
-
-
                 Button(onClick = {
                     if( loginInputText.isEmpty() || !loginInputText.matches("^[A-Za-z0-9@.]+$".toRegex())
                         || loginInputText.matches("\\s".toRegex())){
-                        Toast.makeText(ctx,"Проверьте логин на ошибки",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(ctx, emailErr, Toast.LENGTH_SHORT).show()
                     }
                     else if( passwordInputText.isEmpty() || !passwordInputText.matches("^[A-Za-z0-9]+$".toRegex())
                         || passwordInputText.matches("\\s".toRegex())){
-                        Toast.makeText(ctx,"Пароль не должен содержать пробелов",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(ctx, passwordErr, Toast.LENGTH_SHORT).show()
                     }
                     else if (passwordInputText.length < 8){
-                        Toast.makeText(ctx,"Пароль должен содержать минимум 8 символов",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(ctx, shortPasswordErr, Toast.LENGTH_SHORT).show()
                     }
                     else {
                         //Загрузка в бд
@@ -163,9 +162,9 @@ fun RegScreen(navController: NavHostController, viewModel: DBViewModel?){
                 },
                     colors = ButtonDefaults.buttonColors(containerColor = buttonColor)
                 ) {
-                    Text(text = "Дальше")
+                    Text(text = stringResource(id = R.string.next))
                 }
-                Text(text = "Уже есть аккаунт? Войти",
+                Text(text = stringResource(id = R.string.already_have),
                     color = Purple40,
                     modifier = Modifier.clickable {
                         navController.navigate("login")
