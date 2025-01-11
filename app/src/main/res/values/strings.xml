@@ -57,6 +57,9 @@
     <string name="email_err">Проверьте логин на ошибки</string>
     <string name="password_err">Пароль не должен содержать пробелов</string>
     <string name="password_short_err">Пароль должен содержать минимум 8 символов</string>
+    <string name="registration">Создать аккаунт</string>
+    <string name="already_have">Уже есть аккаунт? Войти</string>
+
 
 
 
