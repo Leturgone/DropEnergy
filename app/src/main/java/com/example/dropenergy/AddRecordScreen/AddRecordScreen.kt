@@ -16,18 +16,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.dropenergy.database.viewModel.DBViewModel
+import com.example.dropenergy.R
 
 
 @Composable
 fun AddRecordScreen(navController: NavController,viewModel: DBViewModel){
     Column {
-        Text(text = "Создать запись",
+        Text(text = stringResource(id = R.string.create_record),
             fontSize = 24.sp,
             color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.Bold,
@@ -44,8 +46,8 @@ fun AddRecordScreen(navController: NavController,viewModel: DBViewModel){
                 .padding(16.dp)
                 .clickable(
                     onClick = {
-                        navController.navigate("want_rec")
-                })) {
+                        navController.navigate("yellow_rec")
+                    })) {
                 Column(
                     modifier = Modifier
                         .clip(RoundedCornerShape(25.dp))
@@ -54,7 +56,7 @@ fun AddRecordScreen(navController: NavController,viewModel: DBViewModel){
                         .fillMaxWidth(), verticalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "Я хочу энергетик",
+                        text = stringResource(id = R.string.yellow_diary_record),
                         fontSize = 20.sp,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.Medium,
@@ -70,7 +72,7 @@ fun AddRecordScreen(navController: NavController,viewModel: DBViewModel){
                 .fillMaxWidth()
                 .padding(16.dp)
                 .clickable(onClick = {
-                    navController.navigate("buy_rec")
+                    navController.navigate("red_rec")
                 })) {
                 Column(
                     modifier = Modifier
@@ -80,7 +82,7 @@ fun AddRecordScreen(navController: NavController,viewModel: DBViewModel){
                         .fillMaxWidth(), verticalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "Я купил энергетик",
+                        text = stringResource(id = R.string.red_diary_record),
                         fontSize = 20.sp,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.Medium,
@@ -96,7 +98,7 @@ fun AddRecordScreen(navController: NavController,viewModel: DBViewModel){
                 .fillMaxWidth()
                 .padding(16.dp)
                 .clickable(onClick = {
-                    navController.navigate("good_rec")
+                    navController.navigate("green_rec")
                 })) {
                 Column(
                     modifier = Modifier
@@ -106,7 +108,7 @@ fun AddRecordScreen(navController: NavController,viewModel: DBViewModel){
                         .fillMaxWidth(), verticalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "Я справился с соблазном",
+                        text = stringResource(id = R.string.green_diary_record),
                         fontSize = 20.sp,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.Medium,
