@@ -45,6 +45,13 @@
     <string name="count">Количество</string>
     <string name="number_err">Введите только число</string>
     <string name="next">Дальше</string>
+    <string name="dialog_money_question">Сколько в среднем стоит один энергетик?</string>
+    <string name="price">Стоимость</string>
+    <string name="dialog_money_cur_question">Выберите валюту</string>
+    <string name="ok">ОК</string>
+    <string name="reg_error">Не удалось выполнить регистрацию</string>
+
+
 
 
 
