@@ -40,6 +40,9 @@
     <string name="first_diary_record">Я зарегистрировался в приложении</string>
     <string name="intensity">Интенсивность</string>
     <string name="create_record">Создать запись</string>
+    <string name="record_date">Дата записи</string>
+    <string name="rate">Оцените</string>
+    <string name="save">Сохранить</string>
 
 
 </resources>
