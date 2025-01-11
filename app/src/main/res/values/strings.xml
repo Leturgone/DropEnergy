@@ -33,6 +33,12 @@
     <string name="_cans">банок</string>
     <string name="loading_saved_cans_err">Не удалось загрузить не выпитые банки</string>
     <string name="loading_everyday_cans_err">Не удалось загрузить ежедневные банки</string>
+    <string name="loading_diary_err">Не удалось загрузить дневник</string>
+    <string name="green_diary_record">Я справился с соблазном</string>
+    <string name="yellow_diary_record">Я хочу энергетик</string>
+    <string name="red_diary_record">Я купил энергетик</string>
+    <string name="first_diary_record">Я зарегистрировался в приложении</string>
+    <string name="intensity">Интенсивность</string>
 
 
 </resources>
