@@ -29,5 +29,10 @@
         <item>ВС</item>
     </string-array>
 
+    <string name="saved_cans">Не выпито</string>
+    <string name="_cans">банок</string>
+    <string name="loading_saved_cans_err">Не удалось загрузить не выпитые банки</string>
+    <string name="loading_everyday_cans_err">Не удалось загрузить ежедневные банки</string>
+
 
 </resources>
