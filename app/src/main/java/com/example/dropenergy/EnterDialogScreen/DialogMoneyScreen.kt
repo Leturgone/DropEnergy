@@ -38,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -47,7 +48,7 @@ import androidx.navigation.NavHostController
 import com.example.dropenergy.database.repository.GetDBState
 import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.ui.theme.Purple80
-
+import com.example.dropenergy.R
 
 @Composable
 fun CurrencyListItem(currency: String, isSelected: Boolean, onClick: () -> Unit){
@@ -74,7 +75,7 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
     var showDialog by remember { mutableStateOf(false) }
     var buttonColor by remember { mutableStateOf(Purple80) }
     val currencyList = listOf<String>("₽", "$", "Fr", "¥", "€", "£", "kr", "zł", "₺", "R")
-
+    val error = stringResource(id = R.string.number_err)
     val signupState = viewModel?.signupFlow?.collectAsState()
     val ctx = LocalContext.current
 
@@ -92,7 +93,7 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Spacer(modifier = Modifier.height(60.dp))
                     Text(
-                        text = "Сколько в среднем стоит один энергетик?",
+                        text = stringResource(id = R.string.dialog_money_question),
                         fontSize = 28.sp,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.Bold,
@@ -103,7 +104,7 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
                     Row(verticalAlignment = Alignment.CenterVertically){
                         OutlinedTextField(
                             value = inputText,
-                            label = { Text(text = "Стоимость")},
+                            label = { Text(text = stringResource(id = R.string.price))},
                             singleLine = true,
                             keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Number),
                             onValueChange = {
@@ -124,7 +125,7 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
                 if (showDialog) {
                     AlertDialog(
                         onDismissRequest = { showDialog = false },
-                        title = { Text("Выберите валюту") },
+                        title = { Text(stringResource(id = R.string.dialog_money_cur_question)) },
                         text = {
                                LazyColumn(){
                                    items(items = currencyList){ currency ->
@@ -138,7 +139,7 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
                         confirmButton = {
                             Button(onClick = {
                                 showDialog = false }) {
-                                Text("OK")
+                                Text(stringResource(id = R.string.ok))
                             }
                         }
                     )
@@ -148,12 +149,12 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
                         viewModel?.addMoneyInf(currency = currencyText, money = inputText.toInt())
                         viewModel?.signup()
                     }catch (e:java.lang.NumberFormatException){
-                        Toast.makeText(ctx,"Введите только число", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(ctx, error, Toast.LENGTH_SHORT).show()
                     }
                 },
                     colors = ButtonDefaults.buttonColors(containerColor = buttonColor)
                     ) {
-                    Text(text = "Дальше")
+                    Text(text = stringResource(id = R.string.next))
 
                 }
                 Spacer(modifier = Modifier.height(1.dp))
@@ -171,7 +172,7 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
 
                     }
                     is GetDBState.Loading -> CircularProgressIndicator()
-                    is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка", Toast.LENGTH_SHORT).show()
+                    is GetDBState.Failure -> Toast.makeText(ctx, stringResource(id = R.string.reg_error), Toast.LENGTH_SHORT).show()
                     else -> {null}
                 }
 
