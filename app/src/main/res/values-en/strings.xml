@@ -16,7 +16,7 @@
     <string name="loading_saved_money_err">Failed to load saved money</string>
     <string name="loading_currency_err">Failed to load currency</string>
     <string name="daily_check">Daily Check</string>
-    <string name="this_week">This weekя</string>
+    <string name="this_week">This week</string>
     <string name="loading_week_err">Error loading week</string>
     <string-array name="days_of_week">
         <item>MO</item>
