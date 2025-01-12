@@ -59,12 +59,4 @@
     <string name="password_short_err">Пароль должен содержать минимум 8 символов</string>
     <string name="registration">Создать аккаунт</string>
     <string name="already_have">Уже есть аккаунт? Войти</string>
-
-
-
-
-
-
-
-
 </resources>
