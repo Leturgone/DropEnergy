@@ -16,7 +16,7 @@ import com.example.dropenergy.EnterDialogScreen.LoginScreen
 import com.example.dropenergy.EnterDialogScreen.RegScreen
 import com.example.dropenergy.ProgressScreen.CanScreen
 import com.example.dropenergy.ProgressScreen.MoneyScreen
-import com.example.dropenergy.database.OptionsScreen.OptionsScreen
+import com.example.dropenergy.OptionsScreen.OptionsScreen
 import com.example.dropenergy.database.viewModel.DBViewModel
 
 

@@ -1,4 +1,4 @@
-package com.example.dropenergy.database.OptionsScreen
+package com.example.dropenergy.OptionsScreen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
