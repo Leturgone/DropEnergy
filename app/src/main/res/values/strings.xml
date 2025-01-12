@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DropEnergy</string>
+    <string name="app_name" translatable="false">DropEnergy</string>
     <string name="statistics">Статистика</string>
     <string name="diary">Дневник</string>
     <string name="options">Настройки</string>
