@@ -11,12 +11,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.dropenergy.data.OptionsFunction
 import com.example.dropenergy.database.viewModel.DBViewModel
+import com.example.dropenergy.R
 
 
 
@@ -24,7 +26,7 @@ import com.example.dropenergy.database.viewModel.DBViewModel
 fun OptionsScreen(navController: NavHostController, viewModel: DBViewModel){
     val optList = listOf(
         OptionsFunction(
-            title = "Выйти из аккаунта"
+            title = stringResource(id = R.string.logout)
         ) { viewModel.logout()
             navController.popBackStack()
             navController.popBackStack()
@@ -35,7 +37,7 @@ fun OptionsScreen(navController: NavHostController, viewModel: DBViewModel){
     )
 
     Column() {
-        Text(text = "Настройки",
+        Text(text = stringResource(id = R.string.options),
             fontSize = 24.sp,
             color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.Bold,
@@ -49,7 +51,11 @@ fun OptionsScreen(navController: NavHostController, viewModel: DBViewModel){
             LazyColumn() {
                 items(optList.size) {
                     val option = optList[it]
-                    Column(Modifier.padding(start = 13.dp).clickable {option.function()}.fillMaxWidth()){
+                    Column(
+                        Modifier
+                            .padding(start = 13.dp)
+                            .clickable { option.function() }
+                            .fillMaxWidth()){
                         Text(text = option.title,
                             fontSize = 20.sp,
                             color = MaterialTheme.colorScheme.onBackground,
