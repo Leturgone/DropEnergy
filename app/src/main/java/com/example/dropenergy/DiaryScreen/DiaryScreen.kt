@@ -25,12 +25,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.repository.GetDBState
 import com.example.dropenergy.database.viewModel.DBViewModel
+import com.example.dropenergy.R
+
 
 
 @Composable
@@ -41,7 +44,7 @@ fun DiaryScreen(viewModel:DBViewModel){
         viewModel.getDiary()
     }
     Column {
-        Text(text = "Дневник",
+        Text(text = stringResource(id = R.string.diary),
             fontSize = 24.sp,
             color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.Bold,
@@ -58,7 +61,8 @@ fun DiaryScreen(viewModel:DBViewModel){
                         DiaryList(diary = diary)
                     }
                     is GetDBState.Loading -> CircularProgressIndicator()
-                    is GetDBState.Failure -> Toast.makeText(ctx,"Ошибка загрузки", Toast.LENGTH_SHORT).show()
+                    is GetDBState.Failure -> Toast.makeText(ctx, stringResource(id = R.string.loading_diary_err),
+                        Toast.LENGTH_SHORT).show()
                     else -> {null}
                 }
             }
@@ -92,10 +96,10 @@ fun DiaryList(diary: List<Pair<String, DiaryRecord>>){
                         Text(
                             text =
                             when(record.second.recordColor){
-                                "green" ->"Я справился с соблазном"
-                                "red" -> "Я купил энергетик"
-                                "yellow" -> "Я хочу энергетик"
-                                else -> {"Я зарегистрировался в приложении"}
+                                "green" -> stringResource(id = R.string.green_diary_record)
+                                "red" -> stringResource(id = R.string.red_diary_record)
+                                "yellow" -> stringResource(id = R.string.yellow_diary_record)
+                                else -> { stringResource(id = R.string.first_diary_record)}
                             },
                             Modifier.padding(start = 6.dp)
                         )
@@ -104,7 +108,7 @@ fun DiaryList(diary: List<Pair<String, DiaryRecord>>){
                 }
                 if(record.second.intensive!="") {
                     Text(
-                        text = "Интенсивность: ${record.second.intensive}",
+                        text = "${stringResource(id = R.string.intensity)}: ${record.second.intensive}",
                         Modifier.padding(start = 23.dp, top = 6.dp)
                     )
                 }

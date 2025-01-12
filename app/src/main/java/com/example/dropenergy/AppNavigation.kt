@@ -16,7 +16,7 @@ import com.example.dropenergy.EnterDialogScreen.LoginScreen
 import com.example.dropenergy.EnterDialogScreen.RegScreen
 import com.example.dropenergy.ProgressScreen.CanScreen
 import com.example.dropenergy.ProgressScreen.MoneyScreen
-import com.example.dropenergy.database.OptionsScreen.OptionsScreen
+import com.example.dropenergy.OptionsScreen.OptionsScreen
 import com.example.dropenergy.database.viewModel.DBViewModel
 
 
@@ -34,9 +34,9 @@ fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController,
         composable("add_record") { AddRecordScreen(navController,viewModel) }
         composable("moneyScreen") { MoneyScreen(viewModel) }
         composable("canScreen") {  CanScreen(viewModel) }
-        composable("want_rec") {  NewRecordScreen(category = "yellow", navController,viewModel) }
-        composable("buy_rec") {  NewRecordScreen(category = "red", navController, viewModel) }
-        composable("good_rec") {  NewRecordScreen(category = "green", navController, viewModel) }
+        composable("yellow_rec") {  NewRecordScreen(category = "yellow", navController,viewModel) }
+        composable("red_rec") {  NewRecordScreen(category = "red", navController, viewModel) }
+        composable("green_rec") {  NewRecordScreen(category = "green", navController, viewModel) }
         composable("reg") { RegScreen(navController,viewModel) }
         composable("login") { LoginScreen(navController,viewModel) }
         composable("dialog_cans") { AskCansScreen(navController,viewModel) }

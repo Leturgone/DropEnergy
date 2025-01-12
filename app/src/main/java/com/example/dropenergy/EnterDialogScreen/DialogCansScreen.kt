@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -33,12 +34,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.ui.theme.Purple80
+import com.example.dropenergy.R
 
-//@Preview(showBackground = true)
+
 @Composable
 fun AskCansScreen(navController: NavHostController,viewModel: DBViewModel?){
     var inputText  by remember {mutableStateOf("")}
     var buttonColor by remember { mutableStateOf(Purple80) }
+    val error = stringResource(id = R.string.number_err)
     val ctx = LocalContext.current
     Column {
         LinearProgressIndicator(
@@ -54,7 +57,7 @@ fun AskCansScreen(navController: NavHostController,viewModel: DBViewModel?){
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Spacer(modifier = Modifier.height(60.dp))
                     Text(
-                        text = "Сколько вы покупаете энергетиков в день?",
+                        text = stringResource(id = R.string.dialog_cans_question),
                         fontSize = 28.sp,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.Bold,
@@ -64,7 +67,7 @@ fun AskCansScreen(navController: NavHostController,viewModel: DBViewModel?){
                     Spacer(modifier = Modifier.height(60.dp))
                     OutlinedTextField(
                         value = inputText,
-                        label = { Text(text = "Количество")},
+                        label = { Text(text = stringResource(id = R.string.count))},
                         singleLine = true,
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Number),
                         onValueChange = {
@@ -72,18 +75,19 @@ fun AskCansScreen(navController: NavHostController,viewModel: DBViewModel?){
                             buttonColor = Color.Green
                         })
                 }
-                Button(onClick = {
+                Button(
+                    onClick = {
                     try{
                         viewModel?.addCans(inputText.toInt())
                         navController.navigate("dialog_money")
                     }catch (e:java.lang.NumberFormatException){
-                        Toast.makeText(ctx,"Введите только число", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(ctx, error, Toast.LENGTH_SHORT).show()
                     }
 
                 },
                     colors = ButtonDefaults.buttonColors(containerColor = buttonColor)
                 ) {
-                    Text(text = "Дальше")
+                    Text(text = stringResource(id = R.string.next))
                     
                 }
                 Spacer(modifier = Modifier.height(1.dp))

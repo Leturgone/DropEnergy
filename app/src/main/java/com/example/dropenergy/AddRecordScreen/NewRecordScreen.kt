@@ -31,10 +31,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.dropenergy.R
 import com.example.dropenergy.data.CheckDay
 import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.viewModel.DBViewModel
@@ -59,10 +61,10 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
                 Row(modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.Center) {
                     Text(
                         text = when(category){
-                            "green" ->"Я справился с соблазном"
-                            "red" -> "Я купил энергетик"
-                            "yellow" -> "Я хочу энергетик"
-                            else -> {"Я зарегистрировался в приложении"}
+                            "green" -> stringResource(id = R.string.green_diary_record)
+                            "red" -> stringResource(id = R.string.red_diary_record)
+                            "yellow" -> stringResource(id = R.string.yellow_diary_record)
+                            else -> {stringResource(id = R.string.first_diary_record)}
                         },
                         fontSize = 30.sp,
                         color = MaterialTheme.colorScheme.onBackground,
@@ -70,13 +72,11 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
                         modifier = Modifier.padding(20.dp)
                     )
                 }
-                Text(text = "Дата записи",
+                Text(text = stringResource(id = R.string.record_date),
                     fontSize = 24.sp,
                     color = MaterialTheme.colorScheme.onBackground,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(16.dp)
-
-
                 )
 
                 Row(modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.Center) {
@@ -106,7 +106,7 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
 
                 }
 
-                Text(text = "Оцените интенсивность",
+                Text(text = "${stringResource(id = R.string.rate)} ${stringResource(id = R.string.intensity)}",
                     fontSize = 24.sp,
                     color = MaterialTheme.colorScheme.onBackground,
                     fontWeight = FontWeight.Bold,
@@ -165,7 +165,7 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
                                      },
                         modifier = Modifier.padding(horizontal = 8.dp),
                         colors = ButtonDefaults.buttonColors(Color.Green) ) {
-                        Text(text = "Сохранить")
+                        Text(text = stringResource(id = R.string.save))
                     }
                 }
             }
