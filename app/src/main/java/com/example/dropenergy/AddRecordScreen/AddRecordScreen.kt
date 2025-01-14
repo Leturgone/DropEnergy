@@ -24,6 +24,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.R
+import com.example.dropenergy.ui.theme.LightGreen
+import com.example.dropenergy.ui.theme.LightRed
+import com.example.dropenergy.ui.theme.LightYellow
 
 
 @Composable
@@ -51,14 +54,14 @@ fun AddRecordScreen(navController: NavController,viewModel: DBViewModel){
                 Column(
                     modifier = Modifier
                         .clip(RoundedCornerShape(25.dp))
-                        .background(Color.Yellow)
+                        .background(LightYellow)
                         .padding(10.dp)
                         .fillMaxWidth(), verticalArrangement = Arrangement.Center
                 ) {
                     Text(
                         text = stringResource(id = R.string.yellow_diary_record),
                         fontSize = 20.sp,
-                        color = MaterialTheme.colorScheme.onBackground,
+                        color = Color.Black,
                         fontWeight = FontWeight.Medium,
                         modifier = Modifier
                             .padding(16.dp)
@@ -77,14 +80,14 @@ fun AddRecordScreen(navController: NavController,viewModel: DBViewModel){
                 Column(
                     modifier = Modifier
                         .clip(RoundedCornerShape(25.dp))
-                        .background(Color.Red)
+                        .background(LightRed)
                         .padding(10.dp)
                         .fillMaxWidth(), verticalArrangement = Arrangement.Center
                 ) {
                     Text(
                         text = stringResource(id = R.string.red_diary_record),
                         fontSize = 20.sp,
-                        color = MaterialTheme.colorScheme.onBackground,
+                        color = Color.Black,
                         fontWeight = FontWeight.Medium,
                         modifier = Modifier
                             .padding(16.dp)
@@ -103,14 +106,14 @@ fun AddRecordScreen(navController: NavController,viewModel: DBViewModel){
                 Column(
                     modifier = Modifier
                         .clip(RoundedCornerShape(25.dp))
-                        .background(Color.Green)
+                        .background(LightGreen)
                         .padding(10.dp)
                         .fillMaxWidth(), verticalArrangement = Arrangement.Center
                 ) {
                     Text(
                         text = stringResource(id = R.string.green_diary_record),
                         fontSize = 20.sp,
-                        color = MaterialTheme.colorScheme.onBackground,
+                        color = Color.Black,
                         fontWeight = FontWeight.Medium,
                         modifier = Modifier
                             .padding(16.dp)
