@@ -40,7 +40,8 @@ private val LightColorScheme = lightColorScheme(
 
 private val DropEnergyLightTheme = lightColorScheme(
     primary = LightGreen,
-    background = White
+    background = White,
+    secondaryContainer = SoftBlue
 )
 
 private val DropEnergyDarkTheme = darkColorScheme(
@@ -62,7 +63,7 @@ fun DropEnergyTheme(
         }
 
         darkTheme -> DropEnergyDarkTheme
-        else -> DropEnergyDarkTheme
+        else -> DropEnergyLightTheme
     }
     val view = LocalView.current
     if (!view.isInEditMode) {
