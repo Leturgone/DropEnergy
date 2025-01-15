@@ -35,12 +35,14 @@ import androidx.navigation.NavHostController
 import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.ui.theme.Purple80
 import com.example.dropenergy.R
+import com.example.dropenergy.ui.theme.LightGreen
+import com.example.dropenergy.ui.theme.LightYellow
 
 
 @Composable
 fun AskCansScreen(navController: NavHostController,viewModel: DBViewModel?){
     var inputText  by remember {mutableStateOf("")}
-    var buttonColor by remember { mutableStateOf(Purple80) }
+    var buttonColor by remember { mutableStateOf(LightYellow) }
     val error = stringResource(id = R.string.number_err)
     val ctx = LocalContext.current
     Column {
@@ -72,7 +74,7 @@ fun AskCansScreen(navController: NavHostController,viewModel: DBViewModel?){
                         keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Number),
                         onValueChange = {
                             inputText = it
-                            buttonColor = Color.Green
+                            buttonColor = LightGreen
                         })
                 }
                 Button(
