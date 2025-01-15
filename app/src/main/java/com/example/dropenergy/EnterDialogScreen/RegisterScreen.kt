@@ -45,6 +45,8 @@ import androidx.navigation.NavHostController
 import com.example.dropenergy.R
 import com.example.dropenergy.database.repository.GetDBState
 import com.example.dropenergy.database.viewModel.DBViewModel
+import com.example.dropenergy.ui.theme.LightGreen
+import com.example.dropenergy.ui.theme.LightYellow
 import com.example.dropenergy.ui.theme.Purple40
 import com.example.dropenergy.ui.theme.Purple80
 
@@ -55,7 +57,7 @@ fun RegScreen(navController: NavHostController, viewModel: DBViewModel?){
     var passwordInputText  by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     var loginOK by remember { mutableStateOf(false) }
-    var buttonColor by remember { mutableStateOf(Purple80) }
+    var buttonColor by remember { mutableStateOf(LightYellow) }
 
     val loginState = viewModel?.loginFlow?.collectAsState()
     loginState?.value.let {state ->
@@ -123,7 +125,7 @@ fun RegScreen(navController: NavHostController, viewModel: DBViewModel?){
                         onValueChange = {
                             passwordInputText = it
                             if (loginOK){
-                                buttonColor = Color.Green
+                                buttonColor = LightGreen
                             }
                         },
                         trailingIcon = {
@@ -164,7 +166,7 @@ fun RegScreen(navController: NavHostController, viewModel: DBViewModel?){
                     Text(text = stringResource(id = R.string.next))
                 }
                 Text(text = stringResource(id = R.string.already_have),
-                    color = Purple40,
+                    color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.clickable {
                         navController.navigate("login")
                     })
