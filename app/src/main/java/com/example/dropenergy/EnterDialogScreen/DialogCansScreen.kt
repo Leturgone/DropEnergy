@@ -51,7 +51,7 @@ fun AskCansScreen(navController: NavHostController,viewModel: DBViewModel?){
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            color = Color.Green
+            color = MaterialTheme.colorScheme.primary
         )
         Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
             Column( modifier = Modifier.fillMaxSize(),
