@@ -78,7 +78,7 @@ fun ProgressSection(navController : NavHostController){
                     Column(
                         modifier = Modifier
                             .clip(RoundedCornerShape(25.dp))
-                            .background(LightDarkBlue)
+                            .background(MaterialTheme.colorScheme.secondaryContainer)
                             .size(120.dp)
                             .clickable {}
                             .padding(13.dp)
