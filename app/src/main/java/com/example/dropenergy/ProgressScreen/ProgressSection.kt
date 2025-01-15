@@ -30,6 +30,7 @@ import androidx.navigation.NavHostController
 import com.example.dropenergy.R
 import com.example.dropenergy.data.ProgressCategory
 import com.example.dropenergy.ui.theme.Green
+import com.example.dropenergy.ui.theme.LightDarkBlue
 import com.example.dropenergy.ui.theme.Yellow40
 
 

@@ -35,7 +35,7 @@ import androidx.compose.ui.res.stringResource
 import com.example.dropenergy.database.repository.GetDBState
 import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.R
-
+import com.example.dropenergy.ui.theme.LightDarkBlue
 
 
 @Composable

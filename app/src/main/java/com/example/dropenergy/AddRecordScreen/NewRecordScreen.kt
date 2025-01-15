@@ -90,7 +90,7 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
                     Button(onClick = {
                         calendarState.show()
                                      },
-                        colors = ButtonDefaults.buttonColors(Color.Green)) {
+                        colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary)) {
                         Icon(imageVector = Icons.Rounded.CalendarToday,
                             contentDescription ="Calendar" )
                         
@@ -164,7 +164,7 @@ fun NewRecordScreen(category: String,navController: NavHostController, viewModel
                         navController.popBackStack()
                                      },
                         modifier = Modifier.padding(horizontal = 8.dp),
-                        colors = ButtonDefaults.buttonColors(Color.Green) ) {
+                        colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary) ) {
                         Text(text = stringResource(id = R.string.save))
                     }
                 }
