@@ -23,3 +23,4 @@ val LightGrey = Color(0xFFc5d1df)
 val White = Color(0xFFFEFEFE)
 val LightDarkBlue = Color(0xFF8894C8)
 
+val SoftBlue = Color(0xFFE4FBF4)
