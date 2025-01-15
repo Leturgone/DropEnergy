@@ -40,12 +40,13 @@ private val LightColorScheme = lightColorScheme(
 
 private val DropEnergyLightTheme = lightColorScheme(
     primary = LightGreen,
-    background = White,
+    background = White
 )
 
 private val DropEnergyDarkTheme = darkColorScheme(
     primary = LightGreen,
     background = DarkBlue,
+    secondaryContainer = LightDarkBlue
 )
 @Composable
 fun DropEnergyTheme(
