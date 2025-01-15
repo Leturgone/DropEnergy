@@ -46,6 +46,8 @@ import com.example.dropenergy.database.repository.GetDBState
 import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.ui.theme.Purple80
 import com.example.dropenergy.R
+import com.example.dropenergy.ui.theme.LightGreen
+import com.example.dropenergy.ui.theme.LightYellow
 
 
 @Composable
@@ -54,7 +56,7 @@ fun LoginScreen(navController: NavHostController, viewModel: DBViewModel?){
     var passwordInputText  by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     var loginOK by remember { mutableStateOf(false) }
-    var buttonColor by remember { mutableStateOf(Purple80) }
+    var buttonColor by remember { mutableStateOf(LightYellow) }
     val ctx = LocalContext.current
 
     val loginState = viewModel?.loginFlow?.collectAsState()
@@ -106,7 +108,7 @@ fun LoginScreen(navController: NavHostController, viewModel: DBViewModel?){
                         onValueChange = {
                             passwordInputText = it
                             if (loginOK){
-                                buttonColor = Color.Green
+                                buttonColor = LightGreen
                             }
                         },
                         trailingIcon = {
