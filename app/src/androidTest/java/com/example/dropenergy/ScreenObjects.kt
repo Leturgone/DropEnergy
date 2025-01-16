@@ -28,14 +28,14 @@ object RegScreen{
 }
 
 
-object RegCansScreen{
+object DCansScreen{
     val regCansTemplate = (hasText("Сколько вы покупаете энергетиков в день?")
             or hasText("How many energy drinks do you buy per day?")) and hasNoClickAction()
     val countInput = (hasText("Количество") or hasText("Count")) and hasSetTextAction()
     val nextButton = (hasText("Дальше") or hasText("Next")) and hasClickAction()
 }
 
-object RegMoneyScreen{
+object DMoneyScreen{
     val regMoneyTemplate = (hasText("Сколько в среднем стоит один энергетик?")
             or hasText("What is the average price of one energy drink?")) and hasNoClickAction()
     val priceInput = (hasText("Стоимость") or hasText("Price")) and hasSetTextAction()
