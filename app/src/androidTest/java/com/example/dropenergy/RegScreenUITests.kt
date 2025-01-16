@@ -23,19 +23,35 @@ class RegScreenUITests: KoinTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-
-
     @Test
-    fun testRegScreens(){
+    fun testRegScreensGood(){
         composeTestRule.setContent { MainScreen(viewModel) }
         composeTestRule.onRoot().printToLog("MY TAG")
+
+        //RegisterScreen
         composeTestRule.onNode(RegScreen.RegTemplate).assertExists()
         composeTestRule.onNode(RegScreen.AlreadyTemplate).assertExists()
         composeTestRule.onNode(RegScreen.EmailInput).assertExists()
         composeTestRule.onNode(RegScreen.NextButton).assertExists()
         composeTestRule.onNode(RegScreen.PasswordInput).assertExists()
-        composeTestRule.onNode(RegScreen.EmailInput).performTextInput("giovanni18@hotmail.com")
+        composeTestRule.onNode(RegScreen.EmailInput).performTextInput("giovanni18@pochta.com")
         composeTestRule.onNode(RegScreen.PasswordInput).performTextInput("12345678")
         composeTestRule.onNode(RegScreen.NextButton).performClick()
+
+        //DialogCansScreen
+        composeTestRule.onNode(DCansScreen.regCansTemplate).assertExists()
+        composeTestRule.onNode(DCansScreen.countInput).assertExists()
+        composeTestRule.onNode(DCansScreen.nextButton).assertExists()
+        composeTestRule.onNode(DCansScreen.countInput).performTextInput("2")
+        composeTestRule.onNode(DCansScreen.nextButton).performClick()
+
+        //DialogMoneyScreen
+        composeTestRule.onNode(DMoneyScreen.regMoneyTemplate).assertExists()
+        composeTestRule.onNode(DMoneyScreen.priceInput).assertExists()
+        composeTestRule.onNode(DMoneyScreen.currencyButton).assertExists()
+        composeTestRule.onNode(DMoneyScreen.nextButton).assertExists()
+        composeTestRule.onNode(DMoneyScreen.priceInput).performTextInput("60")
+        composeTestRule.onNode(DMoneyScreen.nextButton).performClick()
+
     }
 }
