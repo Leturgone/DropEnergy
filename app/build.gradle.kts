@@ -83,7 +83,9 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx")
 
     implementation("io.insert-koin:koin-android:3.2.0")
-    testImplementation("io.insert-koin:koin-test-junit5:3.2.0")
+    testImplementation("io.insert-koin:koin-test-junit4:3.2.0")
     testImplementation("io.insert-koin:koin-test:3.2.0")
+    androidTestImplementation("io.insert-koin:koin-test-junit4:3.2.0")
+    androidTestImplementation("io.insert-koin:koin-test:3.2.0")
 
 }
