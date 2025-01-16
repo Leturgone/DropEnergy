@@ -69,6 +69,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
     implementation("androidx.compose.material:material-icons-extended:1.7.5")
     implementation("androidx.navigation:navigation-compose:2.8.3")
@@ -82,6 +83,7 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx")
 
     implementation("io.insert-koin:koin-android:3.2.0")
-
+    testImplementation("io.insert-koin:koin-test-junit5:3.2.0")
+    testImplementation("io.insert-koin:koin-test:3.2.0")
 
 }
