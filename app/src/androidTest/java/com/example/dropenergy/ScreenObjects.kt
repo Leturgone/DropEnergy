@@ -3,14 +3,46 @@ package com.example.dropenergy
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasNoClickAction
+import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
 
 
 //Объекты на экранах
+
+object LogScreen{
+    val RegTemplate = (hasText("Войти") or hasText("Sign in")) and hasNoClickAction()
+    val EmailInput = (hasText("Электронная почта") or hasText("Email")) and hasSetTextAction()
+    val PasswordInput = (hasText("Пароль") or hasText("Password")) and hasSetTextAction()
+    val bottomBarAddButton = (hasText("Дальше") or hasText("Next")) and hasClickAction()
+}
+
+
+object RegScreen{
+    val RegTemplate = (hasText("Создать аккаунт") or hasText("Sign up")) and hasNoClickAction()
+    val EmailInput = (hasText("Электронная почта") or hasText("Email")) and hasSetTextAction()
+    val PasswordInput = (hasText("Пароль") or hasText("Password")) and hasSetTextAction()
+    val bottomBarAddButton = (hasText("Дальше") or hasText("Next")) and hasClickAction()
+    val AlreadyTemplate = (hasText("Уже есть аккаунт? Войти") or
+            hasText("Already have an account? Sign in")) and hasClickAction()
+}
+object RegCansScreen{
+    val RegTemplate = (hasText("Статистика") or hasText("Statistics")) and hasNoClickAction()
+    val EmailInput = (hasText("Электронная почта") or hasText("Email")) and hasSetTextAction()
+    val PasswordInput = (hasText("Пароль") or hasText("Password")) and hasSetTextAction()
+    val bottomBarAddButton = (hasText("Дальше") or hasText("Next")) and hasClickAction()
+}
+object RegMoneyScreen{
+    val RegTemplate = (hasText("Статистика") or hasText("Statistics")) and hasNoClickAction()
+    val EmailInput = (hasText("Электронная почта") or hasText("Email")) and hasSetTextAction()
+    val PasswordInput = (hasText("Пароль") or hasText("Password")) and hasSetTextAction()
+    val bottomBarAddButton = (hasText("Дальше") or hasText("Next")) and hasClickAction()
+}
+
+
 object BottomBar{
-    val bottomBarStatButton = hasText("Статистика") and hasClickAction()
-    val bottomBarDiaryButton = hasText("Дневник") and hasClickAction()
+    val bottomBarStatButton = (hasText("Статистика") or hasText("Statistics")) and hasClickAction()
+    val bottomBarDiaryButton = (hasText("Дневник") or hasText("Diary"))  and hasClickAction()
     val bottomBarAddButton = hasTestTag("add_record") and hasClickAction()
 }
 
