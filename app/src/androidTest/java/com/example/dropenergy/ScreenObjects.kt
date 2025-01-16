@@ -14,7 +14,7 @@ object LogScreen{
     val RegTemplate = (hasText("Войти") or hasText("Sign in")) and hasNoClickAction()
     val EmailInput = (hasText("Электронная почта") or hasText("Email")) and hasSetTextAction()
     val PasswordInput = (hasText("Пароль") or hasText("Password")) and hasSetTextAction()
-    val bottomBarAddButton = (hasText("Дальше") or hasText("Next")) and hasClickAction()
+    val NextButton = (hasText("Дальше") or hasText("Next")) and hasClickAction()
 }
 
 
@@ -22,21 +22,25 @@ object RegScreen{
     val RegTemplate = (hasText("Создать аккаунт") or hasText("Sign up")) and hasNoClickAction()
     val EmailInput = (hasText("Электронная почта") or hasText("Email")) and hasSetTextAction()
     val PasswordInput = (hasText("Пароль") or hasText("Password")) and hasSetTextAction()
-    val bottomBarAddButton = (hasText("Дальше") or hasText("Next")) and hasClickAction()
+    val NextButton = (hasText("Дальше") or hasText("Next")) and hasClickAction()
     val AlreadyTemplate = (hasText("Уже есть аккаунт? Войти") or
             hasText("Already have an account? Sign in")) and hasClickAction()
 }
+
+
 object RegCansScreen{
-    val RegTemplate = (hasText("Статистика") or hasText("Statistics")) and hasNoClickAction()
-    val EmailInput = (hasText("Электронная почта") or hasText("Email")) and hasSetTextAction()
-    val PasswordInput = (hasText("Пароль") or hasText("Password")) and hasSetTextAction()
-    val bottomBarAddButton = (hasText("Дальше") or hasText("Next")) and hasClickAction()
+    val regCansTemplate = (hasText("Сколько вы покупаете энергетиков в день?")
+            or hasText("How many energy drinks do you buy per day?")) and hasNoClickAction()
+    val countInput = (hasText("Количество") or hasText("Count")) and hasSetTextAction()
+    val nextButton = (hasText("Дальше") or hasText("Next")) and hasClickAction()
 }
+
 object RegMoneyScreen{
-    val RegTemplate = (hasText("Статистика") or hasText("Statistics")) and hasNoClickAction()
-    val EmailInput = (hasText("Электронная почта") or hasText("Email")) and hasSetTextAction()
-    val PasswordInput = (hasText("Пароль") or hasText("Password")) and hasSetTextAction()
-    val bottomBarAddButton = (hasText("Дальше") or hasText("Next")) and hasClickAction()
+    val regMoneyTemplate = (hasText("Сколько в среднем стоит один энергетик?")
+            or hasText("What is the average price of one energy drink?")) and hasNoClickAction()
+    val priceInput = (hasText("Стоимость") or hasText("Price")) and hasSetTextAction()
+    val currencyButton = hasText("₽") and hasClickAction()
+    val nextButton = (hasText("Дальше") or hasText("Next")) and hasClickAction()
 }
 
 
