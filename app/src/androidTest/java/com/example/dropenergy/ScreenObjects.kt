@@ -11,7 +11,7 @@ import androidx.compose.ui.test.hasText
 //Объекты на экранах
 
 object LogScreen{
-    val RegTemplate = (hasText("Войти") or hasText("Sign in")) and hasNoClickAction()
+    val LogTemplate = (hasText("Войти") or hasText("Sign in")) and hasNoClickAction()
     val EmailInput = (hasText("Электронная почта") or hasText("Email")) and hasSetTextAction()
     val PasswordInput = (hasText("Пароль") or hasText("Password")) and hasSetTextAction()
     val NextButton = (hasText("Дальше") or hasText("Next")) and hasClickAction()
