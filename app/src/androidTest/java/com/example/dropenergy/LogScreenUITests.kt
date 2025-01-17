@@ -18,7 +18,7 @@ class LogScreenUITests: KoinTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun testRegScreensGood(){
+    fun testLogScreensGood(){
         composeTestRule.setContent { MainScreen(viewModel) }
         composeTestRule.onRoot().printToLog("MY TAG")
 
@@ -37,5 +37,14 @@ class LogScreenUITests: KoinTest {
         composeTestRule.onRoot().printToLog("MY TAG")
 
     }
+
+    @Test
+    fun testLogScreensBadEmail(){}
+
+    @Test
+    fun testLogScreensBadPassword() {}
+
+    @Test
+    fun testLogScreensBadUser(){}
 
 }
