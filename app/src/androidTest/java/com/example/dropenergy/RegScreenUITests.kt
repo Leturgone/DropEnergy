@@ -54,4 +54,30 @@ class RegScreenUITests: KoinTest {
         composeTestRule.onNode(DMoneyScreen.nextButton).performClick()
 
     }
+
+    @Test
+    fun testRegScreenBadEmail(){
+
+    }
+
+    @Test
+    fun testRegScreenBadPassword() {
+
+    }
+
+    @Test
+    fun testRegScreenBadCans(){
+
+    }
+
+    @Test
+    fun testRegScreenBadMoney(){
+
+    }
+
+    @Test
+    fun testRegScreenAlreadyUser(){
+
+    }
+
 }
