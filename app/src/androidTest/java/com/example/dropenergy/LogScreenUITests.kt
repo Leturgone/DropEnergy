@@ -39,12 +39,18 @@ class LogScreenUITests: KoinTest {
     }
 
     @Test
-    fun testLogScreensBadEmail(){}
+    fun testLogScreensBadEmail(){
+
+    }
 
     @Test
-    fun testLogScreensBadPassword() {}
+    fun testLogScreensBadPassword() {
+
+    }
 
     @Test
-    fun testLogScreensBadUser(){}
+    fun testLogScreensBadUser(){
+
+    }
 
 }
