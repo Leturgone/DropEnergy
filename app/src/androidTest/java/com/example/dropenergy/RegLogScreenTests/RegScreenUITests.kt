@@ -1,4 +1,4 @@
-package com.example.dropenergy
+package com.example.dropenergy.RegLogScreenTests
 
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
@@ -6,6 +6,8 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.printToLog
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.dropenergy.DCansScreen
+import com.example.dropenergy.DMoneyScreen
 import com.example.dropenergy.MainScreen
 import com.example.dropenergy.RegScreen
 import com.example.dropenergy.database.viewModel.DBViewModel
