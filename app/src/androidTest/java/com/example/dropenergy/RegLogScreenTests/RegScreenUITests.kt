@@ -67,7 +67,8 @@ class RegScreenUITests: KoinTest {
 
     @Test
     fun testRegScreenBadPassword() {
-
+        composeTestRule.onNode(RegScreen.EmailInput).performTextInput("giovanni18@pochta.com")
+        composeTestRule.onNode(RegScreen.PasswordInput).performTextInput("f f f f fff f")
     }
 
     @Test
