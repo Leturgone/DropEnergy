@@ -73,6 +73,16 @@ class RegScreenUITests: KoinTest {
 
     @Test
     fun testRegScreenBadCans(){
+        composeTestRule.onNode(RegScreen.EmailInput).performTextInput("giovanni18@pochta.com")
+        composeTestRule.onNode(RegScreen.PasswordInput).performTextInput("12345678")
+        composeTestRule.onNode(RegScreen.NextButton).performClick()
+
+        //DialogCansScreen
+        composeTestRule.onNode(DCansScreen.regCansTemplate).assertExists()
+        composeTestRule.onNode(DCansScreen.countInput).assertExists()
+        composeTestRule.onNode(DCansScreen.nextButton).assertExists()
+        composeTestRule.onNode(DCansScreen.countInput).performTextInput("2   ")
+        composeTestRule.onNode(DCansScreen.nextButton).performClick()
 
     }
 
