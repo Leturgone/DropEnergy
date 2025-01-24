@@ -59,6 +59,8 @@ class RegScreenUITests: KoinTest {
 
     @Test
     fun testRegScreenBadEmail(){
+        composeTestRule.setContent { MainScreen(viewModel) }
+        composeTestRule.onRoot().printToLog("MY TAG")
         composeTestRule.onNode(RegScreen.EmailInput).performTextInput("ghgfhjgdhfgdhgj")
         composeTestRule.onNode(RegScreen.PasswordInput).performTextInput("12345678")
         composeTestRule.onNode(RegScreen.NextButton).performClick()
@@ -67,12 +69,16 @@ class RegScreenUITests: KoinTest {
 
     @Test
     fun testRegScreenBadPassword() {
+        composeTestRule.setContent { MainScreen(viewModel) }
+        composeTestRule.onRoot().printToLog("MY TAG")
         composeTestRule.onNode(RegScreen.EmailInput).performTextInput("giovanni18@pochta.com")
         composeTestRule.onNode(RegScreen.PasswordInput).performTextInput("f f f f fff f")
     }
 
     @Test
     fun testRegScreenBadCans(){
+        composeTestRule.setContent { MainScreen(viewModel) }
+        composeTestRule.onRoot().printToLog("MY TAG")
         composeTestRule.onNode(RegScreen.EmailInput).performTextInput("giovanni18@pochta.com")
         composeTestRule.onNode(RegScreen.PasswordInput).performTextInput("12345678")
         composeTestRule.onNode(RegScreen.NextButton).performClick()
