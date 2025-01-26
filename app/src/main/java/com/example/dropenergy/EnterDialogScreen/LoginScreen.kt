@@ -1,5 +1,6 @@
 package com.example.dropenergy.EnterDialogScreen
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -150,13 +151,16 @@ fun LoginScreen(navController: NavHostController, viewModel: DBViewModel?){
                     if( loginInputText.isEmpty() || !loginInputText.matches("^[A-Za-z0-9@.]+$".toRegex())
                         || loginInputText.matches("\\s".toRegex())){
                         Toast.makeText(ctx, emailErr, Toast.LENGTH_SHORT).show()
+                        Log.e("LoginErr","Ошибка ввода почты")
                     }
                     else if( passwordInputText.isEmpty() || !passwordInputText.matches("^[A-Za-z0-9]+$".toRegex())
                         || passwordInputText.matches("\\s".toRegex())){
                         Toast.makeText(ctx, passwordErr, Toast.LENGTH_SHORT).show()
+                        Log.e("LoginErr","Ошибка ввода пароля")
                     }
                     else if (passwordInputText.length < 8){
                         Toast.makeText(ctx, shortPasswordErr,Toast.LENGTH_SHORT).show()
+                        Log.e("LoginErr","Ошибка короткого пароля")
                     }
                     else {
                         viewModel?.login(loginInputText,passwordInputText)
