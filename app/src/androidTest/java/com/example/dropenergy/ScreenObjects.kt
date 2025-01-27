@@ -34,6 +34,13 @@ object RegScreen{
     val NextButton = (hasText("Дальше") or hasText("Next")) and hasClickAction()
     val AlreadyTemplate = (hasText("Уже есть аккаунт? Войти") or
             hasText("Already have an account? Sign in")) and hasClickAction()
+
+    val EmailErrorToast = (hasText("Проверьте логин на ошибки")
+            or hasText("Check email for errors"))and hasNoClickAction()
+    val ShortPasswordErrorToast = (hasText("Пароль должен содержать минимум 8 символов")
+            or hasText("Password must contain at least 8 characters"))and hasNoClickAction()
+    val PasswordErrorToast = (hasText("Password must contain at least 8 characters")
+            or hasText("Password must not contain spaces"))and hasNoClickAction()
 }
 
 
@@ -42,6 +49,8 @@ object DCansScreen{
             or hasText("How many energy drinks do you buy per day?")) and hasNoClickAction()
     val countInput = (hasText("Количество") or hasText("Count")) and hasSetTextAction()
     val nextButton = (hasText("Дальше") or hasText("Next")) and hasClickAction()
+
+    val NumberError = (hasText("Введите только число") or hasText("Enter only a number")) and hasNoClickAction()
 }
 
 object DMoneyScreen{
@@ -50,6 +59,9 @@ object DMoneyScreen{
     val priceInput = (hasText("Стоимость") or hasText("Price")) and hasSetTextAction()
     val currencyButton = hasText("₽") and hasClickAction()
     val nextButton = (hasText("Дальше") or hasText("Next")) and hasClickAction()
+
+    val numberError = (hasText("Введите только число") or hasText("Enter only a number")) and hasNoClickAction()
+    val signupError = (hasText("Не удалось выполнить регистрацию") or hasText("Failed to sign up")) and hasNoClickAction()
 }
 
 
