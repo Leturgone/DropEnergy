@@ -1,6 +1,5 @@
 package com.example.dropenergy.ProgressScreen
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,18 +12,19 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.dropenergy.CustomToastMessage
+import com.example.dropenergy.R
 import com.example.dropenergy.database.repository.GetDBState
 import com.example.dropenergy.database.viewModel.DBViewModel
-import com.example.dropenergy.R
 
 @Composable
 fun CanScreen(viewModel:DBViewModel){
@@ -34,74 +34,88 @@ fun CanScreen(viewModel:DBViewModel){
     var in_mounth_can by remember { mutableIntStateOf(0) }
     var in_year_can by remember { mutableIntStateOf(0) }
 
-    val ctx = LocalContext.current
+
+    var showToast by remember { mutableStateOf(false) }
+    var errorMessage by remember { mutableStateOf("") }
+
     LaunchedEffect(Unit){
         viewModel.getSavedCans()
         viewModel.getEverydayCans()
     }
 
+    Box(modifier = Modifier.fillMaxWidth()){
+        CustomToastMessage(
+            message = errorMessage,
+            isVisible = showToast,
+            onDismiss = { showToast = false },
+        )
+        Column {
+            Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
-    Column {
-        Box(Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = stringResource(id = R.string.saved_cans),
+                        fontSize = 28.sp,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(16.dp)
+                    )
+                    viewModel.savedCansFlow.collectAsState().value.let {state ->
+                        when(state){
+                            is GetDBState.Success -> {
+                                ekonom_can = state.result
+                                SavedCans(ekonom_can = ekonom_can)
+                            }
+                            is GetDBState.Loading ->  CircularProgressIndicator()
+                            is GetDBState.Failure -> {
+                                errorMessage = stringResource(id = R.string.loading_saved_cans_err)
+                                showToast = true
+                            }
+                            else -> {null}
+                        }
+                    }
 
-                Text(
-                    text = stringResource(id = R.string.saved_cans),
-                    fontSize = 28.sp,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(16.dp)
-                )
-                viewModel.savedCansFlow.collectAsState().value.let {state ->
+                }
+
+            }
+
+            Text(text = stringResource(id = R.string.predict),
+                fontSize = 24.sp,
+                color = MaterialTheme.colorScheme.onBackground,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(16.dp))
+
+            Column(Modifier.padding(start = 16.dp)) {
+                viewModel.everyDayCansFlow.collectAsState().value.let {state ->
                     when(state){
                         is GetDBState.Success -> {
-                            ekonom_can = state.result
-                            SavedCans(ekonom_can = ekonom_can)
+                            in_day_can = state.result
+                            in_week_can = in_day_can * 7
+                            in_mounth_can = in_day_can * 30
+                            in_year_can = in_day_can * 365
+
+                            FutureCans(
+                                in_day_can = in_day_can,
+                                in_week_can = in_week_can,
+                                in_mounth_can = in_mounth_can,
+                                in_year_can =in_year_can
+                            )
                         }
-                        is GetDBState.Loading ->  CircularProgressIndicator()
-                        is GetDBState.Failure -> Toast.makeText(ctx, stringResource(id = R.string.loading_saved_cans_err),
-                            Toast.LENGTH_SHORT).show()
+                        is GetDBState.Loading -> CircularProgressIndicator(Modifier.padding(16.dp))
+                        is GetDBState.Failure -> {
+                            errorMessage = stringResource(id = R.string.loading_everyday_cans_err)
+                            showToast = true
+                        }
                         else -> {null}
                     }
                 }
 
+
             }
 
         }
-
-        Text(text = stringResource(id = R.string.predict),
-            fontSize = 24.sp,
-            color = MaterialTheme.colorScheme.onBackground,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(16.dp))
-
-        Column(Modifier.padding(start = 16.dp)) {
-            viewModel.everyDayCansFlow.collectAsState().value.let {state ->
-                when(state){
-                    is GetDBState.Success -> {
-                        in_day_can = state.result
-                        in_week_can = in_day_can * 7
-                        in_mounth_can = in_day_can * 30
-                        in_year_can = in_day_can * 365
-
-                        FutureCans(
-                            in_day_can = in_day_can,
-                            in_week_can = in_week_can,
-                            in_mounth_can = in_mounth_can,
-                            in_year_can =in_year_can
-                        )
-                    }
-                    is GetDBState.Loading -> CircularProgressIndicator(Modifier.padding(16.dp))
-                    is GetDBState.Failure -> Toast.makeText(ctx, stringResource(id = R.string.loading_everyday_cans_err),
-                        Toast.LENGTH_SHORT).show()
-                    else -> {null}
-                }
-            }
-
-
-        }
-
     }
+
 }
 
 
