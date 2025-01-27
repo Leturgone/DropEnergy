@@ -27,9 +27,7 @@ class LogScreenUITests{
     val composeTestRule = createComposeRule()
     private val authRepository = mockk<AuthRepository>()
     private val userRepository = mockk<UserRepository>()
-    val mockUser  = mockk<FirebaseUser>(relaxed = true)
     private lateinit var viewModel: DBViewModel
-    private lateinit var mockStateFlow: MutableStateFlow<GetDBState<FirebaseUser>>
 
     @Before
     fun setUP(){
@@ -64,7 +62,6 @@ class LogScreenUITests{
         composeTestRule.onNode(LogScreen.EmailInput).performTextInput("giovanni18@pochta.com")
         composeTestRule.onNode(LogScreen.PasswordInput).performTextInput("12345678")
         composeTestRule.onNode(LogScreen.NextButton).performClick()
-
         composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
     }
 
@@ -83,7 +80,7 @@ class LogScreenUITests{
         composeTestRule.onNode(LogScreen.EmailInput).performTextInput("1 1 1")
         composeTestRule.onNode(LogScreen.PasswordInput).performTextInput("12345678")
         composeTestRule.onNode(LogScreen.NextButton).performClick()
-
+        composeTestRule.onNode(LogScreen.EmailErrorToast).assertExists()
         composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertDoesNotExist()
 
     }
@@ -103,7 +100,7 @@ class LogScreenUITests{
         composeTestRule.onNode(LogScreen.EmailInput).performTextInput("giovanni18@pochta.com")
         composeTestRule.onNode(LogScreen.PasswordInput).performTextInput("1")
         composeTestRule.onNode(LogScreen.NextButton).performClick()
-
+        composeTestRule.onNode(LogScreen.ShortPasswordErrorToast).assertExists()
         composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertDoesNotExist()
     }
 
@@ -122,7 +119,7 @@ class LogScreenUITests{
         composeTestRule.onNode(LogScreen.EmailInput).performTextInput("giovanni18@pochta.com")
         composeTestRule.onNode(LogScreen.PasswordInput).performTextInput("1         ")
         composeTestRule.onNode(LogScreen.NextButton).performClick()
-
+        composeTestRule.onNode(LogScreen.PasswordErrorToast).assertExists()
         composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertDoesNotExist()
     }
 
@@ -141,7 +138,7 @@ class LogScreenUITests{
         composeTestRule.onNode(LogScreen.EmailInput).performTextInput("notlogged@pochta.com")
         composeTestRule.onNode(LogScreen.PasswordInput).performTextInput("12345678")
         composeTestRule.onNode(LogScreen.NextButton).performClick()
-
+        composeTestRule.onNode(LogScreen.LoginErrorToast).assertExists()
         composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertDoesNotExist()
     }
 
