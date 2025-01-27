@@ -15,6 +15,15 @@ object LogScreen{
     val EmailInput = (hasText("Электронная почта") or hasText("Email")) and hasSetTextAction()
     val PasswordInput = (hasText("Пароль") or hasText("Password")) and hasSetTextAction()
     val NextButton = (hasText("Дальше") or hasText("Next")) and hasClickAction()
+
+    val EmailErrorToast = (hasText("Проверьте логин на ошибки")
+            or hasText("Check email for errors"))and hasNoClickAction()
+    val ShortPasswordErrorToast = (hasText("Пароль должен содержать минимум 8 символов")
+            or hasText("Password must contain at least 8 characters"))and hasNoClickAction()
+    val PasswordErrorToast = (hasText("Password must contain at least 8 characters")
+            or hasText("Password must not contain spaces"))and hasNoClickAction()
+    val LoginErrorToast = (hasText("Неверный логин или пароль")
+            or hasText("Invalid email or password"))and hasNoClickAction()
 }
 
 
@@ -51,7 +60,7 @@ object BottomBar{
 }
 
 object StatScreen{
-    val ScreenDayCecTemplate = hasText("Ежедневная отметка") and hasNoClickAction()
+    val ScreenDayCecTemplate = hasText("Ежедневная отметка") or hasText("Daily Check") and hasNoClickAction()
     val DaysSection = hasText("Эта неделя") and  hasClickAction()
     val ScreenProgressTemplate = hasText("Прогресс") and hasNoClickAction()
     val MoneySec = hasContentDescription("Деньги") and hasClickAction()
@@ -59,7 +68,7 @@ object StatScreen{
 }
 
 object DiaryScreen{
-    val ScreenTemplate = hasText("Дневник") and hasNoClickAction()
+    val ScreenTemplate = hasText("Дневник") or hasText("Diary") and hasNoClickAction()
 }
 
 object AddNewRecordScreen{
