@@ -3,6 +3,7 @@ package com.example.dropenergy
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasNoClickAction
+import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
@@ -66,44 +67,63 @@ object DMoneyScreen{
 
 
 object BottomBar{
-    val bottomBarStatButton = (hasText("Статистика") or hasText("Statistics")) and hasClickAction()
-    val bottomBarDiaryButton = (hasText("Дневник") or hasText("Diary"))  and hasClickAction()
-    val bottomBarAddButton = hasTestTag("add_record") and hasClickAction()
+    val bottomBarStatButton = hasContentDescription("progress") and hasClickAction()
+    val bottomBarDiaryButton = hasContentDescription("diary") and hasClickAction()
+    val bottomBarAddButton = hasContentDescription("add_record") and hasClickAction()
+    val bottomBarOptButton = hasContentDescription("options") and hasClickAction()
 }
 
 object StatScreen{
-    val ScreenDayCecTemplate = hasText("Ежедневная отметка") or hasText("Daily Check") and hasNoClickAction()
-    val DaysSection = hasText("Эта неделя") and  hasClickAction()
-    val ScreenProgressTemplate = hasText("Прогресс") and hasNoClickAction()
-    val MoneySec = hasContentDescription("Деньги") and hasClickAction()
-    val CanSec = hasContentDescription("Банки") and  hasClickAction()
+    val ScreenDayCecTemplate = (hasText("Ежедневная отметка") or hasText("Daily Check")) and hasNoClickAction()
+    val DaysSection = (hasText("Эта неделя") or hasText("This week")) and  hasClickAction()
+    val ScreenProgressTemplate = (hasText("Прогресс") or hasText("Progress")) and hasNoClickAction()
+    val MoneySec = hasContentDescription("moneyScreen") and hasClickAction()
+    val CanSec = hasContentDescription("cansScreen") and  hasClickAction()
 }
 
 object DiaryScreen{
     val ScreenTemplate = hasText("Дневник") or hasText("Diary") and hasNoClickAction()
+    val DiaryList = hasScrollAction()
 }
 
 object AddNewRecordScreen{
-    val ScreenTemlate = hasText("Создать запись") and hasNoClickAction()
-    val NewBuyRecBtn = hasText("Я купил энергетик") and hasClickAction()
-    val NewWantRecBtn = hasText("Я хочу энергетик") and hasClickAction()
-    val NewGoodRecBtn = hasText("Я справился с соблазном") and hasClickAction()
+    val ScreenTemplate = (hasText("Создать запись") or hasText("Create Record")) and hasNoClickAction()
+    val NewBuyRecBtn = (hasText("Я купил энергетик") or hasText("I bought an energy drink")) and hasClickAction()
+    val NewWantRecBtn = (hasText("Я хочу энергетик") or hasText("I want an energy drink")) and hasClickAction()
+    val NewGoodRecBtn = (hasText("Я справился с соблазном") or hasText("I overcame the temptation")) and hasClickAction()
 }
 
 object MoneyScreen{
-    val ScreenTemplate = hasText("Сэкономлено") and hasNoClickAction()
-    val PrognozTemplate = hasText("Прогноз")
+    val ScreenTemplate = (hasText("Сэкономлено") or hasText("Saved")) and hasNoClickAction()
+    val PrognozTemplate = (hasText("Прогноз") or hasText("Prediction")) and hasNoClickAction()
+    val inDayTemplate = (hasText("в день") or hasText("per day")) and hasNoClickAction()
+    val inWeekTemplate = (hasText("в неделю") or hasText("per week")) and hasNoClickAction()
+    val inMonthTemplate = (hasText("в месяц") or hasText("per month")) and hasNoClickAction()
+    val inYearTemplate = (hasText("в год") or hasText("per year")) and hasNoClickAction()
 }
 
 object CanScreen{
     val ScreenTemplate = hasText("Не выпито") and hasNoClickAction()
-    val PrognozTemplate = hasText("Прогноз")
+    val PrognozTemplate = (hasText("Прогноз") or hasText("Prediction")) and hasNoClickAction()
+    val cansTemplate = (hasText("банок") or hasText("cans")) and hasNoClickAction()
+    val inDayTemplate = (hasText("в день") or hasText("per day")) and hasNoClickAction()
+    val inWeekTemplate = (hasText("в неделю") or hasText("per week")) and hasNoClickAction()
+    val inMonthTemplate = (hasText("в месяц") or hasText("per month")) and hasNoClickAction()
+    val inYearTemplate = (hasText("в год") or hasText("per year")) and hasNoClickAction()
 }
 
 object NewRecordScreen{
-    val ScreenTemplateBuy = hasText("Я купил энергетик") and hasNoClickAction()
-    val ScreenTemplateWant = hasText("Я хочу энергетик") and hasNoClickAction()
-    val ScreenTemplateGood = hasText("Я справился с соблазном") and hasNoClickAction()
-
+    val ScreenTemplateBuy = (hasText("Я купил энергетик") or hasText("I bought an energy drink")) and hasNoClickAction()
+    val ScreenTemplateWant = (hasText("Я хочу энергетик") or hasText("I want an energy drink")) and hasNoClickAction()
+    val ScreenTemplateGood= (hasText("Я справился с соблазном") or hasText("I overcame the temptation")) and hasNoClickAction()
+    val RateTemplate = (hasText("Оцените") or hasText("Rate")) and hasNoClickAction()
+    val RecordDateTemplate = (hasText("Дата записи") or hasText("Record Date")) and hasNoClickAction()
+    val CalendarBtn = hasContentDescription("Calendar") and hasClickAction()
+    val Slider = hasText("8")
     val SaveButton = hasText("Сохранить") and hasClickAction()
+}
+
+object OptionsRecordScreen{
+    val OptTemplate = (hasText("Настройки") or hasText("Options")) and hasNoClickAction()
+    val LogoutButton = (hasText("Выйти из аккаунта") or hasText("Log out")) and hasClickAction()
 }
