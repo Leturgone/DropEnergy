@@ -79,11 +79,17 @@ object StatScreen{
     val ScreenProgressTemplate = (hasText("Прогресс") or hasText("Progress")) and hasNoClickAction()
     val MoneySec = hasContentDescription("moneyScreen") and hasClickAction()
     val CanSec = hasContentDescription("cansScreen") and  hasClickAction()
+
+    val WeekLoadError = (hasText("Ошибка загрузки недели") or hasText("Error loading week")) and hasNoClickAction()
+
 }
 
 object DiaryScreen{
     val ScreenTemplate = hasText("Дневник") or hasText("Diary") and hasNoClickAction()
     val DiaryList = hasScrollAction()
+
+    val DiaryLoadError = (hasText("Не удалось загрузить дневник") or hasText("Failed to load diary")) and hasNoClickAction()
+
 }
 
 object AddNewRecordScreen{
@@ -100,6 +106,13 @@ object MoneyScreen{
     val inWeekTemplate = (hasText("в неделю") or hasText("per week")) and hasNoClickAction()
     val inMonthTemplate = (hasText("в месяц") or hasText("per month")) and hasNoClickAction()
     val inYearTemplate = (hasText("в год") or hasText("per year")) and hasNoClickAction()
+
+    val LoadingEveryDayMoneyError = (hasText("Не удалось загрузить ежедневные деньги") or
+            hasText("Failed to load daily money")) and hasClickAction()
+    val LoadingSavedMoneyError = (hasText("Не удалось загрузить сохраненные деньги") or
+            hasText("Failed to load saved money")) and hasClickAction()
+    val LoadingCurrencyError = (hasText("Не удалось загрузить валюту") or
+            hasText("Failed to load currency")) and hasClickAction()
 }
 
 object CanScreen{
@@ -110,6 +123,11 @@ object CanScreen{
     val inWeekTemplate = (hasText("в неделю") or hasText("per week")) and hasNoClickAction()
     val inMonthTemplate = (hasText("в месяц") or hasText("per month")) and hasNoClickAction()
     val inYearTemplate = (hasText("в год") or hasText("per year")) and hasNoClickAction()
+
+    val LoadingEveryDayCansError = (hasText("Не удалось загрузить ежедневные банки") or
+            hasText("Failed to load daily cans")) and hasClickAction()
+    val LoadingSavedCansError = (hasText("Не удалось загрузить не выпитые банки") or
+            hasText("Failed to load not drunk cans")) and hasClickAction()
 }
 
 object NewRecordScreen{
