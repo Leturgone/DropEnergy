@@ -68,14 +68,13 @@ fun BottomNavigationBar(navController: NavHostController){
             {
                 items.forEach{ item->
                     NavigationBarItem(selected = currentRoute == item.route,
-                        modifier = Modifier.testTag(item.route),
                         onClick = {
                             navController.popBackStack()
                             navController.navigate(item.route)
                         },
                         icon = {
                             Icon(imageVector = item.icon,
-                                contentDescription =item.title,
+                                contentDescription =item.route,
                                 tint = MaterialTheme.colorScheme.primary)
                         },
                         label = {
