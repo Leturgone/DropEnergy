@@ -78,7 +78,7 @@ object StatScreen{
     val DaysSection = (hasText("Эта неделя") or hasText("This week")) and  hasClickAction()
     val ScreenProgressTemplate = (hasText("Прогресс") or hasText("Progress")) and hasNoClickAction()
     val MoneySec = hasContentDescription("moneyScreen") and hasClickAction()
-    val CanSec = hasContentDescription("cansScreen") and  hasClickAction()
+    val CanSec = hasContentDescription("canScreen") and  hasClickAction()
 
     val WeekLoadError = (hasText("Ошибка загрузки недели") or hasText("Error loading week")) and hasNoClickAction()
 
@@ -102,32 +102,26 @@ object AddNewRecordScreen{
 object MoneyScreen{
     val ScreenTemplate = (hasText("Сэкономлено") or hasText("Saved")) and hasNoClickAction()
     val PrognozTemplate = (hasText("Прогноз") or hasText("Prediction")) and hasNoClickAction()
-    val inDayTemplate = (hasText("в день") or hasText("per day")) and hasNoClickAction()
-    val inWeekTemplate = (hasText("в неделю") or hasText("per week")) and hasNoClickAction()
-    val inMonthTemplate = (hasText("в месяц") or hasText("per month")) and hasNoClickAction()
-    val inYearTemplate = (hasText("в год") or hasText("per year")) and hasNoClickAction()
+
 
     val LoadingEveryDayMoneyError = (hasText("Не удалось загрузить ежедневные деньги") or
-            hasText("Failed to load daily money")) and hasClickAction()
+            hasText("Failed to load daily money")) and hasNoClickAction()
     val LoadingSavedMoneyError = (hasText("Не удалось загрузить сохраненные деньги") or
-            hasText("Failed to load saved money")) and hasClickAction()
+            hasText("Failed to load saved money")) and hasNoClickAction()
     val LoadingCurrencyError = (hasText("Не удалось загрузить валюту") or
-            hasText("Failed to load currency")) and hasClickAction()
+            hasText("Failed to load currency")) and hasNoClickAction()
 }
 
 object CanScreen{
-    val ScreenTemplate = hasText("Не выпито") and hasNoClickAction()
+    val ScreenTemplate = (hasText("Не выпито") or hasText("Not drunk")) and hasNoClickAction()
     val PrognozTemplate = (hasText("Прогноз") or hasText("Prediction")) and hasNoClickAction()
     val cansTemplate = (hasText("банок") or hasText("cans")) and hasNoClickAction()
-    val inDayTemplate = (hasText("в день") or hasText("per day")) and hasNoClickAction()
-    val inWeekTemplate = (hasText("в неделю") or hasText("per week")) and hasNoClickAction()
-    val inMonthTemplate = (hasText("в месяц") or hasText("per month")) and hasNoClickAction()
-    val inYearTemplate = (hasText("в год") or hasText("per year")) and hasNoClickAction()
+
 
     val LoadingEveryDayCansError = (hasText("Не удалось загрузить ежедневные банки") or
-            hasText("Failed to load daily cans")) and hasClickAction()
+            hasText("Failed to load daily cans")) and hasNoClickAction()
     val LoadingSavedCansError = (hasText("Не удалось загрузить не выпитые банки") or
-            hasText("Failed to load not drunk cans")) and hasClickAction()
+            hasText("Failed to load not drunk cans")) and hasNoClickAction()
 }
 
 object NewRecordScreen{
