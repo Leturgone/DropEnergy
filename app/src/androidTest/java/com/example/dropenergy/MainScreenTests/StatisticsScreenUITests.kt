@@ -68,6 +68,8 @@ class StatisticsScreenUITests {
         composeTestRule.run {
             setContent { MainScreen(viewModel) }
             composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
+            composeTestRule.onNode(StatScreen.DaysSection).assertExists()
+            composeTestRule.onNode(StatScreen.ScreenProgressTemplate).assertExists()
 
         }
     }
