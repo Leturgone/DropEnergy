@@ -67,8 +67,8 @@ object DMoneyScreen{
 
 
 object BottomBar{
-    val bottomBarStatButton = hasContentDescription("progress") and hasClickAction()
-    val bottomBarDiaryButton = hasContentDescription("diary") and hasClickAction()
+    val bottomBarStatButton = (hasText("Прогресс") or hasText("Progress")) and hasClickAction()
+    val bottomBarDiaryButton = (hasText("Дневник") or hasText("Diary")) and hasClickAction()
     val bottomBarAddButton = hasContentDescription("add_record") and hasClickAction()
     val bottomBarOptButton = hasContentDescription("options") and hasClickAction()
 }
@@ -85,7 +85,7 @@ object StatScreen{
 }
 
 object DiaryScreen{
-    val ScreenTemplate = hasText("Дневник") or hasText("Diary") and hasNoClickAction()
+    val ScreenTemplate = (hasText("Дневник") or hasText("Diary")) and hasNoClickAction()
     val DiaryList = hasScrollAction()
 
     val DiaryLoadError = (hasText("Не удалось загрузить дневник") or hasText("Failed to load diary")) and hasNoClickAction()
