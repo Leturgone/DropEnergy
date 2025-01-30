@@ -55,129 +55,150 @@ class RegScreenUITests {
 
     @Test
     fun testRegScreensGood(){
-        composeTestRule.setContent { MainScreen(viewModel) }
-        composeTestRule.onRoot().printToLog("MY TAG")
 
-        //RegisterScreen
-        composeTestRule.onNode(RegScreen.RegTemplate).assertExists()
-        composeTestRule.onNode(RegScreen.AlreadyTemplate).assertExists()
-        composeTestRule.onNode(RegScreen.EmailInput).assertExists()
-        composeTestRule.onNode(RegScreen.NextButton).assertExists()
-        composeTestRule.onNode(RegScreen.PasswordInput).assertExists()
-        composeTestRule.onNode(RegScreen.EmailInput).performTextInput("giovanni18@pochta.com")
-        composeTestRule.onNode(RegScreen.PasswordInput).performTextInput("12345678")
-        composeTestRule.onNode(RegScreen.NextButton).performClick()
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
 
-        //DialogCansScreen
-        composeTestRule.onNode(DCansScreen.regCansTemplate).assertExists()
-        composeTestRule.onNode(DCansScreen.countInput).assertExists()
-        composeTestRule.onNode(DCansScreen.nextButton).assertExists()
-        composeTestRule.onNode(DCansScreen.countInput).performTextInput("2")
-        composeTestRule.onNode(DCansScreen.nextButton).performClick()
+            //RegisterScreen
+            onNode(RegScreen.RegTemplate).assertExists()
+            onNode(RegScreen.AlreadyTemplate).assertExists()
+            onNode(RegScreen.EmailInput).assertExists()
+            onNode(RegScreen.NextButton).assertExists()
+            onNode(RegScreen.PasswordInput).assertExists()
+            onNode(RegScreen.EmailInput).performTextInput("giovanni18@pochta.com")
+            onNode(RegScreen.PasswordInput).performTextInput("12345678")
+            onNode(RegScreen.NextButton).performClick()
 
-        //DialogMoneyScreen
-        composeTestRule.onNode(DMoneyScreen.regMoneyTemplate).assertExists()
-        composeTestRule.onNode(DMoneyScreen.priceInput).assertExists()
-        composeTestRule.onNode(DMoneyScreen.currencyButton).assertExists()
-        composeTestRule.onNode(DMoneyScreen.nextButton).assertExists()
-        composeTestRule.onNode(DMoneyScreen.priceInput).performTextInput("60")
-        composeTestRule.onNode(DMoneyScreen.nextButton).performClick()
-        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
+            //DialogCansScreen
+            onNode(DCansScreen.regCansTemplate).assertExists()
+            onNode(DCansScreen.countInput).assertExists()
+            onNode(DCansScreen.nextButton).assertExists()
+            onNode(DCansScreen.countInput).performTextInput("2")
+            onNode(DCansScreen.nextButton).performClick()
+
+            //DialogMoneyScreen
+            onNode(DMoneyScreen.regMoneyTemplate).assertExists()
+            onNode(DMoneyScreen.priceInput).assertExists()
+            onNode(DMoneyScreen.currencyButton).assertExists()
+            onNode(DMoneyScreen.nextButton).assertExists()
+            onNode(DMoneyScreen.priceInput).performTextInput("60")
+            onNode(DMoneyScreen.nextButton).performClick()
+            onNode(StatScreen.ScreenDayCecTemplate).assertExists()
+        }
+
 
     }
 
     @Test
     fun testRegScreenBadEmail(){
-        composeTestRule.setContent { MainScreen(viewModel) }
-        composeTestRule.onRoot().printToLog("MY TAG")
-        composeTestRule.onNode(RegScreen.EmailInput).performTextInput("1 1 1")
-        composeTestRule.onNode(RegScreen.PasswordInput).performTextInput("12345678")
-        composeTestRule.onNode(RegScreen.NextButton).performClick()
-        composeTestRule.onNode(RegScreen.EmailErrorToast).assertExists()
-        composeTestRule.onNode(DCansScreen.regCansTemplate).assertDoesNotExist()
+
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+            onNode(RegScreen.EmailInput).performTextInput("1 1 1")
+            onNode(RegScreen.PasswordInput).performTextInput("12345678")
+            onNode(RegScreen.NextButton).performClick()
+            onNode(RegScreen.EmailErrorToast).assertExists()
+            onNode(DCansScreen.regCansTemplate).assertDoesNotExist()
+        }
+
 
     }
 
     @Test
     fun testRegScreenBadPassword() {
-        composeTestRule.setContent { MainScreen(viewModel) }
-        composeTestRule.onRoot().printToLog("MY TAG")
-        composeTestRule.onNode(RegScreen.EmailInput).performTextInput("giovanni18@pochta.com")
-        composeTestRule.onNode(RegScreen.PasswordInput).performTextInput("1         ")
-        composeTestRule.onNode(RegScreen.NextButton).performClick()
-        composeTestRule.onNode(RegScreen.PasswordErrorToast).assertExists()
-        composeTestRule.onNode(DCansScreen.regCansTemplate).assertDoesNotExist()
+
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+            onNode(RegScreen.EmailInput).performTextInput("giovanni18@pochta.com")
+            onNode(RegScreen.PasswordInput).performTextInput("1         ")
+            onNode(RegScreen.NextButton).performClick()
+            onNode(RegScreen.PasswordErrorToast).assertExists()
+            onNode(DCansScreen.regCansTemplate).assertDoesNotExist()
+        }
+
     }
     @Test
     fun testRegScreenShortPassword() {
-        composeTestRule.setContent { MainScreen(viewModel) }
-        composeTestRule.onRoot().printToLog("MY TAG")
-        composeTestRule.onNode(RegScreen.EmailInput).performTextInput("giovanni18@pochta.com")
-        composeTestRule.onNode(RegScreen.PasswordInput).performTextInput("1")
-        composeTestRule.onNode(RegScreen.NextButton).performClick()
-        composeTestRule.onNode(RegScreen.ShortPasswordErrorToast).assertExists()
-        composeTestRule.onNode(DCansScreen.regCansTemplate).assertDoesNotExist()
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+            onNode(RegScreen.EmailInput).performTextInput("giovanni18@pochta.com")
+            onNode(RegScreen.PasswordInput).performTextInput("1")
+            onNode(RegScreen.NextButton).performClick()
+            onNode(RegScreen.ShortPasswordErrorToast).assertExists()
+            onNode(DCansScreen.regCansTemplate).assertDoesNotExist()
+        }
+
     }
 
     @Test
     fun testRegScreenBadCans(){
-        composeTestRule.setContent { MainScreen(viewModel) }
-        composeTestRule.onRoot().printToLog("MY TAG")
-        composeTestRule.onNode(RegScreen.EmailInput).performTextInput("giovanni18@pochta.com")
-        composeTestRule.onNode(RegScreen.PasswordInput).performTextInput("12345678")
-        composeTestRule.onNode(RegScreen.NextButton).performClick()
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+            onRoot().printToLog("MY TAG")
+            onNode(RegScreen.EmailInput).performTextInput("giovanni18@pochta.com")
+            onNode(RegScreen.PasswordInput).performTextInput("12345678")
+            onNode(RegScreen.NextButton).performClick()
 
-        //DialogCansScreen
-        composeTestRule.onNode(DCansScreen.regCansTemplate).assertExists()
-        composeTestRule.onNode(DCansScreen.countInput).assertExists()
-        composeTestRule.onNode(DCansScreen.nextButton).assertExists()
-        composeTestRule.onNode(DCansScreen.countInput).performTextInput("2   ")
-        composeTestRule.onNode(DCansScreen.nextButton).performClick()
-        composeTestRule.onNode(DCansScreen.NumberError).assertExists()
-        composeTestRule.onNode(DMoneyScreen.regMoneyTemplate).assertDoesNotExist()
+            //DialogCansScreen
+            onNode(DCansScreen.regCansTemplate).assertExists()
+            onNode(DCansScreen.countInput).assertExists()
+            onNode(DCansScreen.nextButton).assertExists()
+            onNode(DCansScreen.countInput).performTextInput("2   ")
+            onNode(DCansScreen.nextButton).performClick()
+            onNode(DCansScreen.NumberError).assertExists()
+            onNode(DMoneyScreen.regMoneyTemplate).assertDoesNotExist()
+        }
 
     }
 
     @Test
     fun testRegScreenBadMoney(){
-        composeTestRule.setContent { MainScreen(viewModel) }
-        composeTestRule.onRoot().printToLog("MY TAG")
 
-        //RegisterScreen
-        composeTestRule.onNode(RegScreen.EmailInput).performTextInput("logged@pochta.com",)
-        composeTestRule.onNode(RegScreen.PasswordInput).performTextInput("12345678")
-        composeTestRule.onNode(RegScreen.NextButton).performClick()
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+            onRoot().printToLog("MY TAG")
 
-        //DialogCansScreen
-        composeTestRule.onNode(DCansScreen.countInput).performTextInput("2")
-        composeTestRule.onNode(DCansScreen.nextButton).performClick()
+            //RegisterScreen
+            onNode(RegScreen.EmailInput).performTextInput("logged@pochta.com",)
+            onNode(RegScreen.PasswordInput).performTextInput("12345678")
+            onNode(RegScreen.NextButton).performClick()
 
-        //DialogMoneyScreen
-        composeTestRule.onNode(DMoneyScreen.priceInput).performTextInput("...  ")
-        composeTestRule.onNode(DMoneyScreen.nextButton).performClick()
-        composeTestRule.onNode(DMoneyScreen.numberError).assertExists()
-        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertDoesNotExist()
+            //DialogCansScreen
+            onNode(DCansScreen.countInput).performTextInput("2")
+            onNode(DCansScreen.nextButton).performClick()
+
+            //DialogMoneyScreen
+            onNode(DMoneyScreen.priceInput).performTextInput("...  ")
+            onNode(DMoneyScreen.nextButton).performClick()
+            onNode(DMoneyScreen.numberError).assertExists()
+            onNode(StatScreen.ScreenDayCecTemplate).assertDoesNotExist()
+        }
+
     }
 
     @Test
     fun testRegScreenAlreadyUser(){
-        composeTestRule.setContent { MainScreen(viewModel) }
-        composeTestRule.onRoot().printToLog("MY TAG")
 
-        //RegisterScreen
-        composeTestRule.onNode(RegScreen.EmailInput).performTextInput("logged@pochta.com",)
-        composeTestRule.onNode(RegScreen.PasswordInput).performTextInput("12345678")
-        composeTestRule.onNode(RegScreen.NextButton).performClick()
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+            onRoot().printToLog("MY TAG")
 
-        //DialogCansScreen
-        composeTestRule.onNode(DCansScreen.countInput).performTextInput("2")
-        composeTestRule.onNode(DCansScreen.nextButton).performClick()
+            //RegisterScreen
+            onNode(RegScreen.EmailInput).performTextInput("logged@pochta.com",)
+            onNode(RegScreen.PasswordInput).performTextInput("12345678")
+            onNode(RegScreen.NextButton).performClick()
 
-        //DialogMoneyScreen
-        composeTestRule.onNode(DMoneyScreen.priceInput).performTextInput("60")
-        composeTestRule.onNode(DMoneyScreen.nextButton).performClick()
-        composeTestRule.onNode(DMoneyScreen.signupError).assertExists()
-        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertDoesNotExist()
+            //DialogCansScreen
+            onNode(DCansScreen.countInput).performTextInput("2")
+            onNode(DCansScreen.nextButton).performClick()
+
+            //DialogMoneyScreen
+            onNode(DMoneyScreen.priceInput).performTextInput("60")
+            onNode(DMoneyScreen.nextButton).performClick()
+            onNode(DMoneyScreen.signupError).assertExists()
+            onNode(StatScreen.ScreenDayCecTemplate).assertDoesNotExist()
+        }
+
 
     }
 
