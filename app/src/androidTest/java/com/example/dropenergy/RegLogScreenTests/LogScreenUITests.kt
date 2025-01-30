@@ -48,98 +48,117 @@ class LogScreenUITests{
     @Test
     fun testLogScreensGood(){
 
-        composeTestRule.setContent { MainScreen(viewModel) }
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
 
-        //RegisterScreen
-        composeTestRule.onNode(RegScreen.RegTemplate).assertExists()
-        composeTestRule.onNode(RegScreen.AlreadyTemplate).assertExists()
-        composeTestRule.onNode(RegScreen.AlreadyTemplate).performClick()
-        //LoginScreen
-        composeTestRule.onNode(LogScreen.LogTemplate).assertExists()
-        composeTestRule.onNode(LogScreen.EmailInput).assertExists()
-        composeTestRule.onNode(LogScreen.PasswordInput).assertExists()
-        composeTestRule.onNode(LogScreen.NextButton).assertExists()
-        composeTestRule.onNode(LogScreen.EmailInput).performTextInput("giovanni18@pochta.com")
-        composeTestRule.onNode(LogScreen.PasswordInput).performTextInput("12345678")
-        composeTestRule.onNode(LogScreen.NextButton).performClick()
-        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
+            //RegisterScreen
+            onNode(RegScreen.RegTemplate).assertExists()
+            onNode(RegScreen.AlreadyTemplate).assertExists()
+            onNode(RegScreen.AlreadyTemplate).performClick()
+            //LoginScreen
+            onNode(LogScreen.LogTemplate).assertExists()
+            onNode(LogScreen.EmailInput).assertExists()
+            onNode(LogScreen.PasswordInput).assertExists()
+            onNode(LogScreen.NextButton).assertExists()
+            onNode(LogScreen.EmailInput).performTextInput("giovanni18@pochta.com")
+            onNode(LogScreen.PasswordInput).performTextInput("12345678")
+            onNode(LogScreen.NextButton).performClick()
+            onNode(StatScreen.ScreenDayCecTemplate).assertExists()
+
+        }
+
     }
 
     @Test
     fun testLogScreensBadEmail(){
-        composeTestRule.setContent { MainScreen(viewModel) }
 
-        composeTestRule.onNode(RegScreen.RegTemplate).assertExists()
-        composeTestRule.onNode(RegScreen.AlreadyTemplate).assertExists()
-        composeTestRule.onNode(RegScreen.AlreadyTemplate).performClick()
-        //LoginScreen
-        composeTestRule.onNode(LogScreen.LogTemplate).assertExists()
-        composeTestRule.onNode(LogScreen.EmailInput).assertExists()
-        composeTestRule.onNode(LogScreen.PasswordInput).assertExists()
-        composeTestRule.onNode(LogScreen.NextButton).assertExists()
-        composeTestRule.onNode(LogScreen.EmailInput).performTextInput("1 1 1")
-        composeTestRule.onNode(LogScreen.PasswordInput).performTextInput("12345678")
-        composeTestRule.onNode(LogScreen.NextButton).performClick()
-        composeTestRule.onNode(LogScreen.EmailErrorToast).assertExists()
-        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertDoesNotExist()
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+
+            onNode(RegScreen.RegTemplate).assertExists()
+            onNode(RegScreen.AlreadyTemplate).assertExists()
+            onNode(RegScreen.AlreadyTemplate).performClick()
+            //LoginScreen
+            onNode(LogScreen.LogTemplate).assertExists()
+            onNode(LogScreen.EmailInput).assertExists()
+            onNode(LogScreen.PasswordInput).assertExists()
+            onNode(LogScreen.NextButton).assertExists()
+            onNode(LogScreen.EmailInput).performTextInput("1 1 1")
+            onNode(LogScreen.PasswordInput).performTextInput("12345678")
+            onNode(LogScreen.NextButton).performClick()
+            onNode(LogScreen.EmailErrorToast).assertExists()
+            onNode(StatScreen.ScreenDayCecTemplate).assertDoesNotExist()
+        }
 
     }
 
     @Test
     fun testLogScreensShortPassword() {
-        composeTestRule.setContent { MainScreen(viewModel) }
 
-        composeTestRule.onNode(RegScreen.RegTemplate).assertExists()
-        composeTestRule.onNode(RegScreen.AlreadyTemplate).assertExists()
-        composeTestRule.onNode(RegScreen.AlreadyTemplate).performClick()
-        //LoginScreen
-        composeTestRule.onNode(LogScreen.LogTemplate).assertExists()
-        composeTestRule.onNode(LogScreen.EmailInput).assertExists()
-        composeTestRule.onNode(LogScreen.PasswordInput).assertExists()
-        composeTestRule.onNode(LogScreen.NextButton).assertExists()
-        composeTestRule.onNode(LogScreen.EmailInput).performTextInput("giovanni18@pochta.com")
-        composeTestRule.onNode(LogScreen.PasswordInput).performTextInput("1")
-        composeTestRule.onNode(LogScreen.NextButton).performClick()
-        composeTestRule.onNode(LogScreen.ShortPasswordErrorToast).assertExists()
-        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertDoesNotExist()
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+
+            onNode(RegScreen.RegTemplate).assertExists()
+            onNode(RegScreen.AlreadyTemplate).assertExists()
+            onNode(RegScreen.AlreadyTemplate).performClick()
+            //LoginScreen
+            onNode(LogScreen.LogTemplate).assertExists()
+            onNode(LogScreen.EmailInput).assertExists()
+            onNode(LogScreen.PasswordInput).assertExists()
+            onNode(LogScreen.NextButton).assertExists()
+            onNode(LogScreen.EmailInput).performTextInput("giovanni18@pochta.com")
+            onNode(LogScreen.PasswordInput).performTextInput("1")
+            onNode(LogScreen.NextButton).performClick()
+            onNode(LogScreen.ShortPasswordErrorToast).assertExists()
+            onNode(StatScreen.ScreenDayCecTemplate).assertDoesNotExist()
+        }
+
     }
 
     @Test
     fun testLogScreensBadPassword() {
-        composeTestRule.setContent { MainScreen(viewModel) }
 
-        composeTestRule.onNode(RegScreen.RegTemplate).assertExists()
-        composeTestRule.onNode(RegScreen.AlreadyTemplate).assertExists()
-        composeTestRule.onNode(RegScreen.AlreadyTemplate).performClick()
-        //LoginScreen
-        composeTestRule.onNode(LogScreen.LogTemplate).assertExists()
-        composeTestRule.onNode(LogScreen.EmailInput).assertExists()
-        composeTestRule.onNode(LogScreen.PasswordInput).assertExists()
-        composeTestRule.onNode(LogScreen.NextButton).assertExists()
-        composeTestRule.onNode(LogScreen.EmailInput).performTextInput("giovanni18@pochta.com")
-        composeTestRule.onNode(LogScreen.PasswordInput).performTextInput("1         ")
-        composeTestRule.onNode(LogScreen.NextButton).performClick()
-        composeTestRule.onNode(LogScreen.PasswordErrorToast).assertExists()
-        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertDoesNotExist()
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+
+            onNode(RegScreen.RegTemplate).assertExists()
+            onNode(RegScreen.AlreadyTemplate).assertExists()
+            onNode(RegScreen.AlreadyTemplate).performClick()
+            //LoginScreen
+            onNode(LogScreen.LogTemplate).assertExists()
+            onNode(LogScreen.EmailInput).assertExists()
+            onNode(LogScreen.PasswordInput).assertExists()
+            onNode(LogScreen.NextButton).assertExists()
+            onNode(LogScreen.EmailInput).performTextInput("giovanni18@pochta.com")
+            onNode(LogScreen.PasswordInput).performTextInput("1         ")
+            onNode(LogScreen.NextButton).performClick()
+            onNode(LogScreen.PasswordErrorToast).assertExists()
+            onNode(StatScreen.ScreenDayCecTemplate).assertDoesNotExist()
+        }
+
     }
 
     @Test
     fun testLogScreensBadUser(){
-        composeTestRule.setContent { MainScreen(viewModel) }
 
-        composeTestRule.onNode(RegScreen.RegTemplate).assertExists()
-        composeTestRule.onNode(RegScreen.AlreadyTemplate).assertExists()
-        composeTestRule.onNode(RegScreen.AlreadyTemplate).performClick()
-        //LoginScreen
-        composeTestRule.onNode(LogScreen.LogTemplate).assertExists()
-        composeTestRule.onNode(LogScreen.EmailInput).assertExists()
-        composeTestRule.onNode(LogScreen.PasswordInput).assertExists()
-        composeTestRule.onNode(LogScreen.NextButton).assertExists()
-        composeTestRule.onNode(LogScreen.EmailInput).performTextInput("notlogged@pochta.com")
-        composeTestRule.onNode(LogScreen.PasswordInput).performTextInput("12345678")
-        composeTestRule.onNode(LogScreen.NextButton).performClick()
-        composeTestRule.onNode(LogScreen.LoginErrorToast).assertExists()
-        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertDoesNotExist()
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+
+            onNode(RegScreen.RegTemplate).assertExists()
+            onNode(RegScreen.AlreadyTemplate).assertExists()
+            onNode(RegScreen.AlreadyTemplate).performClick()
+            //LoginScreen
+            onNode(LogScreen.LogTemplate).assertExists()
+            onNode(LogScreen.EmailInput).assertExists()
+            onNode(LogScreen.PasswordInput).assertExists()
+            onNode(LogScreen.NextButton).assertExists()
+            onNode(LogScreen.EmailInput).performTextInput("notlogged@pochta.com")
+            onNode(LogScreen.PasswordInput).performTextInput("12345678")
+            onNode(LogScreen.NextButton).performClick()
+            onNode(LogScreen.LoginErrorToast).assertExists()
+            onNode(StatScreen.ScreenDayCecTemplate).assertDoesNotExist()
+        }
+
     }
 
 }
