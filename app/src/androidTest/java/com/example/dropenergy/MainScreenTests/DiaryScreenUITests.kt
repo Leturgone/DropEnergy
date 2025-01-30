@@ -3,12 +3,10 @@ package com.example.dropenergy.MainScreenTests
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.printToLog
 import com.example.dropenergy.BottomBar
 import com.example.dropenergy.DiaryScreen
 import com.example.dropenergy.MainScreen
-import com.example.dropenergy.StatScreen
 import com.example.dropenergy.data.DiaryRecord
 import com.example.dropenergy.database.model.User
 import com.example.dropenergy.database.repository.AuthRepository
@@ -22,7 +20,6 @@ import io.mockk.mockk
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.lang.Exception
 
 
 class DiaryScreenUITests {
