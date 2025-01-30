@@ -62,23 +62,26 @@ class NewRecordUiTests {
         every { mockFirebaseUser .uid } returns "uid"
         coEvery { userRepository.getUser("uid")} returns user
         coEvery { userRepository.getWeek("uid")} returns GetDBState.Success(user.week)
+        viewModel = DBViewModel(authRepository,userRepository)
 
     }
 
 
     @Test
     fun navToNewRecordTest(){
-        viewModel = DBViewModel(authRepository,userRepository)
 
         composeTestRule.run {
             setContent { MainScreen(viewModel) }
             onRoot().printToLog("LOGG")
             onNode(BottomBar.bottomBarAddButton).assertExists()
             onNode(BottomBar.bottomBarAddButton).performClick()
+
+            //AddNewRecordScreen
             onNode(AddNewRecordScreen.ScreenTemplate).assertExists()
             onNode(AddNewRecordScreen.NewGoodRecBtn).assertExists()
             onNode(AddNewRecordScreen.NewBuyRecBtn).assertExists()
             onNode(AddNewRecordScreen.NewWantRecBtn).assertExists()
+
             onNode(BottomBar.bottomBarStatButton).assertExists()
             onNode(BottomBar.bottomBarStatButton).performClick()
             onNode(StatScreen.ScreenDayCecTemplate).assertExists()
@@ -88,7 +91,6 @@ class NewRecordUiTests {
 
     @Test
     fun createGoodRecordTest(){
-        viewModel = DBViewModel(authRepository,userRepository)
 
         composeTestRule.run {
             setContent { MainScreen(viewModel) }
@@ -96,7 +98,7 @@ class NewRecordUiTests {
             onNode(BottomBar.bottomBarAddButton).assertExists()
             onNode(BottomBar.bottomBarAddButton).performClick()
             onNode(AddNewRecordScreen.NewGoodRecBtn).performClick()
-
+            //NewRecordScreen
             onNode(NewRecordScreen.ScreenTemplateGood).assertExists()
             onNode(NewRecordScreen.RecordDateTemplate).assertExists()
             onNode(NewRecordScreen.Slider).assertExists()
@@ -109,14 +111,13 @@ class NewRecordUiTests {
 
     @Test
     fun createWantRecordTest(){
-        viewModel = DBViewModel(authRepository,userRepository)
         composeTestRule.run {
             setContent { MainScreen(viewModel) }
             onRoot().printToLog("LOGG")
             onNode(BottomBar.bottomBarAddButton).assertExists()
             onNode(BottomBar.bottomBarAddButton).performClick()
             onNode(AddNewRecordScreen.NewWantRecBtn).performClick()
-
+            //NewRecordScreen
             onNode(NewRecordScreen.ScreenTemplateWant).assertExists()
             onNode(NewRecordScreen.RecordDateTemplate).assertExists()
             onNode(NewRecordScreen.Slider).assertExists()
@@ -129,14 +130,13 @@ class NewRecordUiTests {
 
     @Test
     fun createBadRecordTest(){
-        viewModel = DBViewModel(authRepository,userRepository)
         composeTestRule.run {
             setContent { MainScreen(viewModel) }
             onRoot().printToLog("LOGG")
             onNode(BottomBar.bottomBarAddButton).assertExists()
             onNode(BottomBar.bottomBarAddButton).performClick()
             onNode(AddNewRecordScreen.NewBuyRecBtn).performClick()
-
+            //NewRecordScreen
             onNode(NewRecordScreen.ScreenTemplateBuy).assertExists()
             onNode(NewRecordScreen.RecordDateTemplate).assertExists()
             onNode(NewRecordScreen.Slider).assertExists()
