@@ -22,8 +22,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.koin.test.KoinTest
-import org.koin.test.inject
 
 
 @RunWith(AndroidJUnit4::class)

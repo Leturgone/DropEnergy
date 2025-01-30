@@ -1,10 +1,8 @@
 package com.example.dropenergy.RegLogScreenTests
 
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
-import androidx.compose.ui.test.printToLog
 import com.example.dropenergy.LogScreen
 import com.example.dropenergy.MainScreen
 import com.example.dropenergy.RegScreen
@@ -13,11 +11,9 @@ import com.example.dropenergy.database.repository.AuthRepository
 import com.example.dropenergy.database.repository.GetDBState
 import com.example.dropenergy.database.repository.UserRepository
 import com.example.dropenergy.database.viewModel.DBViewModel
-import com.google.firebase.auth.FirebaseUser
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

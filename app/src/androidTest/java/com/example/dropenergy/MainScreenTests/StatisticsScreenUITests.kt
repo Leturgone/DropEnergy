@@ -1,9 +1,7 @@
 package com.example.dropenergy.MainScreenTests
 
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.printToLog
 import com.example.dropenergy.CanScreen
 import com.example.dropenergy.MainScreen
 import com.example.dropenergy.MoneyScreen
@@ -21,7 +19,6 @@ import io.mockk.mockk
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.lang.Exception
 
 class StatisticsScreenUITests {
     @get:Rule
