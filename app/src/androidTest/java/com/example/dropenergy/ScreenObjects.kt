@@ -67,8 +67,8 @@ object DMoneyScreen{
 
 
 object BottomBar{
-    val bottomBarStatButton = (hasText("Прогресс") or hasText("Progress")) and hasClickAction()
-    val bottomBarDiaryButton = (hasText("Дневник") or hasText("Diary")) and hasClickAction()
+    val bottomBarStatButton = hasContentDescription("progress") and hasClickAction()
+    val bottomBarDiaryButton = hasContentDescription("diary") and hasClickAction()
     val bottomBarAddButton = hasContentDescription("add_record") and hasClickAction()
     val bottomBarOptButton = hasContentDescription("options") and hasClickAction()
 }
@@ -85,7 +85,7 @@ object StatScreen{
 }
 
 object DiaryScreen{
-    val ScreenTemplate = (hasText("Дневник") or hasText("Diary")) and hasNoClickAction()
+    val ScreenTemplate = hasText("Дневник") or hasText("Diary") and hasNoClickAction()
     val DiaryList = hasScrollAction()
 
     val DiaryLoadError = (hasText("Не удалось загрузить дневник") or hasText("Failed to load diary")) and hasNoClickAction()
@@ -115,7 +115,6 @@ object MoneyScreen{
 object CanScreen{
     val ScreenTemplate = (hasText("Не выпито") or hasText("Not drunk")) and hasNoClickAction()
     val PrognozTemplate = (hasText("Прогноз") or hasText("Prediction")) and hasNoClickAction()
-    val cansTemplate = (hasText("банок") or hasText("cans")) and hasNoClickAction()
 
 
     val LoadingEveryDayCansError = (hasText("Не удалось загрузить ежедневные банки") or
@@ -128,11 +127,11 @@ object NewRecordScreen{
     val ScreenTemplateBuy = (hasText("Я купил энергетик") or hasText("I bought an energy drink")) and hasNoClickAction()
     val ScreenTemplateWant = (hasText("Я хочу энергетик") or hasText("I want an energy drink")) and hasNoClickAction()
     val ScreenTemplateGood= (hasText("Я справился с соблазном") or hasText("I overcame the temptation")) and hasNoClickAction()
-    val RateTemplate = (hasText("Оцените") or hasText("Rate")) and hasNoClickAction()
+    val RateTemplate = (hasText("Оцените Интенсивность") or hasText("Rate Intensity")) and hasNoClickAction()
     val RecordDateTemplate = (hasText("Дата записи") or hasText("Record Date")) and hasNoClickAction()
     val CalendarBtn = hasContentDescription("Calendar") and hasClickAction()
     val Slider = hasText("8")
-    val SaveButton = hasText("Сохранить") and hasClickAction()
+    val SaveButton = (hasText("Сохранить") or hasText("Save")) and hasClickAction()
 }
 
 object OptionsRecordScreen{
