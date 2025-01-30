@@ -68,8 +68,11 @@ class StatisticsScreenUITests {
     fun loggedLaunchTest(){
         coEvery { userRepository.getWeek("uid")} returns GetDBState.Success(user.week)
         viewModel = DBViewModel(authRepository,userRepository)
-        composeTestRule.setContent { MainScreen(viewModel) }
-        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+            composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
+
+        }
     }
 
 
@@ -77,18 +80,24 @@ class StatisticsScreenUITests {
     fun loadWeekTest(){
         coEvery { userRepository.getWeek("uid")} returns GetDBState.Success(user.week)
         viewModel = DBViewModel(authRepository,userRepository)
-        composeTestRule.setContent { MainScreen(viewModel) }
-        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
-        composeTestRule.onNode(StatScreen.WeekLoadError).assertDoesNotExist()
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+            onNode(StatScreen.ScreenDayCecTemplate).assertExists()
+            onNode(StatScreen.WeekLoadError).assertDoesNotExist()
+        }
     }
 
     @Test
     fun errorLoadWeekTest(){
         coEvery { userRepository.getWeek("uid")} returns GetDBState.Failure(Exception())
         viewModel = DBViewModel(authRepository,userRepository)
-        composeTestRule.setContent { MainScreen(viewModel) }
-        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
-        composeTestRule.onNode(StatScreen.WeekLoadError).assertExists()
+
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+            onNode(StatScreen.ScreenDayCecTemplate).assertExists()
+            onNode(StatScreen.WeekLoadError).assertExists()
+        }
+
     }
 
     @Test
@@ -97,18 +106,21 @@ class StatisticsScreenUITests {
         coEvery { userRepository.getSavedMoney("uid")} returns GetDBState.Success(user.savedMoney)
         coEvery { userRepository.getCurrency("uid")} returns GetDBState.Success(user.currency!!)
         coEvery { userRepository.getEverydayMoney("uid")} returns GetDBState.Success(user.everydayMoney!!)
-        viewModel = DBViewModel(authRepository,userRepository)
-        composeTestRule.setContent { MainScreen(viewModel) }
-        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
-        composeTestRule.onNode(StatScreen.MoneySec).assertExists()
-        composeTestRule.onNode(StatScreen.MoneySec).performClick()
-        //MoneyScreen
-        composeTestRule.onNode(MoneyScreen.ScreenTemplate).assertExists()
-        composeTestRule.onNode(MoneyScreen.PrognozTemplate).assertExists()
 
-        composeTestRule.onNode(MoneyScreen.LoadingCurrencyError).assertDoesNotExist()
-        composeTestRule.onNode(MoneyScreen.LoadingEveryDayMoneyError).assertDoesNotExist()
-        composeTestRule.onNode(MoneyScreen.LoadingSavedMoneyError).assertDoesNotExist()
+        viewModel = DBViewModel(authRepository,userRepository)
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+            onNode(StatScreen.ScreenDayCecTemplate).assertExists()
+            onNode(StatScreen.MoneySec).assertExists()
+            onNode(StatScreen.MoneySec).performClick()
+            //MoneyScreen
+            onNode(MoneyScreen.ScreenTemplate).assertExists()
+            onNode(MoneyScreen.PrognozTemplate).assertExists()
+            onNode(MoneyScreen.LoadingCurrencyError).assertDoesNotExist()
+            onNode(MoneyScreen.LoadingEveryDayMoneyError).assertDoesNotExist()
+            onNode(MoneyScreen.LoadingSavedMoneyError).assertDoesNotExist()
+        }
+
     }
     @Test
     fun errorLoadSavedMoneyTest(){
@@ -118,17 +130,20 @@ class StatisticsScreenUITests {
         coEvery { userRepository.getEverydayMoney("uid")} returns GetDBState.Success(user.everydayMoney!!)
         viewModel = DBViewModel(authRepository,userRepository)
 
-        composeTestRule.setContent { MainScreen(viewModel) }
-        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
-        composeTestRule.onNode(StatScreen.MoneySec).assertExists()
-        composeTestRule.onNode(StatScreen.MoneySec).performClick()
-        //MoneyScreen
-        composeTestRule.onNode(MoneyScreen.ScreenTemplate).assertExists()
-        composeTestRule.onNode(MoneyScreen.PrognozTemplate).assertExists()
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+            onNode(StatScreen.ScreenDayCecTemplate).assertExists()
+            onNode(StatScreen.MoneySec).assertExists()
+            onNode(StatScreen.MoneySec).performClick()
+            //MoneyScreen
+            onNode(MoneyScreen.ScreenTemplate).assertExists()
+            onNode(MoneyScreen.PrognozTemplate).assertExists()
 
-        composeTestRule.onNode(MoneyScreen.LoadingSavedMoneyError).assertExists()
-        composeTestRule.onNode(MoneyScreen.LoadingCurrencyError).assertDoesNotExist()
-        composeTestRule.onNode(MoneyScreen.LoadingEveryDayMoneyError).assertDoesNotExist()
+            onNode(MoneyScreen.LoadingSavedMoneyError).assertExists()
+            onNode(MoneyScreen.LoadingCurrencyError).assertDoesNotExist()
+            onNode(MoneyScreen.LoadingEveryDayMoneyError).assertDoesNotExist()
+
+        }
 
     }
 
@@ -140,17 +155,21 @@ class StatisticsScreenUITests {
         coEvery { userRepository.getEverydayMoney("uid")} returns GetDBState.Success(user.everydayMoney!!)
         viewModel = DBViewModel(authRepository,userRepository)
 
-        composeTestRule.setContent { MainScreen(viewModel) }
-        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
-        composeTestRule.onNode(StatScreen.MoneySec).assertExists()
-        composeTestRule.onNode(StatScreen.MoneySec).performClick()
-        //MoneyScreen
-        composeTestRule.onNode(MoneyScreen.ScreenTemplate).assertExists()
-        composeTestRule.onNode(MoneyScreen.PrognozTemplate).assertExists()
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+            onNode(StatScreen.ScreenDayCecTemplate).assertExists()
+            onNode(StatScreen.MoneySec).assertExists()
+            onNode(StatScreen.MoneySec).performClick()
+            //MoneyScreen
+            onNode(MoneyScreen.ScreenTemplate).assertExists()
+            onNode(MoneyScreen.PrognozTemplate).assertExists()
 
-        composeTestRule.onNode(MoneyScreen.LoadingSavedMoneyError).assertDoesNotExist()
-        composeTestRule.onNode(MoneyScreen.LoadingCurrencyError).assertExists()
-        composeTestRule.onNode(MoneyScreen.LoadingEveryDayMoneyError).assertDoesNotExist()
+            onNode(MoneyScreen.LoadingSavedMoneyError).assertDoesNotExist()
+            onNode(MoneyScreen.LoadingCurrencyError).assertExists()
+            onNode(MoneyScreen.LoadingEveryDayMoneyError).assertDoesNotExist()
+
+        }
+
     }
     @Test
     fun errorLoadEveryDayMoneyTest(){
@@ -160,17 +179,20 @@ class StatisticsScreenUITests {
         coEvery { userRepository.getEverydayMoney("uid")} returns GetDBState.Failure(Exception())
         viewModel = DBViewModel(authRepository,userRepository)
 
-        composeTestRule.setContent { MainScreen(viewModel) }
-        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
-        composeTestRule.onNode(StatScreen.MoneySec).assertExists()
-        composeTestRule.onNode(StatScreen.MoneySec).performClick()
-        //MoneyScreen
-        composeTestRule.onNode(MoneyScreen.ScreenTemplate).assertExists()
-        composeTestRule.onNode(MoneyScreen.PrognozTemplate).assertExists()
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+            onNode(StatScreen.ScreenDayCecTemplate).assertExists()
+            onNode(StatScreen.MoneySec).assertExists()
+            onNode(StatScreen.MoneySec).performClick()
+            //MoneyScreen
+            onNode(MoneyScreen.ScreenTemplate).assertExists()
+            onNode(MoneyScreen.PrognozTemplate).assertExists()
 
-        composeTestRule.onNode(MoneyScreen.LoadingCurrencyError).assertDoesNotExist()
-        composeTestRule.onNode(MoneyScreen.LoadingEveryDayMoneyError).assertExists()
-        composeTestRule.onNode(MoneyScreen.LoadingSavedMoneyError).assertDoesNotExist()
+            onNode(MoneyScreen.LoadingCurrencyError).assertDoesNotExist()
+            onNode(MoneyScreen.LoadingEveryDayMoneyError).assertExists()
+            onNode(MoneyScreen.LoadingSavedMoneyError).assertDoesNotExist()
+        }
+
     }
 
     @Test
@@ -180,16 +202,19 @@ class StatisticsScreenUITests {
         coEvery { userRepository.getEverydayCans("uid")} returns GetDBState.Success(user.everydayCans!!)
         viewModel = DBViewModel(authRepository,userRepository)
 
-        composeTestRule.setContent { MainScreen(viewModel) }
-        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
-        composeTestRule.onNode(StatScreen.CanSec).assertExists()
-        composeTestRule.onNode(StatScreen.CanSec).performClick()
-        //CansScreen
-        composeTestRule.onNode(CanScreen.ScreenTemplate).assertExists()
-        composeTestRule.onNode(CanScreen.PrognozTemplate).assertExists()
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+            onNode(StatScreen.ScreenDayCecTemplate).assertExists()
+            onNode(StatScreen.CanSec).assertExists()
+            onNode(StatScreen.CanSec).performClick()
+            //CansScreen
+            onNode(CanScreen.ScreenTemplate).assertExists()
+            onNode(CanScreen.PrognozTemplate).assertExists()
 
-        composeTestRule.onNode(CanScreen.LoadingSavedCansError).assertDoesNotExist()
-        composeTestRule.onNode(CanScreen.LoadingEveryDayCansError).assertDoesNotExist()
+            onNode(CanScreen.LoadingSavedCansError).assertDoesNotExist()
+            onNode(CanScreen.LoadingEveryDayCansError).assertDoesNotExist()
+        }
+
     }
     @Test
     fun errorLoadCansTest(){
@@ -198,16 +223,19 @@ class StatisticsScreenUITests {
         coEvery { userRepository.getEverydayCans("uid")} returns GetDBState.Success(user.everydayCans!!)
         viewModel = DBViewModel(authRepository,userRepository)
 
-        composeTestRule.setContent { MainScreen(viewModel) }
-        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
-        composeTestRule.onNode(StatScreen.CanSec).assertExists()
-        composeTestRule.onNode(StatScreen.CanSec).performClick()
-        //CansScreen
-        composeTestRule.onNode(CanScreen.ScreenTemplate).assertExists()
-        composeTestRule.onNode(CanScreen.PrognozTemplate).assertExists()
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+            onNode(StatScreen.ScreenDayCecTemplate).assertExists()
+            onNode(StatScreen.CanSec).assertExists()
+            onNode(StatScreen.CanSec).performClick()
+            //CansScreen
+            onNode(CanScreen.ScreenTemplate).assertExists()
+            onNode(CanScreen.PrognozTemplate).assertExists()
 
-        composeTestRule.onNode(CanScreen.LoadingSavedCansError).assertExists()
-        composeTestRule.onNode(CanScreen.LoadingEveryDayCansError).assertDoesNotExist()
+            onNode(CanScreen.LoadingSavedCansError).assertExists()
+            onNode(CanScreen.LoadingEveryDayCansError).assertDoesNotExist()
+        }
+
     }
 
     @Test
@@ -217,17 +245,21 @@ class StatisticsScreenUITests {
         coEvery { userRepository.getEverydayCans("uid")} returns GetDBState.Failure(Exception())
         viewModel = DBViewModel(authRepository,userRepository)
 
-        composeTestRule.setContent { MainScreen(viewModel) }
-        composeTestRule.onNode(StatScreen.ScreenDayCecTemplate).assertExists()
+        composeTestRule.run {
+            setContent { MainScreen(viewModel) }
+            onNode(StatScreen.ScreenDayCecTemplate).assertExists()
 
-        composeTestRule.onNode(StatScreen.CanSec).assertExists()
-        composeTestRule.onNode(StatScreen.CanSec).performClick()
-        //CansScreen
-        composeTestRule.onNode(CanScreen.ScreenTemplate).assertExists()
-        composeTestRule.onNode(CanScreen.PrognozTemplate).assertExists()
+            onNode(StatScreen.CanSec).assertExists()
+            onNode(StatScreen.CanSec).performClick()
+            //CansScreen
+            onNode(CanScreen.ScreenTemplate).assertExists()
+            onNode(CanScreen.PrognozTemplate).assertExists()
 
-        composeTestRule.onNode(CanScreen.LoadingSavedCansError).assertDoesNotExist()
-        composeTestRule.onNode(CanScreen.LoadingEveryDayCansError).assertExists()
+            onNode(CanScreen.LoadingSavedCansError).assertDoesNotExist()
+            onNode(CanScreen.LoadingEveryDayCansError).assertExists()
+        }
+
+
     }
 
 }
