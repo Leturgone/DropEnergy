@@ -134,7 +134,7 @@ object NewRecordScreen{
     val SaveButton = (hasText("Сохранить") or hasText("Save")) and hasClickAction()
 }
 
-object OptionsRecordScreen{
+object OptionsScreen{
     val OptTemplate = (hasText("Настройки") or hasText("Options")) and hasNoClickAction()
     val LogoutButton = (hasText("Выйти из аккаунта") or hasText("Log out")) and hasClickAction()
 }
