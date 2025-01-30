@@ -20,6 +20,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -67,15 +69,15 @@ fun BottomNavigationBar(navController: NavHostController){
             Row(modifier = Modifier.background((MaterialTheme.colorScheme.background)))
             {
                 items.forEach{ item->
-                    NavigationBarItem(selected = currentRoute == item.route,
-                        modifier = Modifier.testTag(item.route),
+                    NavigationBarItem(selected = currentRoute == item.route, modifier = Modifier.semantics
+                    { contentDescription = item.route },
                         onClick = {
                             navController.popBackStack()
                             navController.navigate(item.route)
                         },
                         icon = {
                             Icon(imageVector = item.icon,
-                                contentDescription =item.title,
+                                contentDescription =item.route,
                                 tint = MaterialTheme.colorScheme.primary)
                         },
                         label = {

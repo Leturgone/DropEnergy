@@ -96,7 +96,7 @@ fun ProgressSection(navController : NavHostController){
                             {
                                 Icon(
                                     imageVector = cat.icon,
-                                    contentDescription = cat.categoryName,
+                                    contentDescription = cat.screenFunName,
                                     tint = Color.White
                                 )
 

@@ -46,8 +46,11 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            merges += "META-INF/LICENSE.md"
+            merges += "META-INF/LICENSE-notice.md"
         }
     }
+
 }
 
 dependencies {
@@ -69,6 +72,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
     implementation("androidx.compose.material:material-icons-extended:1.7.5")
     implementation("androidx.navigation:navigation-compose:2.8.3")
@@ -82,6 +86,15 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx")
 
     implementation("io.insert-koin:koin-android:3.2.0")
+    testImplementation("io.insert-koin:koin-test-junit4:3.2.0")
+    testImplementation("io.insert-koin:koin-test:3.2.0")
+    androidTestImplementation("io.insert-koin:koin-test-junit4:3.2.0")
+    androidTestImplementation("io.insert-koin:koin-test:3.2.0")
 
+    testImplementation("io.mockk:mockk:1.13.16")
+    testImplementation("io.mockk:mockk-android:1.13.16")
+    testImplementation("io.mockk:mockk-agent:1.13.16")
+    androidTestImplementation("io.mockk:mockk-android:1.13.16")
+    androidTestImplementation("io.mockk:mockk-agent:1.13.16")
 
 }
