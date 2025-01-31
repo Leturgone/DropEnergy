@@ -3,24 +3,18 @@ package com.example.dropenergy
 import android.util.Log
 import com.example.dropenergy.database.repository.AuthRepository
 import com.example.dropenergy.database.repository.GetDBState
-import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkStatic
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import java.lang.Exception
-import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 
