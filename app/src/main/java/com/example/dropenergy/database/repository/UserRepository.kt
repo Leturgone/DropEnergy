@@ -37,6 +37,7 @@ class UserRepository(
         return try {
             val task = database.child("users").child(uid).get().await()
             val user = task.value
+            Log.i("USER",user.toString())
             when (user) {
                 is HashMap<*, *> -> {
                     val diaryMap = user["diary"] as? MutableMap<String, HashMap<String, String>>
@@ -93,13 +94,14 @@ class UserRepository(
 
     }
 
+
     override suspend fun updateWeek(uid: String, newDay: CheckDay) {
         val userWeek = getUser(uid)?.week
         userWeek?.set(newDay.day, newDay.check)
         database.child("users").child(uid).child("week").setValue(userWeek).addOnSuccessListener {
             Log.i("Firebase","Неделя загружена в БД")
         }.addOnFailureListener {
-            Log.e("Firebase","Не удалось загрузить Дневник в БД")
+            Log.e("Firebase","Не удалось загрузить неделю в БД")
         }
     }
 
@@ -179,10 +181,10 @@ class UserRepository(
     override suspend fun getSavedMoney(uid: String): GetDBState<Int> {
         return try{
             val savedMoney = getUser(uid)?.savedMoney
-            Log.i("Firebase","Полученное сэкономленных денег $savedMoney")
+            Log.i("Firebase","Получено сэкономленных денег $savedMoney")
             GetDBState.Success(savedMoney!!)
         }catch (e:Exception){
-            Log.e("Firebase","Ошибка в сэкономленных денег ")
+            Log.e("Firebase","Ошибка с получением сэкономленных денег ")
             GetDBState.Failure(e)
         }
 
@@ -202,10 +204,10 @@ class UserRepository(
     override suspend fun getEverydayCans(uid: String): GetDBState<Int> {
         return try{
             val energyCount = getUser(uid)?.everydayCans
-            Log.i("Firebase","Полученная $energyCount")
+            Log.i("Firebase","Полученное количество ежед банок $energyCount")
             GetDBState.Success(energyCount!!)
         }catch (e:Exception){
-            Log.e("Firebase","Ошибка в получении количества банок")
+            Log.e("Firebase","Ошибка в получении количества ежед банок")
             GetDBState.Failure(e)
         }
     }
@@ -214,7 +216,7 @@ class UserRepository(
         return try{
             val energyMoney = getUser(uid)?.everydayMoney
             val cansCount = getUser(uid)?.everydayCans
-            Log.i("Firebase","Полученная ежед деньги $energyMoney")
+            Log.i("Firebase","Полученные ежед деньги $energyMoney")
             GetDBState.Success(energyMoney!! * cansCount!!)
         }catch (e:Exception){
             Log.e("Firebase","Ошибка в получении количества денег")

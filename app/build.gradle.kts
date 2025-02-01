@@ -97,4 +97,7 @@ dependencies {
     androidTestImplementation("io.mockk:mockk-android:1.13.16")
     androidTestImplementation("io.mockk:mockk-agent:1.13.16")
 
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    testImplementation("org.robolectric:robolectric:4.8.1")
+
 }
