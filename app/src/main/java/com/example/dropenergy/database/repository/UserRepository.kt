@@ -37,6 +37,7 @@ class UserRepository(
         return try {
             val task = database.child("users").child(uid).get().await()
             val user = task.value
+            Log.i("USER",user.toString())
             when (user) {
                 is HashMap<*, *> -> {
                     val diaryMap = user["diary"] as? MutableMap<String, HashMap<String, String>>
@@ -93,13 +94,14 @@ class UserRepository(
 
     }
 
+
     override suspend fun updateWeek(uid: String, newDay: CheckDay) {
         val userWeek = getUser(uid)?.week
         userWeek?.set(newDay.day, newDay.check)
         database.child("users").child(uid).child("week").setValue(userWeek).addOnSuccessListener {
             Log.i("Firebase","Неделя загружена в БД")
         }.addOnFailureListener {
-            Log.e("Firebase","Не удалось загрузить Дневник в БД")
+            Log.e("Firebase","Не удалось загрузить неделю в БД")
         }
     }
 
