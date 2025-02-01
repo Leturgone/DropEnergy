@@ -167,10 +167,9 @@ class UserRepositoryUnitTests {
 
     @Test
     fun errorGetUserTest() = runTest {
-        val task = mockk<DataSnapshot>()
         every { database.child("users").child(any()).get() } returns Tasks.forException(Exception())
 
-        val gotUser = userRepository.getUser("uid")
+        userRepository.getUser("uid")
 
         val logMessageGood = (ShadowLog.getLogsForTag("Firebase").lastOrNull())?.msg?.contains(
             "Не удалось загрузить из БД")
@@ -199,7 +198,7 @@ class UserRepositoryUnitTests {
         every { database.child("users").child(any()).get() } returns Tasks.forResult(task)
         every { task.value } returns user
 
-        val gotUser = userRepository.getUser("uid",)
+        val gotUser = userRepository.getUser("uid")
         val logMessageGood = (ShadowLog.getLogsForTag("Firebase").lastOrNull())?.msg?.contains(
             "Не удалось загрузить из БД ")
 
@@ -259,7 +258,7 @@ class UserRepositoryUnitTests {
     }
 
     @Test
-    fun successUpdateWeekTest() = runTest(){
+    fun successUpdateWeekTest() = runTest{
         val task = mockk<DataSnapshot>()
         val mockTask = mockk<Task<Void>>()
         every { database.child("users").child(any())} returns childDatabaseReference
@@ -398,7 +397,7 @@ class UserRepositoryUnitTests {
     }
 
     @Test
-    fun errorUpdateSavedMoneyTest() = runTest(){
+    fun errorUpdateSavedMoneyTest() = runTest{
         val task = mockk<DataSnapshot>()
         val mockTask = mockk<Task<Void>>()
         every { database.child("users").child(any())} returns childDatabaseReference
@@ -534,7 +533,7 @@ class UserRepositoryUnitTests {
     }
 
     @Test
-    fun errorGetSavedCansTest() = runTest(){
+    fun errorGetSavedCansTest() = runTest{
         val task = mockk<DataSnapshot>()
         every { database.child("users").child(any())} returns childDatabaseReference
         every { childDatabaseReference.get() } returns Tasks.forResult(task)
