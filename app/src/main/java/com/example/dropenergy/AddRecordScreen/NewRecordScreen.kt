@@ -46,6 +46,7 @@ import com.maxkeppeler.sheets.calendar.models.CalendarConfig
 import com.maxkeppeler.sheets.calendar.models.CalendarSelection
 import java.time.LocalDate
 
+//Окно для детализирования записи
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("NewApi", "UnrememberedMutableState")
 @Composable

@@ -28,7 +28,7 @@ import com.example.dropenergy.ui.theme.LightGreen
 import com.example.dropenergy.ui.theme.LightRed
 import com.example.dropenergy.ui.theme.LightYellow
 
-
+//Окно с большими разноцветными панелями для создания записи
 @Composable
 fun AddRecordScreen(navController: NavController,viewModel: DBViewModel){
     Column {
