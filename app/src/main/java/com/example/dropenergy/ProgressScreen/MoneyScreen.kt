@@ -32,12 +32,12 @@ import com.example.dropenergy.database.viewModel.DBViewModel
 @Composable
 fun MoneyScreen(viewModel: DBViewModel){
 
-    var ekonom_money by remember { mutableIntStateOf(0) }
-    var in_day_money by remember { mutableIntStateOf(0) }
-    var in_week_money by remember { mutableIntStateOf(0) }
-    var in_mounth_money by remember { mutableIntStateOf(0) }
-    var in_year_money by remember { mutableIntStateOf(0) }
-    var currency by remember { mutableStateOf<String>("") }
+    var ekonomMoney by remember { mutableIntStateOf(0) }
+    var inDayMoney by remember { mutableIntStateOf(0) }
+    var inWeekMoney by remember { mutableIntStateOf(0) }
+    var inMonthMoney by remember { mutableIntStateOf(0) }
+    var inYearMoney by remember { mutableIntStateOf(0) }
+    var currency by remember { mutableStateOf("") }
 
     var showToast by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
@@ -70,8 +70,8 @@ fun MoneyScreen(viewModel: DBViewModel){
                                 viewModel.savedMoneyFlow.collectAsState().value.let {state ->
                                     when(state){
                                         is GetDBState.Success -> {
-                                            ekonom_money = state.result
-                                            SavedMoney(currency = currency, ekonom_money =ekonom_money )
+                                            ekonomMoney = state.result
+                                            SavedMoney(currency = currency, ekonomMoney =ekonomMoney )
                                         }
                                         is GetDBState.Loading -> CircularProgressIndicator(Modifier.padding(16.dp))
                                         is GetDBState.Failure -> {
@@ -106,16 +106,16 @@ fun MoneyScreen(viewModel: DBViewModel){
                 viewModel.everydayMoneyFlow.collectAsState().value.let {state ->
                     when(state){
                         is GetDBState.Success -> {
-                            in_day_money = state.result
-                            in_week_money = in_day_money*7
-                            in_mounth_money = in_day_money*30
-                            in_year_money = in_day_money*365
+                            inDayMoney = state.result
+                            inWeekMoney = inDayMoney*7
+                            inMonthMoney = inDayMoney*30
+                            inYearMoney = inDayMoney*365
                             FutureMoney(
                                 currency = currency,
-                                in_day_money = in_day_money,
-                                in_week_money = in_week_money,
-                                in_mounth_money = in_mounth_money,
-                                in_year_money = in_year_money
+                                inDayMoney = inDayMoney,
+                                inWeekMoney = inWeekMoney,
+                                inMonthMoney = inMonthMoney,
+                                inYearMoney = inYearMoney
                             )
                         }
                         is GetDBState.Loading -> CircularProgressIndicator(Modifier.padding(16.dp))
@@ -134,9 +134,9 @@ fun MoneyScreen(viewModel: DBViewModel){
 }
 
 @Composable
-fun SavedMoney(currency:String, ekonom_money: Int){
+fun SavedMoney(currency:String, ekonomMoney: Int){
     Text(
-        text = "$ekonom_money $currency",
+        text = "$ekonomMoney $currency",
         fontSize = 24.sp,
         color = MaterialTheme.colorScheme.onBackground,
         fontWeight = FontWeight.Bold,
@@ -146,27 +146,27 @@ fun SavedMoney(currency:String, ekonom_money: Int){
 
 
 @Composable
-fun FutureMoney(currency:String, in_day_money: Int, in_week_money: Int,
-                in_mounth_money: Int, in_year_money: Int ){
-    Text(text = "$in_day_money $currency ${stringResource(id = R.string.in_day)}",
+fun FutureMoney(currency:String, inDayMoney: Int, inWeekMoney: Int,
+                inMonthMoney: Int, inYearMoney: Int ){
+    Text(text = "$inDayMoney $currency ${stringResource(id = R.string.in_day)}",
         fontSize = 24.sp,
         color = MaterialTheme.colorScheme.onBackground,
         fontWeight = FontWeight.Bold,
         modifier = Modifier.padding(16.dp))
 
-    Text(text = "$in_week_money $currency ${stringResource(id = R.string.in_week)} ",
+    Text(text = "$inWeekMoney $currency ${stringResource(id = R.string.in_week)} ",
         fontSize = 24.sp,
         color = MaterialTheme.colorScheme.onBackground,
         fontWeight = FontWeight.Bold,
         modifier = Modifier.padding(16.dp))
 
-    Text(text = "$in_mounth_money $currency ${stringResource(id = R.string.in_month)} ",
+    Text(text = "$inMonthMoney $currency ${stringResource(id = R.string.in_month)} ",
         fontSize = 24.sp,
         color = MaterialTheme.colorScheme.onBackground,
         fontWeight = FontWeight.Bold,
         modifier = Modifier.padding(16.dp))
 
-    Text(text = "$in_year_money $currency ${stringResource(id = R.string.in_year)} ",
+    Text(text = "$inYearMoney $currency ${stringResource(id = R.string.in_year)} ",
         fontSize = 24.sp,
         color = MaterialTheme.colorScheme.onBackground,
         fontWeight = FontWeight.Bold,

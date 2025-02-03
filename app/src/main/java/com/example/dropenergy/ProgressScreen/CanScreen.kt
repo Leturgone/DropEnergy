@@ -28,11 +28,11 @@ import com.example.dropenergy.database.viewModel.DBViewModel
 
 @Composable
 fun CanScreen(viewModel:DBViewModel){
-    var ekonom_can by remember { mutableIntStateOf(0) }
-    var in_day_can by remember { mutableIntStateOf(0) }
-    var in_week_can by remember { mutableIntStateOf(0) }
-    var in_mounth_can by remember { mutableIntStateOf(0) }
-    var in_year_can by remember { mutableIntStateOf(0) }
+    var ekonomCan by remember { mutableIntStateOf(0) }
+    var inDayCan by remember { mutableIntStateOf(0) }
+    var inWeekCan by remember { mutableIntStateOf(0) }
+    var inMonthCan by remember { mutableIntStateOf(0) }
+    var inYearCan by remember { mutableIntStateOf(0) }
 
 
     var showToast by remember { mutableStateOf(false) }
@@ -63,8 +63,8 @@ fun CanScreen(viewModel:DBViewModel){
                     viewModel.savedCansFlow.collectAsState().value.let {state ->
                         when(state){
                             is GetDBState.Success -> {
-                                ekonom_can = state.result
-                                SavedCans(ekonom_can = ekonom_can)
+                                ekonomCan = state.result
+                                SavedCans(ekonomCan = ekonomCan)
                             }
                             is GetDBState.Loading ->  CircularProgressIndicator()
                             is GetDBState.Failure -> {
@@ -89,16 +89,16 @@ fun CanScreen(viewModel:DBViewModel){
                 viewModel.everyDayCansFlow.collectAsState().value.let {state ->
                     when(state){
                         is GetDBState.Success -> {
-                            in_day_can = state.result
-                            in_week_can = in_day_can * 7
-                            in_mounth_can = in_day_can * 30
-                            in_year_can = in_day_can * 365
+                            inDayCan = state.result
+                            inWeekCan = inDayCan * 7
+                            inMonthCan = inDayCan * 30
+                            inYearCan = inDayCan * 365
 
                             FutureCans(
-                                in_day_can = in_day_can,
-                                in_week_can = in_week_can,
-                                in_mounth_can = in_mounth_can,
-                                in_year_can =in_year_can
+                                inDayCan = inDayCan,
+                                inWeekCan = inWeekCan,
+                                inMonthCan = inMonthCan,
+                                inYearCan =inYearCan
                             )
                         }
                         is GetDBState.Loading -> CircularProgressIndicator(Modifier.padding(16.dp))
@@ -120,9 +120,9 @@ fun CanScreen(viewModel:DBViewModel){
 
 
 @Composable
-fun SavedCans(ekonom_can: Int){
+fun SavedCans(ekonomCan: Int){
     Text(
-        text = "$ekonom_can ${stringResource(id = R.string._cans)}",
+        text = "$ekonomCan ${stringResource(id = R.string._cans)}",
         fontSize = 24.sp,
         color = MaterialTheme.colorScheme.onBackground,
         fontWeight = FontWeight.Bold,
@@ -132,26 +132,26 @@ fun SavedCans(ekonom_can: Int){
 
 
 @Composable
-fun FutureCans(in_day_can: Int,in_week_can: Int, in_mounth_can:Int, in_year_can:Int ){
-    Text(text = "$in_day_can ${stringResource(id = R.string._cans)} ${stringResource(id = R.string.in_day)}",
+fun FutureCans(inDayCan: Int, inWeekCan: Int, inMonthCan:Int, inYearCan:Int ){
+    Text(text = "$inDayCan ${stringResource(id = R.string._cans)} ${stringResource(id = R.string.in_day)}",
         fontSize = 24.sp,
         color = MaterialTheme.colorScheme.onBackground,
         fontWeight = FontWeight.Bold,
         modifier = Modifier.padding(16.dp))
 
-    Text(text = "$in_week_can ${stringResource(id = R.string._cans)} ${stringResource(id = R.string.in_week)} ",
+    Text(text = "$inWeekCan ${stringResource(id = R.string._cans)} ${stringResource(id = R.string.in_week)} ",
         fontSize = 24.sp,
         color = MaterialTheme.colorScheme.onBackground,
         fontWeight = FontWeight.Bold,
         modifier = Modifier.padding(16.dp))
 
-    Text(text = "$in_mounth_can ${stringResource(id = R.string._cans)} ${stringResource(id = R.string.in_month)} ",
+    Text(text = "$inMonthCan ${stringResource(id = R.string._cans)} ${stringResource(id = R.string.in_month)} ",
         fontSize = 24.sp,
         color = MaterialTheme.colorScheme.onBackground,
         fontWeight = FontWeight.Bold,
         modifier = Modifier.padding(16.dp))
 
-    Text(text = "$in_year_can ${stringResource(id = R.string._cans)} ${stringResource(id = R.string.in_year)} ",
+    Text(text = "$inYearCan ${stringResource(id = R.string._cans)} ${stringResource(id = R.string.in_year)} ",
         fontSize = 24.sp,
         color = MaterialTheme.colorScheme.onBackground,
         fontWeight = FontWeight.Bold,
