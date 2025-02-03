@@ -16,7 +16,7 @@
 - **Koin** - для внедрения зависимостей (DI)  
 - **Coroutines + Flow** – для асинхронного обращения к БД
 - **ViewModel** - для реализации MVVM архитектуры
-- **JUnit + Espresso + RoboElectric + MockK** - для тестирования
+- **JUnit + Espresso + Robolectric + MockK** - для тестирования
 
 # Установка
 1. Склонировать данный репозиторий:  
