@@ -30,7 +30,7 @@ import com.example.dropenergy.ui.theme.LightYellow
 
 //Окно с большими разноцветными панелями для создания записи
 @Composable
-fun AddRecordScreen(navController: NavController,viewModel: DBViewModel){
+fun AddRecordScreen(navController: NavController){
     Column {
         Text(text = stringResource(id = R.string.create_record),
             fontSize = 24.sp,

@@ -37,7 +37,7 @@ import com.example.dropenergy.ui.theme.LightYellow
 
 
 @Composable
-fun AskCansScreen(navController: NavHostController,viewModel: DBViewModel?){
+fun AskCansScreen(navController: NavHostController,viewModel: DBViewModel){
     var inputText  by remember {mutableStateOf("")}
     var buttonColor by remember { mutableStateOf(LightYellow) }
     val error = stringResource(id = R.string.number_err)

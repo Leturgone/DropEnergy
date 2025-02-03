@@ -49,7 +49,7 @@ import com.example.dropenergy.ui.theme.LightYellow
 
 
 @Composable
-fun LoginScreen(navController: NavHostController, viewModel: DBViewModel?){
+fun LoginScreen(navController: NavHostController, viewModel: DBViewModel){
     var loginInputText  by remember { mutableStateOf("") }
     var passwordInputText  by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
@@ -174,7 +174,7 @@ fun LoginScreen(navController: NavHostController, viewModel: DBViewModel?){
                             Log.e("LoginErr","Ошибка короткого пароля")
                         }
                         else {
-                            viewModel?.login(loginInputText,passwordInputText)
+                            viewModel.login(loginInputText,passwordInputText)
                         }
 
                     },

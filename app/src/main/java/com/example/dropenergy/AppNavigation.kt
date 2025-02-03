@@ -31,7 +31,7 @@ fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController,
 
         composable("progress") { ProgressScreen(navController,viewModel) }
         composable("diary") { DiaryScreen(viewModel) }
-        composable("add_record") { AddRecordScreen(navController,viewModel) }
+        composable("add_record") { AddRecordScreen(navController) }
         composable("moneyScreen") { MoneyScreen(viewModel) }
         composable("canScreen") {  CanScreen(viewModel) }
         composable("yellow_rec") {  NewRecordScreen(category = "yellow", navController,viewModel) }
