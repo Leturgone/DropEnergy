@@ -20,7 +20,7 @@ object LogScreen{
             or hasText("Check email for errors"))and hasNoClickAction()
     val ShortPasswordErrorToast = (hasText("Пароль должен содержать минимум 8 символов")
             or hasText("Password must contain at least 8 characters"))and hasNoClickAction()
-    val PasswordErrorToast = (hasText("Password must contain at least 8 characters")
+    val PasswordErrorToast = (hasText("Пароль не должен содержать пробелов")
             or hasText("Password must not contain spaces"))and hasNoClickAction()
     val LoginErrorToast = (hasText("Неверный логин или пароль")
             or hasText("Invalid email or password"))and hasNoClickAction()
@@ -39,7 +39,7 @@ object RegScreen{
             or hasText("Check email for errors"))and hasNoClickAction()
     val ShortPasswordErrorToast = (hasText("Пароль должен содержать минимум 8 символов")
             or hasText("Password must contain at least 8 characters"))and hasNoClickAction()
-    val PasswordErrorToast = (hasText("Password must contain at least 8 characters")
+    val PasswordErrorToast = (hasText("Пароль не должен содержать пробелов")
             or hasText("Password must not contain spaces"))and hasNoClickAction()
 }
 
