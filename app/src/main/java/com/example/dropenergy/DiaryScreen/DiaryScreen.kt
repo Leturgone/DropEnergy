@@ -90,7 +90,7 @@ fun DiaryList(diary: List<Pair<String, DiaryRecord>>){
     LazyColumn(modifier = Modifier.padding(6.dp)) {
         items(diary.size) {
             val record = diary[it]
-            Column() {
+            Column{
                 Row(modifier = Modifier.padding(top = 8.dp)) {
                     Icon(
                         imageVector = Icons.Rounded.Circle,

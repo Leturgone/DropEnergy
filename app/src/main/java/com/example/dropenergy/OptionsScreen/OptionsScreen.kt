@@ -36,7 +36,7 @@ fun OptionsScreen(navController: NavHostController, viewModel: DBViewModel){
 
     )
 
-    Column() {
+    Column {
         Text(text = stringResource(id = R.string.options),
             fontSize = 24.sp,
             color = MaterialTheme.colorScheme.onBackground,
@@ -48,7 +48,7 @@ fun OptionsScreen(navController: NavHostController, viewModel: DBViewModel){
                 .fillMaxSize()
                 .padding(top = 6.dp),
         ) {
-            LazyColumn() {
+            LazyColumn {
                 items(optList.size) {
                     val option = optList[it]
                     Column(

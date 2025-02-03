@@ -86,7 +86,7 @@ fun AskCansScreen(navController: NavHostController,viewModel: DBViewModel){
                     Button(
                         onClick = {
                             try{
-                                viewModel?.addCans(inputText.toInt())
+                                viewModel.addCans(inputText.toInt())
                                 navController.navigate("dialog_money")
                             }catch (e:java.lang.NumberFormatException){
                                 errorMessage = error

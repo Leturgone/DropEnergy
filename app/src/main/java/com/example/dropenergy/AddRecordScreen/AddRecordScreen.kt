@@ -22,7 +22,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.dropenergy.database.viewModel.DBViewModel
 import com.example.dropenergy.R
 import com.example.dropenergy.ui.theme.LightGreen
 import com.example.dropenergy.ui.theme.LightRed

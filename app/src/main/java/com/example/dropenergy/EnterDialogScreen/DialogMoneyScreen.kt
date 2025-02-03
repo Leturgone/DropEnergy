@@ -136,7 +136,7 @@ fun AskMoneyScreen(navController: NavHostController,viewModel: DBViewModel?){
                             onDismissRequest = { showDialog = false },
                             title = { Text(stringResource(id = R.string.dialog_money_cur_question)) },
                             text = {
-                                LazyColumn(){
+                                LazyColumn{
                                     items(items = currencyList){ currency ->
                                         CurrencyListItem(currency, currencyText == currency)
                                         {
