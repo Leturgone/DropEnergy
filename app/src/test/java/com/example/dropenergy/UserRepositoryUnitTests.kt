@@ -1,10 +1,10 @@
 package com.example.dropenergy
 
-import com.example.dropenergy.data.CheckDay
-import com.example.dropenergy.data.DiaryRecord
-import com.example.dropenergy.database.model.User
-import com.example.dropenergy.database.repository.GetDBState
-import com.example.dropenergy.database.repository.UserRepository
+import com.example.dropenergy.domain.model.CheckDay
+import com.example.dropenergy.domain.model.DiaryRecord
+import com.example.dropenergy.domain.model.User
+import com.example.dropenergy.domain.repository.GetDBState
+import com.example.dropenergy.data.repository.UserRepository
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
