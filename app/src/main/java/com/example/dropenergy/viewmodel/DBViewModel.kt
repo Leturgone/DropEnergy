@@ -11,9 +11,11 @@ import com.example.dropenergy.domain.repository.IAuthRepository
 import com.example.dropenergy.domain.repository.IUserRepository
 import com.example.dropenergy.domain.repository.GetDBState
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -105,9 +107,14 @@ class DBViewModel(
 
     fun login(email: String, password: String) = viewModelScope.launch {
         _loginFlow.value = GetDBState.Loading
-        val result = authRepository.login(email, password)
+
+        val result =withContext(Dispatchers.IO){
+            authRepository.login(email, password)
+        }
         updateUser()
-        processing_user.value = get_uid(result)?.let { userRepository.getUser(it) }
+        withContext(Dispatchers.IO){
+            processing_user.value = get_uid(result)?.let { userRepository.getUser(it) }
+        }
         _loginFlow.value = result
     }
 
@@ -115,9 +122,13 @@ class DBViewModel(
         _signupFlow.value = GetDBState.Loading
         Log.i("Firebase","Начата регистрация")
         processing_user.value?.let {user ->
-            val result =  authRepository.signup(user.login, user.password)
+            val result =  withContext(Dispatchers.IO){
+                authRepository.signup(user.login, user.password)
+            }
             updateUser()
-            get_uid(result)?.let { userRepository.writeUser(it,user) }
+            get_uid(result)?.let { withContext(Dispatchers.IO){
+                userRepository.writeUser(it,user) }
+            }
             _signupFlow.value = result
         }
     }
@@ -146,20 +157,20 @@ class DBViewModel(
         processing_user.value?.everydayCans = count
     }
 
-    fun updateDiary(diaryRecord: DiaryRecord)  = viewModelScope.launch{
+    fun updateDiary(diaryRecord: DiaryRecord)  = viewModelScope.launch(Dispatchers.IO){
         currentUser?.let { userRepository.updateDiary(it.uid,diaryRecord)}
     }
 
-    fun updateWeek(newDay: CheckDay) = viewModelScope.launch {
+    fun updateWeek(newDay: CheckDay) = viewModelScope.launch(Dispatchers.IO) {
         currentUser?.let { userRepository.updateWeek(it.uid,newDay)}
     }
 
-    fun updateSavedCans(status: Boolean) = viewModelScope.launch {
+    fun updateSavedCans(status: Boolean) = viewModelScope.launch(Dispatchers.IO) {
         currentUser?.let {  userRepository.updateSavedCans(it.uid,status)}
 
     }
 
-    fun updateSavedMoney(status: Boolean)= viewModelScope.launch  {
+    fun updateSavedMoney(status: Boolean)= viewModelScope.launch(Dispatchers.IO)  {
         currentUser?.let {  userRepository.updateSavedMoney(it.uid, status)}
 
     }
@@ -169,7 +180,9 @@ class DBViewModel(
 
     fun getDiary() = viewModelScope.launch {
         _diaryFlow.value = GetDBState.Loading
-        val result = currentUser?.let {userRepository.getDiary(it.uid)}
+        val result = currentUser?.let {withContext(Dispatchers.IO){
+            userRepository.getDiary(it.uid) }
+        }
         _diaryFlow.value = result
 
     }
@@ -179,8 +192,9 @@ class DBViewModel(
         _weekFlow.value = GetDBState.Loading
         Log.i("Firebase","Проставлено состояние")
         val result = currentUser?.let {
-
-            userRepository.getWeek(it.uid)
+            withContext(Dispatchers.IO){
+                userRepository.getWeek(it.uid)
+            }
         }
         _weekFlow.value = result
     }
@@ -188,27 +202,37 @@ class DBViewModel(
     
     fun getSavedMoney() = viewModelScope.launch {
         _savedMoneyFlow.value = GetDBState.Loading
-        val result = currentUser?.let { userRepository.getSavedMoney(it.uid) }
+        val result = currentUser?.let { withContext(Dispatchers.IO){
+            userRepository.getSavedMoney(it.uid) }
+        }
         _savedMoneyFlow.value = result
     }
 
     fun getEverydayMoney() = viewModelScope.launch {
         _everydayMoneyFlow.value = GetDBState.Loading
-        val result = currentUser?.let { userRepository.getEverydayMoney(it.uid) }
+        val result = currentUser?.let { withContext(Dispatchers.IO){
+            userRepository.getEverydayMoney(it.uid)
+        } }
         _everydayMoneyFlow.value = result
     }
 
 
     fun getCurrency() = viewModelScope.launch {
         _currency.value = GetDBState.Loading
-        val result = currentUser?.let { userRepository.getCurrency(it.uid) }
+        val result = currentUser?.let { withContext(Dispatchers.IO){
+            userRepository.getCurrency(it.uid)
+        } }
         _currency.value = result
     }
 
 
     fun getSavedCans() = viewModelScope.launch {
         _savedCansFlow.value = GetDBState.Loading
-        val result = currentUser?.let { userRepository.getSavedCans(it.uid)}
+        val result = currentUser?.let {
+            withContext(Dispatchers.IO){
+                userRepository.getSavedCans(it.uid)}
+            }
+
         _savedCansFlow.value = result
     }
 
@@ -216,7 +240,11 @@ class DBViewModel(
 
     fun getEverydayCans() = viewModelScope.launch {
         _everydayCansFlow.value = GetDBState.Loading
-        val result = currentUser?.let { userRepository.getEverydayCans(it.uid) }
+        val result = currentUser?.let {
+            withContext(Dispatchers.IO) {
+                userRepository.getSavedCans(it.uid)
+            }
+        }
         _everydayCansFlow.value = result
     }
 
