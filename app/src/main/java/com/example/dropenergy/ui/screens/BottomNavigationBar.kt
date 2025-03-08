@@ -1,4 +1,4 @@
-package com.example.dropenergy
+package com.example.dropenergy.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -24,6 +24,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.dropenergy.R
 import com.example.dropenergy.ui.components.BottomNavigation
 import com.example.dropenergy.ui.theme.LightGreen
 

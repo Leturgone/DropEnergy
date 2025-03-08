@@ -29,7 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.dropenergy.CustomToastMessage
+import com.example.dropenergy.ui.screens.CustomToastMessage
 import com.example.dropenergy.R
 import com.example.dropenergy.viewmodel.DBViewModel
 import com.example.dropenergy.ui.theme.LightGreen

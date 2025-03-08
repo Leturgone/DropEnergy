@@ -1,4 +1,4 @@
-package com.example.dropenergy
+package com.example.dropenergy.ui.screens
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -17,6 +17,7 @@ import com.example.dropenergy.EnterDialogScreen.RegScreen
 import com.example.dropenergy.ProgressScreen.CanScreen
 import com.example.dropenergy.ProgressScreen.MoneyScreen
 import com.example.dropenergy.OptionsScreen.OptionsScreen
+import com.example.dropenergy.ProgressScreen
 import com.example.dropenergy.viewmodel.DBViewModel
 
 
