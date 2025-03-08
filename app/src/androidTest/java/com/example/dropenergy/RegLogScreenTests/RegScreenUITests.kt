@@ -11,10 +11,10 @@ import com.example.dropenergy.DMoneyScreen
 import com.example.dropenergy.MainScreen
 import com.example.dropenergy.RegScreen
 import com.example.dropenergy.StatScreen
-import com.example.dropenergy.database.repository.AuthRepository
-import com.example.dropenergy.database.repository.GetDBState
-import com.example.dropenergy.database.repository.UserRepository
-import com.example.dropenergy.database.viewModel.DBViewModel
+import com.example.dropenergy.data.repository.AuthRepository
+import com.example.dropenergy.domain.repository.GetDBState
+import com.example.dropenergy.data.repository.UserRepository
+import com.example.dropenergy.viewmodel.DBViewModel
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk

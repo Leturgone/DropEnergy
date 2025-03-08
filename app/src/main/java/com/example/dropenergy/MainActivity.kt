@@ -25,7 +25,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.dropenergy.ProgressScreen.DailyCheckSection
 import com.example.dropenergy.ProgressScreen.ProgressSection
-import com.example.dropenergy.database.viewModel.DBViewModel
+import com.example.dropenergy.viewmodel.DBViewModel
 import com.example.dropenergy.ui.theme.DropEnergyTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -90,7 +90,7 @@ fun MainScreen(viewModel: DBViewModel) {
 
 
 @Composable
-fun ProgressScreen(navController:NavHostController,viewModel:DBViewModel){
+fun ProgressScreen(navController:NavHostController,viewModel: DBViewModel){
     Column {
         DailyCheckSection(viewModel)
         Spacer(modifier =Modifier.height(12.dp))

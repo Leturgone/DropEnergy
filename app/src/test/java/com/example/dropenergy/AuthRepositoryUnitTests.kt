@@ -1,8 +1,8 @@
 package com.example.dropenergy
 
 import android.util.Log
-import com.example.dropenergy.database.repository.AuthRepository
-import com.example.dropenergy.database.repository.GetDBState
+import com.example.dropenergy.data.repository.AuthRepository
+import com.example.dropenergy.domain.repository.GetDBState
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
